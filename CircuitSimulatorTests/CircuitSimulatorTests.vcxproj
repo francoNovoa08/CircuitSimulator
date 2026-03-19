@@ -104,6 +104,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CircuitTests.cpp" />
     <ClCompile Include="ParserTests.cpp" />
   </ItemGroup>
   <ItemGroup>

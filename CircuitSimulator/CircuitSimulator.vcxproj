@@ -128,9 +128,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="circuit.cpp" />
     <ClCompile Include="parser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="circuit.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="parser.h" />
   </ItemGroup>
