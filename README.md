@@ -6,9 +6,8 @@ The IB Physics curriculum has been updated and greatly downscaled the coverage o
 This simulator employs Modified Nodal Analysis (MNA) to use Kirchhoff's current law to solve for circuit quantities via systems of equations. The "modified" being due to the need to account for voltage sources. While for other components the voltage across them is what's being found, it is the current through voltage sources what needs to be found in those scenarios.
 
 The systems of equations to solve are of the form:
-$$
-\begin{bmatrix} G & B \\ C & D\end{bmatrix} \begin{bmatrix} v \\ j \end{bmatrix} = \begin{bmatrix} i_s \\ v_s \end{bmatrix}
-$$
+
+$$\begin{bmatrix} G & B \\\\ C & D\end{bmatrix} \begin{bmatrix} v \\\\ j \end{bmatrix} = \begin{bmatrix} i_s \\\\ v_s \end{bmatrix}$$
 
 Here, the first row is for a component that is not a voltage source, such as a resistor. The second row is for a voltage source.
 
