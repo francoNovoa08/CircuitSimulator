@@ -3,14 +3,21 @@
 #include <vector>
 #include <string>
 
+struct SimulationConfig {
+	std::vector<Component> components;
+	bool isAC = false;
+	double frequency = 0.0;
+};
+
 class Parser {
 public: 
 	/**
-	* @brief Builds a components vector from a netlist file
+	* @brief Builds a config for the simulation from a netlist file
 	* @param filename The file containing the circuit components
-	* @return A vector of Component types as described by the file
+	* @return An object containing a vector of Component types,
+	   boolean if the circuit is AC, and a frequency as described by the file
 	**/
-	std::vector<Component> parse(const std::string& filename);
+	SimulationConfig parse(const std::string& filename);
 
 	/**
 	* @brief Returns the name from a ComponentType

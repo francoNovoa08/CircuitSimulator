@@ -130,7 +130,6 @@
   <ItemGroup>
     <ClCompile Include="circuit.cpp" />
     <ClCompile Include="parser.cpp" />
-    <ClCompile Include="solver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="circuit.h" />

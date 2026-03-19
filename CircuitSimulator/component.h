@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-enum class ComponentType { Resistor, VoltageSource, CurrentSource };
+enum class ComponentType { Resistor, VoltageSource, CurrentSource, Capacitor, Inductor };
 
 struct Component {
 	ComponentType type;

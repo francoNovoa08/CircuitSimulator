@@ -17,6 +17,7 @@ protected:
 		validFile << "V1 2 0 5.0\n";
 		validFile << "\n";
 		validFile << "I1 2 1 0.01\n";
+		validFile << ".dc\n";
 		validFile.close();
 
 		std::ofstream malformedFile(malformedTestFile);
@@ -40,10 +41,13 @@ TEST_F(ParserTest, TypeFromName_ValidComponents) {
 	EXPECT_EQ(parser.typeFromName("R1"), ComponentType::Resistor);
 	EXPECT_EQ(parser.typeFromName("V_source"), ComponentType::VoltageSource);
 	EXPECT_EQ(parser.typeFromName("Iin"), ComponentType::CurrentSource);
-
+	EXPECT_EQ(parser.typeFromName("C1"), ComponentType::Capacitor);
+	EXPECT_EQ(parser.typeFromName("L1"), ComponentType::Inductor);
 	EXPECT_EQ(parser.typeFromName("r2"), ComponentType::Resistor);
 	EXPECT_EQ(parser.typeFromName("v1"), ComponentType::VoltageSource);
 	EXPECT_EQ(parser.typeFromName("i1"), ComponentType::CurrentSource);
+	EXPECT_EQ(parser.typeFromName("c2"), ComponentType::Capacitor);
+	EXPECT_EQ(parser.typeFromName("l2"), ComponentType::Inductor);
 }
 
 TEST_F(ParserTest, TypeFromName_EmptyStringThrows) {
@@ -51,7 +55,7 @@ TEST_F(ParserTest, TypeFromName_EmptyStringThrows) {
 }
 
 TEST_F(ParserTest, TypeFromName_UnknownComponentThrows) {
-	EXPECT_THROW(parser.typeFromName("C1"), std::runtime_error);
+	EXPECT_THROW(parser.typeFromName("Z1"), std::runtime_error);
 	EXPECT_THROW(parser.typeFromName("X_Unknown"), std::runtime_error);
 }
 
@@ -63,6 +67,8 @@ TEST_F(ParserTest, NameFromType_ReturnsCorrectStrings) {
 	EXPECT_EQ(parser.nameFromType(ComponentType::Resistor), "Resistor");
 	EXPECT_EQ(parser.nameFromType(ComponentType::VoltageSource), "Voltage Source");
 	EXPECT_EQ(parser.nameFromType(ComponentType::CurrentSource), "Current Source");
+	EXPECT_EQ(parser.nameFromType(ComponentType::Capacitor), "Capacitor");
+	EXPECT_EQ(parser.nameFromType(ComponentType::Inductor), "Inductor");
 
 	EXPECT_EQ(parser.nameFromType(static_cast<ComponentType>(999)), "Unknown");
 }
@@ -80,19 +86,22 @@ TEST_F(ParserTest, Parse_MalformedFileThrows) {
 }
 
 TEST_F(ParserTest, Parse_ValidFileParsesCorrectly) {
-	auto components = parser.parse(validTestFile);
+	auto config = parser.parse(validTestFile);
 
-	ASSERT_EQ(components.size(), 3);
+	ASSERT_EQ(config.components.size(), 3);
 
-	EXPECT_EQ(components[0].name, "R1");
-	EXPECT_EQ(components[0].type, ComponentType::Resistor);
-	EXPECT_DOUBLE_EQ(components[0].value, 100.0);
+	EXPECT_EQ(config.components[0].name, "R1");
+	EXPECT_EQ(config.components[0].type, ComponentType::Resistor);
+	EXPECT_DOUBLE_EQ(config.components[0].value, 100.0);
 
-	EXPECT_EQ(components[1].name, "V1");
-	EXPECT_EQ(components[1].type, ComponentType::VoltageSource);
-	EXPECT_DOUBLE_EQ(components[1].value, 5.0);
+	EXPECT_EQ(config.components[1].name, "V1");
+	EXPECT_EQ(config.components[1].type, ComponentType::VoltageSource);
+	EXPECT_DOUBLE_EQ(config.components[1].value, 5.0);
 
-	EXPECT_EQ(components[2].name, "I1");
-	EXPECT_EQ(components[2].type, ComponentType::CurrentSource);
-	EXPECT_DOUBLE_EQ(components[2].value, 0.01);
+	EXPECT_EQ(config.components[2].name, "I1");
+	EXPECT_EQ(config.components[2].type, ComponentType::CurrentSource);
+	EXPECT_DOUBLE_EQ(config.components[2].value, 0.01);
+
+	EXPECT_DOUBLE_EQ(config.frequency, 0.0);
+	EXPECT_FALSE(config.isAC);
 }

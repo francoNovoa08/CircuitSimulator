@@ -2,6 +2,7 @@
 #include "circuit.h"
 #include "component.h"
 #include <vector>
+#include <complex>
 
 class CircuitTest : public::testing::Test {
 protected:
@@ -43,7 +44,7 @@ TEST_F(CircuitTest, AddComponent_TracksVoltageSources) {
 }
 
 // ==========================================
-// Tests for buildMNA()
+// Tests for buildMNA_DC()
 // ==========================================
 
 TEST_F(CircuitTest, BuildMNA_SizesMatricesCorrectly) {
@@ -55,7 +56,7 @@ TEST_F(CircuitTest, BuildMNA_SizesMatricesCorrectly) {
     std::vector<std::vector<double>> A;
     std::vector<double> b;
 
-    circuit.buildMNA(A, b);
+    circuit.buildMNA_DC(A, b);
 
     ASSERT_EQ(A.size(), 3);
     EXPECT_EQ(A[0].size(), 3);
@@ -68,7 +69,7 @@ TEST_F(CircuitTest, BuildMNA_StampsResistorCorrectly) {
 
     std::vector<std::vector<double>> A;
     std::vector<double> b;
-    circuit.buildMNA(A, b);
+    circuit.buildMNA_DC(A, b);
 
     EXPECT_DOUBLE_EQ(A[0][0], 0.1);
     EXPECT_DOUBLE_EQ(b[0], 0.0);
@@ -80,7 +81,7 @@ TEST_F(CircuitTest, BuildMNA_StampsResistorBetweenNodes) {
 
     std::vector<std::vector<double>> A;
     std::vector<double> b;
-    circuit.buildMNA(A, b);
+    circuit.buildMNA_DC(A, b);
 
     EXPECT_DOUBLE_EQ(A[0][0], 0.1);  // Node 1 self
     EXPECT_DOUBLE_EQ(A[1][1], 0.1);  // Node 2 self
@@ -93,7 +94,7 @@ TEST_F(CircuitTest, BuildMNA_StampsCurrentSourceCorrectly) {
 
     std::vector<std::vector<double>> A;
     std::vector<double> b;
-    circuit.buildMNA(A, b);
+    circuit.buildMNA_DC(A, b);
 
     EXPECT_DOUBLE_EQ(A[0][0], 0.0);
     EXPECT_DOUBLE_EQ(b[0], 2.0);
@@ -103,10 +104,37 @@ TEST_F(CircuitTest, BuildMNA_StampsVoltageSourceCorrectly) {
     circuit.addComponent(createComponent(ComponentType::VoltageSource, 1, 0, 5.0));
     std::vector<std::vector<double>> A;
     std::vector<double> b;
-    circuit.buildMNA(A, b);
+    circuit.buildMNA_DC(A, b);
 
     ASSERT_EQ(A.size(), 2);
     EXPECT_DOUBLE_EQ(A[0][1], 1.0);
     EXPECT_DOUBLE_EQ(A[1][0], 1.0);
     EXPECT_DOUBLE_EQ(b[1], 5.0);
+}
+
+// ==========================================
+// Tests for buildMNA_AC()
+// ==========================================
+
+TEST_F(CircuitTest, BuildMNA_AC_StampsRCCircuitCorrectly) {
+    // 1V AC Source, 1000 Ohm Resistor, 1uF Capacitor
+    circuit.addComponent(createComponent(ComponentType::VoltageSource, 1, 0, 1.0));
+    circuit.addComponent(createComponent(ComponentType::Resistor, 1, 2, 1000.0));
+    circuit.addComponent(createComponent(ComponentType::Capacitor, 2, 0, 1e-6));
+
+    using ComplexMatrix = std::vector<std::vector<std::complex<double>>>;
+    using ComplexVector = std::vector<std::complex<double>>;
+
+    ComplexMatrix A;
+    ComplexVector b;
+
+    circuit.buildMNA_AC(A, b, 159.155);
+
+    ASSERT_EQ(A.size(), 3); // 2 nodes + 1 voltage source
+
+    EXPECT_NEAR(A[1][1].real(), 0.001, 1e-5);
+    EXPECT_NEAR(A[1][1].imag(), 0.001, 1e-5);
+
+    EXPECT_NEAR(A[0][1].real(), -0.001, 1e-5);
+    EXPECT_NEAR(A[0][1].imag(), 0.0, 1e-5);
 }

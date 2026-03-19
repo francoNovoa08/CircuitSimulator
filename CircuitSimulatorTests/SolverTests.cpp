@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "solver.h"
 #include <vector>
+#include <complex>
 
 class SolverTest : public::testing::Test {
 protected:
@@ -45,4 +46,25 @@ TEST_F(SolverTest, Solver_MultipleSourcesCircuitSolved) {
 	EXPECT_DOUBLE_EQ(x[0], 6.0);
 	EXPECT_DOUBLE_EQ(x[1], 4.0);
 	EXPECT_DOUBLE_EQ(x[2], 1.0);
+}
+
+
+TEST_F(SolverTest, Solver_ComplexRCCircuitSolved) {
+	std::vector<std::vector<std::complex<double>>> A = {
+		{ {0.001, 0.0}, {-0.001, 0.0}, {1.0, 0.0} },
+		{ {-0.001, 0.0}, {0.001, 0.001}, {0.0, 0.0} },
+		{ {1.0, 0.0}, {0.0, 0.0}, {0.0, 0.0} }
+	};
+
+	std::vector<std::complex<double>> b = {
+		{0.0, 0.0}, {0.0, 0.0}, {1.0, 0.0}
+	};
+
+	std::vector<std::complex<double>> x = solver.solve(A, b);
+
+	EXPECT_NEAR(x[0].real(), 1.0, 1e-5);
+	EXPECT_NEAR(x[0].imag(), 0.0, 1e-5);
+
+	EXPECT_NEAR(x[1].real(), 0.5, 1e-5);
+	EXPECT_NEAR(x[1].imag(), -0.5, 1e-5);
 }
