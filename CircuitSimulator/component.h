@@ -1,0 +1,12 @@
+#pragma once
+#include <string>
+
+enum class ComponentType { Resistor, VoltageSource, CurrentSource };
+
+struct Component {
+	ComponentType type;
+	std::string name;
+	int node_pos;
+	int node_neg;
+	double value;
+};
