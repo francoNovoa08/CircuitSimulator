@@ -1,7 +1,7 @@
 #include <iostream>
-#include "parser.h"
 #include <vector>
 #include <string>
+#include "parser.h"
 
 int main()
 {

@@ -4,6 +4,10 @@
 #include <stdexcept>
 
 ComponentType Parser::typeFromName(const std::string& name) {
+	if (name.empty()) {
+		throw std::invalid_argument("Component name can't be empty");
+	}
+	
 	char c = std::toupper(name[0]);
 	switch (c) {
 		case 'R': return ComponentType::Resistor;
@@ -14,7 +18,7 @@ ComponentType Parser::typeFromName(const std::string& name) {
 	throw std::runtime_error("Unknown component: " + name);
 }
 
-std::string Parser::nameFromType(const ComponentType& type) {
+std::string Parser::nameFromType(const ComponentType type) {
 	switch (type) {
 		case ComponentType::Resistor: return "Resistor";
 		case ComponentType::VoltageSource: return "Voltage Source";
@@ -34,13 +38,17 @@ std::vector<Component> Parser::parse(const std::string& filename) {
 		if (line.empty() || line[0] == '*') continue;
 
 		std::istringstream ss(line);
-
 		Component c;
 		std::string name;
-		ss >> name >> c.node_pos >> c.node_neg >> c.value;
-		c.name = name;
-		c.type = typeFromName(name);
-		components.push_back(c);
+
+		if (ss >> name >> c.node_pos >> c.node_neg >> c.value) {
+			c.name = name;
+			c.type = typeFromName(name);
+			components.push_back(c);
+		}
+		else {
+			throw std::runtime_error("Malformed netlist line: " + line);
+		}
 	}
 
 	return components;
