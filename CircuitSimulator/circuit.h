@@ -43,6 +43,28 @@ public:
 		double frequency
 	) const;
 
+	/**
+	* @brief Transient Circuits - Populates the A and b matrices for a specific time step}
+	* @param A An empty 2D vector
+	* @param b An empty 1D vector
+	* @param delta_t The time step size
+	* @param x_prev The solved x vector from the previous time step
+	**/
+	void buildMNA_Tran(
+		std::vector<std::vector<double>>& A,
+		std::vector<double>& b,
+		double delta_t,
+		const std::vector<double>& x_prev
+	) const;
+
+	/**
+	* @brief Updates the current history of inductors after a time step
+	* @param x_current The solved x vector from the current time step
+	* @param delta_t The time step size
+	* @param is_dc_init True if solving for t = 0 (starting current)
+	**/
+	void updateInductors(const std::vector<double>& x_current, double delta_t, bool is_dc_init = false);
+
 private:
 	std::vector<Component> components_;
 	int max_node_ = 0;

@@ -37,7 +37,6 @@ SimulationConfig Parser::parse(const std::string& filename) {
 
 	SimulationConfig config;
 
-	std::vector<Component> components;
 	std::string line;
 
 	while (std::getline(file, line)) {
@@ -57,7 +56,12 @@ SimulationConfig Parser::parse(const std::string& filename) {
 			}
 			else if (command == ".dc" || command == ".DC" || command == ".op" || command == ".OP") {
 				config.isAC = false;
-				config.frequency = 0.0;
+			}
+			else if (command == ".tran" || command == ".TRAN") {
+				config.isTran = true;
+				if (!(ss >> config.tStep >> config.tStop)) {
+					throw std::runtime_error("Maltformed command: .tran requires tStep and tStop values");
+				}
 			}
 			else {
 				throw std::runtime_error("Unknown simulation command: " + command);

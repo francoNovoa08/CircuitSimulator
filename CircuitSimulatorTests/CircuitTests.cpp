@@ -138,3 +138,49 @@ TEST_F(CircuitTest, BuildMNA_AC_StampsRCCircuitCorrectly) {
     EXPECT_NEAR(A[0][1].real(), -0.001, 1e-5);
     EXPECT_NEAR(A[0][1].imag(), 0.0, 1e-5);
 }
+
+// ==========================================
+// Tests for buildMNA_Tran()
+// ==========================================
+
+TEST_F(CircuitTest, BuildMNA_Tran_StampsCapacitorCorrectly) {
+    circuit.addComponent(createComponent(ComponentType::Capacitor, 1, 0, 2.0));
+
+    std::vector<std::vector<double>> A;
+    std::vector<double> b;
+
+    std::vector<double> x_prev = { 5.0 };
+    double delta_t = 0.1; 
+
+    circuit.buildMNA_Tran(A, b, delta_t, x_prev);
+
+    // G_eq = C / dt = 2.0 / 0.1 = 20.0
+    EXPECT_DOUBLE_EQ(A[0][0], 20.0);
+
+    // I_eq = G_eq * V_prev = 20.0 * 5.0 = 100.0
+    EXPECT_DOUBLE_EQ(b[0], 100.0);
+}
+
+TEST_F(CircuitTest, BuildMNA_Tran_StampsInductorAndUpdatesMemory) {
+    circuit.addComponent(createComponent(ComponentType::Inductor, 1, 0, 0.5));
+
+    std::vector<std::vector<double>> A;
+    std::vector<double> b;
+    std::vector<double> x_dummy = { 0.0 };
+    double delta_t = 0.1; 
+
+    std::vector<double> x_dc = { 1e-8 };
+    circuit.updateInductors(x_dc, delta_t, true);
+
+    circuit.buildMNA_Tran(A, b, delta_t, x_dummy);
+
+    EXPECT_DOUBLE_EQ(A[0][0], 0.2);
+    EXPECT_DOUBLE_EQ(b[0], -10.0);
+
+    std::vector<double> x_step = { 2.0 };
+    circuit.updateInductors(x_step, delta_t, false);
+
+    circuit.buildMNA_Tran(A, b, delta_t, x_dummy);
+
+    EXPECT_DOUBLE_EQ(b[0], -10.4);
+}

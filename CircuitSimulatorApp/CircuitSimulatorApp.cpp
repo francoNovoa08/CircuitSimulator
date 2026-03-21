@@ -26,11 +26,12 @@ int main()
             circuit.addComponent(comp);
         }
 
-        double frequency = config.frequency; // main.cpp now gets the frequency directly from the file!
-
         std::cout << "\n======================================\n";
-        if (frequency > 0) {
-            std::cout << "   AC SIMULATION RESULTS (" << frequency << " Hz)\n";
+        if (config.isTran) {
+            std::cout << "      TRANSIENT SIMULATION RESULTS    \n";
+        }
+        else if (config.isAC) {
+            std::cout << "   AC SIMULATION RESULTS (" << config.frequency << " Hz)\n";
         }
         else {
             std::cout << "         DC SIMULATION RESULTS        \n";
@@ -42,12 +43,54 @@ int main()
         int vSourceCount = circuit.getVoltageSourceCount();
 
         // ==========================================
-        // AC ANALYSIS (Complex Numbers)
+        // TRANSIENT ANALYSIS
         // ==========================================
-        if (frequency > 0) {
+        if (config.isTran) {
+            std::vector<std::vector<double>> A;
+            std::vector<double> b;
+
+            std::vector<double> x_prev(nodeCount + vSourceCount, 0.0);
+            circuit.updateInductors(x_prev, config.tStep, true);
+
+            std::cout << "Time(s)";
+            for (int i = 0; i < nodeCount; ++i) {
+                std::cout << "\tV(Node " << (i + 1) << ")";
+            }
+            std::cout << "\n--------------------------------------\n";
+
+            std::cout << 0.0000;
+            for (int i = 0; i < nodeCount; ++i) {
+                std::cout << "\t" << x_prev[i];
+            }
+            std::cout << "\n";
+
+            double currentTime = config.tStep;
+
+            while (currentTime <= config.tStop + 1e-9) {
+
+                circuit.buildMNA_Tran(A, b, config.tStep, x_prev);
+
+                std::vector<double> x_current = solver.solve(A, b);
+
+                circuit.updateInductors(x_current, config.tStep, false);
+
+                std::cout << currentTime;
+                for (int i = 0; i < nodeCount; ++i) {
+                    std::cout << "\t" << x_current[i];
+                }
+                std::cout << "\n";
+
+                x_prev = x_current;
+                currentTime += config.tStep;
+            }
+        }
+        // ==========================================
+        // AC ANALYSIS 
+        // ==========================================
+        else if (config.isAC) {
             ComplexMatrix A;
             ComplexVector b;
-            circuit.buildMNA_AC(A, b, frequency);
+            circuit.buildMNA_AC(A, b, config.frequency);
 
             ComplexVector x = solver.solve(A, b);
 
@@ -56,7 +99,7 @@ int main()
                 double magnitude = std::abs(x[i]);
                 double phase_deg = std::arg(x[i]) * 180.0 / std::numbers::pi;
 
-                std::cout << "  V(Node " << (i + 1) << ") = " 
+                std::cout << "  V(Node " << (i + 1) << ") = "
                     << magnitude << " V, Phase: " << phase_deg << " deg\n";
             }
 
@@ -73,7 +116,7 @@ int main()
             }
         }
         // ==========================================
-        // DC ANALYSIS (Real Numbers)
+        // DC ANALYSIS
         // ==========================================
         else {
             std::vector<std::vector<double>> A;

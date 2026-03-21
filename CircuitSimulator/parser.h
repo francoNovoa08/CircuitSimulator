@@ -7,6 +7,10 @@ struct SimulationConfig {
 	std::vector<Component> components;
 	bool isAC = false;
 	double frequency = 0.0;
+
+	bool isTran = false;
+	double tStep = 0.0;
+	double tStop = 0.0;
 };
 
 class Parser {

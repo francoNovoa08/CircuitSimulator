@@ -9,4 +9,5 @@ struct Component {
 	int node_pos;
 	int node_neg;
 	double value;
+	double i_prev = 0.0;
 };

@@ -1,8 +1,7 @@
-* Series RLC
-* Frequency = 159.155 Hz
-.ac 159.155
+* Parallel RC
+* Time step: 0.1s, Stop time: 1.0s
+.tran 0.1 1.0
 
-V1 1 0 10.0
-R1 1 2 100
-L1 2 3 0.1
-C1 3 0 0.000005
+I1 1 0 10.0
+R1 1 0 1.0
+C1 1 0 1.0
