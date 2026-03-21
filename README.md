@@ -23,15 +23,21 @@ The simulator algorithms construct the matrix iteratively via "stamping rules". 
 
 For AC analysis, the real-valued conductances are replaced with frequency-dependent complex admittances, $Y(\omega)$. A capacitor becomes $Y_C = j\omega C$ and an inductor becomes $Y_L = 1/(j\omega L)$, allowing the exact same stamping method to solve for phase shifts using complex numbers.
 
+## Transient Analysis
+Energy storing components like charging capacitors or RLC circuits are not instantaneous. To simulate time, the simulator implements numerical integration using the backward Euler method. A continuous differential equation such as $i(t)=C\frac{dv}{dt}$ is approximated over a discrete time step $\Delta t$:
+
+$$i(t) \\approx C\frac{v(t) - v(t - \Delta t}{\Delta t}$$
+
+Based on the previous step, capacitors and inductors are replaced with a parallel combination of an equivalent conductance $G_{eq} = C/\Delta t$, and a known current source $I_{eq}$. This allows the same solver to simulate continuous time by iterating, stepping time forward and updating reactive components.
+
 ## Architecture and Design
 ### Structs over Polymorphism
-Circuit components appear to map nicely to an inheritance-oriented OOP design. An abstract component class can be inherited by Resistor, Capacitor, Inductor, etc. classes. However, the program must iterate rapidly through every component to stamp values into a contiguous matrix. A Component struct using a ComponentType enum allows the matrix builder to use contiguous Component vectors, resulting in faster matrix assembly.
+Circuit components appear to map nicely to an inheritance-oriented OOP design. An abstract component class can be inherited by Resistor, Capacitor, Inductor, etc. classes. However, the program must iterate rapidly through every component to stamp values into a contiguous matrix. A Component struct using a ComponentType enum allows the matrix builder to use contiguous Component vectors, resulting in faster matrix assembly and better cache locality.
 
 ### Partial Pivoting
 Because the MNA formulation introduces $0$ entries on the main diagonal (specifically in the $D$ block due to voltage sources), a standard naive Gaussian elimination solver will immediately fail via division by zero. The solution used is partial pivoting. By actively scanning for the largest absolute value in the current column and swapping rows before elimination, the solver prevents compounding rounding errors.
 
 ## Future Work
-This engine currently handles DC and steady-state AC analysis for linear components. Reasonable extensions may include:
-1. Transient Analysis
-2. Non-linear components
-3. A GUI
+This engine currently handles DC, steady-state AC. and transient analysis for linear components. Reasonable extensions may include:
+1. Non-linear components (diodes, transistors, etc.)
+2. GUI
