@@ -52,31 +52,29 @@ int main()
             std::vector<double> x_prev(nodeCount + vSourceCount, 0.0);
             circuit.updateInductors(x_prev, config.tStep, true);
 
-            std::cout << "Time(s)";
+            std::cout << std::left << std::setw(12) << "Time(s)";
             for (int i = 0; i < nodeCount; ++i) {
-                std::cout << "\tV(Node " << (i + 1) << ")";
+                std::string title = "V(Node " + std::to_string(i + 1) + ")";
+                std::cout << std::setw(15) << title;
             }
-            std::cout << "\n--------------------------------------\n";
+            std::cout << "\n------------------------------------------------\n";
 
-            std::cout << 0.0000;
+            std::cout << std::left << std::setw(12) << 0.0000;
             for (int i = 0; i < nodeCount; ++i) {
-                std::cout << "\t" << x_prev[i];
+                std::cout << std::setw(15) << x_prev[i];
             }
             std::cout << "\n";
 
             double currentTime = config.tStep;
-
             while (currentTime <= config.tStop + 1e-9) {
 
-                circuit.buildMNA_Tran(A, b, config.tStep, x_prev);
-
+                circuit.buildMNA_Tran(A, b, config.tStep, x_prev, currentTime, config.frequency);
                 std::vector<double> x_current = solver.solve(A, b);
-
                 circuit.updateInductors(x_current, config.tStep, false);
 
-                std::cout << currentTime;
+                std::cout << std::left << std::setw(12) << currentTime;
                 for (int i = 0; i < nodeCount; ++i) {
-                    std::cout << "\t" << x_current[i];
+                    std::cout << std::setw(15) << x_current[i];
                 }
                 std::cout << "\n";
 

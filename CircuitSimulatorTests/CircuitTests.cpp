@@ -184,3 +184,41 @@ TEST_F(CircuitTest, BuildMNA_Tran_StampsInductorAndUpdatesMemory) {
 
     EXPECT_DOUBLE_EQ(b[0], -10.4);
 }
+
+TEST_F(CircuitTest, BuildMNA_Tran_WigglesACVoltageSource) {
+    circuit.addComponent(createComponent(ComponentType::VoltageSource, 1, 0, 10.0));
+
+    std::vector<std::vector<double>> A;
+    std::vector<double> b;
+    std::vector<double> x_prev = { 0.0, 0.0 }; 
+    double delta_t = 0.1;
+    double frequency = 1.0; 
+
+    double current_time = 0.25;
+    circuit.buildMNA_Tran(A, b, delta_t, x_prev, current_time, frequency);
+    EXPECT_NEAR(b[1], 10.0, 1e-5); 
+
+    current_time = 0.5;
+    circuit.buildMNA_Tran(A, b, delta_t, x_prev, current_time, frequency);
+    EXPECT_NEAR(b[1], 0.0, 1e-5);
+
+
+    current_time = 0.75;
+    circuit.buildMNA_Tran(A, b, delta_t, x_prev, current_time, frequency);
+    EXPECT_NEAR(b[1], -10.0, 1e-5);
+}
+
+TEST_F(CircuitTest, BuildMNA_Tran_WigglesACCurrentSource) {
+    circuit.addComponent(createComponent(ComponentType::CurrentSource, 1, 0, 5.0));
+
+    std::vector<std::vector<double>> A;
+    std::vector<double> b;
+    std::vector<double> x_prev = { 0.0 };
+    double delta_t = 0.1;
+    double frequency = 2.0; 
+
+    double current_time = 0.125;
+    circuit.buildMNA_Tran(A, b, delta_t, x_prev, current_time, frequency);
+
+    EXPECT_NEAR(b[0], 5.0, 1e-5);
+}

@@ -1,7 +1,8 @@
-* Parallel RC
-* Time step: 0.1s, Stop time: 1.0s
-.tran 0.1 1.0
+* Transient AC
+* 1 Hz frequency, stepping by 0.1s up to 0.5s
+.ac 1.0
+.tran 0.1 0.5
 
-I1 1 0 10.0
-R1 1 0 1.0
-C1 1 0 1.0
+V1 1 0 10.0
+R1 1 2 1.0
+C1 2 0 1.0

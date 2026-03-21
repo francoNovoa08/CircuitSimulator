@@ -49,12 +49,16 @@ public:
 	* @param b An empty 1D vector
 	* @param delta_t The time step size
 	* @param x_prev The solved x vector from the previous time step
+	* @param current_time The time elapsed thus far (optional)
+	* @param frequency The frequency if the circuit is AC (optional)
 	**/
 	void buildMNA_Tran(
 		std::vector<std::vector<double>>& A,
 		std::vector<double>& b,
 		double delta_t,
-		const std::vector<double>& x_prev
+		const std::vector<double>& x_prev,
+		double current_time = 0.0,
+		double frequency = 0.0
 	) const;
 
 	/**

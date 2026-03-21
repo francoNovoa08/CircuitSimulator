@@ -166,7 +166,9 @@ void Circuit::buildMNA_Tran(
 	std::vector<std::vector<double>>& A,
 	std::vector<double>& b,
 	double delta_t,
-	const std::vector<double>& x_prev
+	const std::vector<double>& x_prev,
+	double current_time,
+	double frequency
 ) const {
 	int newSize = max_node_ + getVoltageSourceCount();
 
@@ -231,8 +233,13 @@ void Circuit::buildMNA_Tran(
 		}
 
 		case ComponentType::CurrentSource: {
-			if (positiveNode >= 0) b[positiveNode] += c.value;
-			if (negativeNode >= 0) b[negativeNode] -= c.value;
+			double current_val = c.value;
+			if (frequency > 0.0) {
+				current_val *= std::sin(2.0 * std::numbers::pi * frequency * current_time);
+			}
+
+			if (positiveNode >= 0) b[positiveNode] += current_val;
+			if (negativeNode >= 0) b[negativeNode] -= current_val;
 			break;
 		}
 
@@ -248,7 +255,12 @@ void Circuit::buildMNA_Tran(
 				A[voltageSourcePosition][negativeNode] -= 1.0;
 			}
 
-			b[voltageSourcePosition] += c.value;
+			double voltage_val = c.value;
+			if (frequency > 0.0) {
+				voltage_val *= std::sin(2.0 * std::numbers::pi * frequency * current_time);
+			}
+
+			b[voltageSourcePosition] += voltage_val;
 
 			voltageSourceIndex++;
 			break;
