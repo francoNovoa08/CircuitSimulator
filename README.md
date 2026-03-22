@@ -26,7 +26,7 @@ For AC analysis, the real-valued conductances are replaced with frequency-depend
 ## Transient Analysis
 Energy storing components like charging capacitors or RLC circuits are not instantaneous. To simulate time, the simulator implements numerical integration using the backward Euler method. A continuous differential equation such as $i(t)=C\frac{dv}{dt}$ is approximated over a discrete time step $\Delta t$:
 
-$$i(t) \\approx C\frac{v(t) - v(t - \Delta t}{\Delta t}$$
+$$i(t) \\approx C\frac{v(t) - v(t - \Delta t)}{\Delta t}$$
 
 Based on the previous step, capacitors and inductors are replaced with a parallel combination of an equivalent conductance $G_{eq} = C/\Delta t$, and a known current source $I_{eq}$. This allows the same solver to simulate continuous time by iterating, stepping time forward and updating reactive components.
 
