@@ -39,5 +39,6 @@ Because the MNA formulation introduces $0$ entries on the main diagonal (specifi
 
 ## Future Work
 This engine currently handles DC, steady-state AC. and transient analysis for linear components. Reasonable extensions may include:
-1. Non-linear components (diodes, transistors, etc.)
-2. GUI
+1. Comparison to real hardware behaviour using an Arduino Uno
+2. Non-linear components (diodes, transistors, etc.)
+3. GUI
