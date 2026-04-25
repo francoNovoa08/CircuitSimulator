@@ -37,8 +37,15 @@ Circuit components appear to map nicely to an inheritance-oriented OOP design. A
 ### Partial Pivoting
 Because the MNA formulation introduces $0$ entries on the main diagonal (specifically in the $D$ block due to voltage sources), a standard naive Gaussian elimination solver will immediately fail via division by zero. The solution used is partial pivoting. By actively scanning for the largest absolute value in the current column and swapping rows before elimination, the solver prevents compounding rounding errors.
 
+## Hardware Validation
+
+The simulator's transient analysis has been validated against physical RC circuits using a Hardware-in-the-Loop system. An Arduino Uno acquires live voltage measurements from breadboard circuits and transmits them to the simulator in real time, enabling direct comparison between theoretical and measured behaviour.
+
+Across three experiments (RC charging, leaky capacitor, RC discharge), systematic model refinement reduced RMSE by 90–93%. Residual error after refinement is bounded by ADC quantisation at 4.88mV resolution. This is a physical measurement floor, not a modelling limitation.
+
+For full methodology, data, and analysis see ANALYSIS.md.
+
 ## Future Work
 This engine currently handles DC, steady-state AC. and transient analysis for linear components. Reasonable extensions may include:
-1. Comparison to real hardware behaviour using an Arduino Uno
-2. Non-linear components (diodes, transistors, etc.)
-3. GUI
+1. Non-linear components (diodes, transistors, etc.)
+2. GUI
