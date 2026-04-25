@@ -50,16 +50,25 @@ int main(int argc, char* argv[])
         // HIL Mode
         if (hilMode) {
             if (!config.isTran) {
-                std::cerr << "[HIL] Error: HIL mode requires a transient (.tran) netlist\n";
+                std::cerr << "[HIL] Error: HIL mode requires a transient netlist\n";
                 return 1;
             }
-            
+
             std::cout << "\n[HIL] Hardware-in-the-Loop mode\n";
             std::cout << "[HIL] Circuit: " << filename << "\n";
             std::cout << "[HIL] Port:    " << comPort << "\n";
-            std::cout << "[HIL] Waiting for Arduino data...\n\n";
 
             SerialReader serial(comPort);
+
+            std::cout << "[HIL] Waiting for Arduino...\n";
+            while (true) {
+                std::string line = serial.readLine();
+                if (line == "READY") break;
+            }
+
+            std::cout << "[HIL] Sending trigger. Waiting 5s for discharge...\n";
+            serial.sendCommand('G');
+
             std::ofstream csv("hil_results.csv");
             csv << "timestamp_ms,v_theoretical,v_actual,abs_error,pct_error\n";
 
@@ -71,39 +80,39 @@ int main(int argc, char* argv[])
                 << std::setw(12) << "Pct_err(%)"
                 << "\n";
             std::cout << std::string(74, '-') << "\n";
-            
+
             std::vector<std::vector<double>> A;
             std::vector<double> b;
             std::vector<double> x_prev(nodeCount + vSourceCount, 0.0);
             circuit.updateInductors(x_prev, config.tStep, true);
 
-            double currentTime = 0.0;
-            int sampleCount = 0;
+            int    sampleCount = 0;
             double rmseAccum = 0.0;
+            double simTime = 0.0;
 
-            while (currentTime <= config.tStop + 1e-9) {
+            while (true) {
                 std::string line = serial.readLine();
+                if (line == "DONE") break;
+                if (line.empty()) continue;
+
+                double hw_timestamp_ms = 0.0;
                 double v_actual = 0.0;
+                if (!SerialReader::parseArduinoSample(line, hw_timestamp_ms, v_actual)) continue;
 
-                if (!SerialReader::parseVoltage(line, v_actual)) continue;
-
+                // Advance simulation one timestep
                 circuit.buildMNA_Tran(A, b, config.tStep,
-                    x_prev, currentTime, config.frequency);
+                    x_prev, simTime, config.frequency);
                 std::vector<double> x_current = solver.solve(A, b);
                 circuit.updateInductors(x_current, config.tStep, false);
 
                 double v_theoretical = x_current[0];
-
                 double abs_error = std::abs(v_theoretical - v_actual);
                 double pct_error = (v_theoretical > 1e-9)
-                    ? (abs_error / v_theoretical * 100)
+                    ? (abs_error / v_theoretical * 100.0)
                     : 0.0;
 
-                double timestamp_ms = currentTime * 1000.0;
-
-                std::cout << std::fixed << std::setprecision(4)
-                    << std::left
-                    << std::setw(14) << timestamp_ms
+                std::cout << std::fixed << std::setprecision(4) << std::left
+                    << std::setw(14) << hw_timestamp_ms
                     << std::setw(18) << v_theoretical
                     << std::setw(16) << v_actual
                     << std::setw(14) << abs_error
@@ -111,20 +120,20 @@ int main(int argc, char* argv[])
                     << "\n";
 
                 csv << std::fixed << std::setprecision(6)
-                    << timestamp_ms << ","
+                    << hw_timestamp_ms << ","
                     << v_theoretical << ","
                     << v_actual << ","
                     << abs_error << ","
                     << pct_error << "\n";
 
                 rmseAccum += abs_error * abs_error;
-                sampleCount++;
+                ++sampleCount;
 
                 x_prev = x_current;
-                currentTime += config.tStep;
+                simTime += config.tStep;
             }
 
-            double rmse = (sampleCount > 0)
+            double rmse = sampleCount > 0
                 ? std::sqrt(rmseAccum / sampleCount)
                 : 0.0;
 

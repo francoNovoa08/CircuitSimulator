@@ -92,12 +92,14 @@ std::string SerialReader::readLine() {
     return line;
 }
 
-bool SerialReader::parseVoltage(const std::string& line, double& voltage) {
-    if (line.empty()) return false;
+bool SerialReader::parseArduinoSample(const std::string& line, double& timestamp_ms, double& voltage) {
+    if (line.empty() || line == "READY" || line == "DONE") return false;
+    size_t comma = line.find(',');
+    if (comma == std::string::npos) return false;
     try {
-        size_t pos;
-        voltage = std::stod(line, &pos);
-        return pos > 0;
+        timestamp_ms = std::stod(line.substr(0, comma));
+        voltage = std::stod(line.substr(comma + 1));
+        return true;
     }
     catch (...) {
         return false;

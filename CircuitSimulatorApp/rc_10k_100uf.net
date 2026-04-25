@@ -1,7 +1,5 @@
-* RC circuit: 10kOhm, 100uF, 5V step
-* Node 1: junction between R and C 
-* Node 0: ground
+* RC circuit: 10kOhm, 100uF (effective ~380uF), 5V step
 V1 2 0 5.0
 R1 2 1 10000
-C1 1 0 0.0001
+C1 1 0 0.00038
 .tran 0.05 10.0

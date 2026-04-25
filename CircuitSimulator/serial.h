@@ -33,10 +33,12 @@ public:
 	bool isOpen() const { return m_handle != INVALID_HANDLE_VALUE; }
 
 	/**
-	* @brief Parses a voltage string from Arduino
-	* @return false if the string is empty or non-numeric
+	* @brief Parses "timestamp_ms,voltage" format from Arduino, e.g. "1250,3.2454" to timestamp=1250, voltage=3.2454
+	* @return false if the line is malformed or not a data line
 	**/
-	static bool parseVoltage(const std::string& line, double& voltage);
+	static bool parseArduinoSample(const std::string& line,
+		double& timestamp_ms,
+		double& voltage);
 
 private:
 	HANDLE m_handle;
