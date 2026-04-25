@@ -288,3 +288,13 @@ void Circuit::updateInductors(const std::vector<double>& x_current, double delta
 		}
 	}
 }
+
+void Circuit::applyCapacitorInitialConditions(Component& component, std::vector<double>& x_prev) {
+	if (component.type == ComponentType::Capacitor &&
+		component.initial_voltage != 0.0) {
+		int pos_node = component.node_pos - 1;
+		int neg_node = component.node_neg - 1;
+		if (pos_node >= 0) x_prev[pos_node] = component.initial_voltage;
+		if (neg_node >= 0) x_prev[neg_node] = 0.0;
+	}
+}

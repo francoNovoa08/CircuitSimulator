@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
                 if (line == "READY") break;
             }
 
-            std::cout << "[HIL] Sending trigger. Waiting 5s for discharge...\n";
+            std::cout << "[HIL] Sending trigger. Waiting for discharge/charge...\n";
             serial.sendCommand('G');
 
             std::ofstream csv("hil_results.csv");
@@ -84,9 +84,13 @@ int main(int argc, char* argv[])
             std::vector<std::vector<double>> A;
             std::vector<double> b;
             std::vector<double> x_prev(nodeCount + vSourceCount, 0.0);
+
+            for (Component component : config.components) {
+                Circuit::applyCapacitorInitialConditions(component, x_prev);
+            }
             circuit.updateInductors(x_prev, config.tStep, true);
 
-            int    sampleCount = 0;
+            int sampleCount = 0;
             double rmseAccum = 0.0;
             double simTime = 0.0;
 
@@ -168,6 +172,10 @@ int main(int argc, char* argv[])
             std::vector<double> b;
 
             std::vector<double> x_prev(nodeCount + vSourceCount, 0.0);
+
+            for (Component component : config.components) {
+                Circuit::applyCapacitorInitialConditions(component, x_prev);
+            }
             circuit.updateInductors(x_prev, config.tStep, true);
 
             std::cout << std::left << std::setw(12) << "Time(s)";

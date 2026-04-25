@@ -74,6 +74,21 @@ SimulationConfig Parser::parse(const std::string& filename) {
 		if (ss >> name >> c.node_pos >> c.node_neg >> c.value) {
 			c.name = name;
 			c.type = typeFromName(name);
+
+			// Optionally parse IC parameter for capacitors
+			std::string extra;
+			while (ss >> extra) {
+				if (extra.rfind("IC=", 0) == 0) {
+					try {
+						c.initial_voltage = std::stod(extra.substr(3));
+					}
+					catch (...) {
+						throw std::runtime_error(
+							"Malformed IC parameter: " + extra
+						);
+					}
+				}
+			}
 			config.components.push_back(c);
 		}
 		else {

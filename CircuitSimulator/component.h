@@ -10,4 +10,5 @@ struct Component {
 	int node_neg;
 	double value;
 	double i_prev = 0.0;
+	double initial_voltage = 0.0;
 };

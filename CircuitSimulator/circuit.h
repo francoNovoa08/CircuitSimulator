@@ -70,6 +70,12 @@ public:
 	**/
 	void updateInductors(const std::vector<double>& x_current, double delta_t, bool is_dc_init = false);
 
+	/**
+	* @brief Applies IC= parameter conditions on capacitors
+	* @param component The capacitor on which to apply the parameter
+	* @param x_prev The vector on which to update the nodes
+	**/
+	static void applyCapacitorInitialConditions(Component& component, std::vector<double>& x_prev);
 private:
 	std::vector<Component> components_;
 	int max_node_ = 0;

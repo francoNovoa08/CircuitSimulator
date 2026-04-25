@@ -1,0 +1,6 @@
+* RC discharge: 10kOhm, 105uF effective, starting from 4.78V
+* Capacitor pre-charged to 4.78V via initial condition
+V1 2 0 0.0
+R1 2 1 10000
+C1 1 0 0.000105 IC=4.78
+.tran 0.05 15.0
