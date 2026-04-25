@@ -36,6 +36,7 @@ public:
 	* @param A An empty 2D vector
 	* @param b An empty 1D vector
 	* @param frequency The frequency of the AC Circuit
+	* @throws std::invalid_argument Throws on incorrect SPICE formatting
 	**/
 	void buildMNA_AC(
 		ComplexMatrix& A,

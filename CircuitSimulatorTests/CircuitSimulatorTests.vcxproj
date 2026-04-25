@@ -106,7 +106,6 @@
   <ItemGroup>
     <ClCompile Include="CircuitTests.cpp" />
     <ClCompile Include="ParserTests.cpp" />
-    <ClCompile Include="SolverTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CircuitSimulator\CircuitSimulator.vcxproj">

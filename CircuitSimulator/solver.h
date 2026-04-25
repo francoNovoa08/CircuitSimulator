@@ -12,6 +12,8 @@ public:
 	* @param A The matrix A, representing coefficients
 	* @param b The matrix b, representing known values
 	* @return The solution matrix x
+	* @throws std::invalid_argument Throws on non-square matrices
+	* @throws std::runtime_error Throws on invalid circuits
 	**/
 	template <typename T>
 	std::vector<T> solve(std::vector<std::vector<T>> A, std::vector<T> b) {

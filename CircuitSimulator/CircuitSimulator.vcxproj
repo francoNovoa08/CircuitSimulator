@@ -130,11 +130,13 @@
   <ItemGroup>
     <ClCompile Include="circuit.cpp" />
     <ClCompile Include="parser.cpp" />
+    <ClCompile Include="serial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="circuit.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="parser.h" />
+    <ClInclude Include="serial.h" />
     <ClInclude Include="solver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -20,6 +20,7 @@ public:
 	* @param filename The file containing the circuit components
 	* @return An object containing a vector of Component types,
 	   boolean if the circuit is AC, and a frequency as described by the file
+	* @throws std::runtime_error Throws on file open failure and incorrect SPICE file
 	**/
 	SimulationConfig parse(const std::string& filename);
 
@@ -34,6 +35,8 @@ public:
 	* @brief Returns the ComponentType from its string name
 	* @param name The name of the component (must not be empty)
 	* @return A ComponentType for the component
+	* @throws std::invalid_argument Throws on empty component names
+	* @throws std::runtime_error Throws on incorrect component names
 	**/
 	ComponentType typeFromName(const std::string& name);
 };

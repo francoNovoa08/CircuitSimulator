@@ -1,20 +1,38 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <iomanip> 
+#include <iomanip>
 #include <complex>
-#include <numbers> 
+#include <numbers>
+#include <fstream>
+#include <sstream>
 #include "parser.h"
 #include "circuit.h"
 #include "solver.h"
+#include "serial.h"
 
-int main()
+int main(int argc, char* argv[])
 {
+    bool hilMode = false;
+    std::string comPort = "COM3";
+    std::string filename = "circuit.net";
+
+    for (int i = 1; i < argc; i++) {
+        std::string arg = argv[i];
+        if (arg == "--hil") {
+            hilMode = true;
+        }
+        else if (arg.rfind("--port=", 0) == 0) {
+            comPort = arg.substr(7);
+        }
+        else if (arg.rfind("--net=", 0) == 0) {
+            filename = arg.substr(6);
+        }
+    }
+
     Parser parser;
     Circuit circuit;
     Solver solver;
-
-    std::string filename = "circuit.net";
 
     try {
         // Parsing
@@ -24,6 +42,100 @@ int main()
         // Build Circuit Blueprint
         for (const auto& comp : config.components) {
             circuit.addComponent(comp);
+        }
+
+        int nodeCount = circuit.getNodeCount();
+        int vSourceCount = circuit.getVoltageSourceCount();
+
+        // HIL Mode
+        if (hilMode) {
+            if (!config.isTran) {
+                std::cerr << "[HIL] Error: HIL mode requires a transient (.tran) netlist\n";
+                return 1;
+            }
+            
+            std::cout << "\n[HIL] Hardware-in-the-Loop mode\n";
+            std::cout << "[HIL] Circuit: " << filename << "\n";
+            std::cout << "[HIL] Port:    " << comPort << "\n";
+            std::cout << "[HIL] Waiting for Arduino data...\n\n";
+
+            SerialReader serial(comPort);
+            std::ofstream csv("hil_results.csv");
+            csv << "timestamp_ms,v_theoretical,v_actual,abs_error,pct_error\n";
+
+            std::cout << std::left
+                << std::setw(14) << "Time(ms)"
+                << std::setw(18) << "V_theoretical(V)"
+                << std::setw(16) << "V_actual(V)"
+                << std::setw(14) << "Abs_err(V)"
+                << std::setw(12) << "Pct_err(%)"
+                << "\n";
+            std::cout << std::string(74, '-') << "\n";
+            
+            std::vector<std::vector<double>> A;
+            std::vector<double> b;
+            std::vector<double> x_prev(nodeCount + vSourceCount, 0.0);
+            circuit.updateInductors(x_prev, config.tStep, true);
+
+            double currentTime = 0.0;
+            int sampleCount = 0;
+            double rmseAccum = 0.0;
+
+            while (currentTime <= config.tStop + 1e-9) {
+                std::string line = serial.readLine();
+                double v_actual = 0.0;
+
+                if (!SerialReader::parseVoltage(line, v_actual)) continue;
+
+                circuit.buildMNA_Tran(A, b, config.tStep,
+                    x_prev, currentTime, config.frequency);
+                std::vector<double> x_current = solver.solve(A, b);
+                circuit.updateInductors(x_current, config.tStep, false);
+
+                double v_theoretical = x_current[0];
+
+                double abs_error = std::abs(v_theoretical - v_actual);
+                double pct_error = (v_theoretical > 1e-9)
+                    ? (abs_error / v_theoretical * 100)
+                    : 0.0;
+
+                double timestamp_ms = currentTime * 1000.0;
+
+                std::cout << std::fixed << std::setprecision(4)
+                    << std::left
+                    << std::setw(14) << timestamp_ms
+                    << std::setw(18) << v_theoretical
+                    << std::setw(16) << v_actual
+                    << std::setw(14) << abs_error
+                    << std::setw(12) << pct_error
+                    << "\n";
+
+                csv << std::fixed << std::setprecision(6)
+                    << timestamp_ms << ","
+                    << v_theoretical << ","
+                    << v_actual << ","
+                    << abs_error << ","
+                    << pct_error << "\n";
+
+                rmseAccum += abs_error * abs_error;
+                sampleCount++;
+
+                x_prev = x_current;
+                currentTime += config.tStep;
+            }
+
+            double rmse = (sampleCount > 0)
+                ? std::sqrt(rmseAccum / sampleCount)
+                : 0.0;
+
+            std::cout << std::string(74, '-') << "\n";
+            std::cout << "[HIL] Samples collected: " << sampleCount << "\n";
+            std::cout << "[HIL] RMSE: " << std::fixed
+                << std::setprecision(4) << rmse << " V\n";
+            std::cout << "[HIL] Results saved to hil_results.csv\n";
+
+            csv.close();
+            return 0;
         }
 
         std::cout << "\n======================================\n";
@@ -38,9 +150,6 @@ int main()
         }
         std::cout << "======================================\n";
         std::cout << std::fixed << std::setprecision(4);
-
-        int nodeCount = circuit.getNodeCount();
-        int vSourceCount = circuit.getVoltageSourceCount();
 
         // ==========================================
         // TRANSIENT ANALYSIS
