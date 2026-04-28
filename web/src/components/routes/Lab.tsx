@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import CircuitCanvas from '../canvas/CircuitCanvas';
 import ComponentPalette from '../panels/ComponentPalette';
 import type { ComponentType } from '../../store/circuitStore';
+import PropertiesPanel from '../panels/PropertiesPanel';
+import ResultsPanel from '../panels/ResultsPanel';
+import SimulationPanel from '../panels/SimulationPanel';
 
 type Tool = ComponentType | 'select' | 'wire';
 
@@ -24,11 +27,19 @@ export default function Lab() {
     }, []);
 
     return (
-        <div className="min-h-svh overflow-hidden bg-circuit-bg text-circuit-text font-plex-sans antialiased w-full flex flex-col">
+        <div className="min-h-svh bg-circuit-bg text-circuit-text font-plex-sans antialiased w-full flex flex-col">
             <div className="flex flex-1 min-h-0">
                 <ComponentPalette activeTool={activeTool} onToolChange={setActiveTool} />
+
                 <div className="flex-1 min-h-0 p-2">
                     <CircuitCanvas activeTool={activeTool} />
+                </div>
+
+                <div style={{ width: 220, flexShrink: 0 }}
+                    className="border-l border-circuit-border bg-circuit-surface flex flex-col overflow-y-auto">
+                    <PropertiesPanel />
+                    <SimulationPanel />
+                    <ResultsPanel />
                 </div>
             </div>
         </div>

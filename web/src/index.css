@@ -1,26 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap");
 @import "tailwindcss";
 
-:root {
-    --color-circuit-bg:      #0e0f0f;
+@theme {
+    --color-circuit-bg: #0e0f0f;
     --color-circuit-surface: #151617;
-    --color-circuit-raised:  #1c1e1f;
-    --color-circuit-border:  #2a2d2e;
-    --color-circuit-dim:     #4a5056;
-    --color-circuit-muted:   #6b7580;
-    --color-circuit-text:    #c8ced4;
-    --color-circuit-strong:  #e8edf0;
-    --color-circuit-accent:  #4dff91;
-    --color-circuit-warn:    #ffb340;
-    --color-circuit-error:   #ff5c5c;
+    --color-circuit-raised: #1c1e1f;
+    --color-circuit-border: #2a2d2e;
+    --color-circuit-dim: #4a5056;
+    --color-circuit-muted: #6b7580;
+    --color-circuit-text: #c8ced4;
+    --color-circuit-strong: #e8edf0;
+    --color-circuit-accent: #4dff91;
+    --color-circuit-warn: #ffb340;
+    --color-circuit-error: #ff5c5c;
 
     --font-plex-sans: "IBM Plex Sans", sans-serif;
     --font-plex-mono: "IBM Plex Mono", monospace;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-html, body, #root {
+html,
+body,
+#root {
     height: 100%;
     width: 100%;
     background: #0e0f0f;
@@ -35,81 +43,23 @@ html, body, #root {
     flex-direction: column;
 }
 
-@layer components {
-    .canvas-wrapper {
-        background: var(--color-circuit-surface);
-        border: 1px solid var(--color-circuit-border);
-        border-radius: 0.25rem;
-        width: 100%;
-        height: 100%;
-        display: block;
-    }
-
-    .canvas-dot   { fill: var(--color-circuit-dim); }
-
-    .canvas-wire  {
-        stroke: var(--color-circuit-accent);
-        stroke-width: 2;
-        stroke-linecap: round;
-    }
-
-    .canvas-hover {
-        fill: var(--color-circuit-accent);
-        opacity: 0.35;
-    }
+.canvas-wrapper {
+    background: var(--color-circuit-surface);
+    border: 1px solid var(--color-circuit-border);
+    border-radius: 0.25rem;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
-
-@layer components {
-    .palette {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        padding: 8px;
-        background: var(--color-circuit-surface);
-        border-right: 1px solid var(--color-circuit-border);
-        width: 96px;
-        flex-shrink: 0;
-    }
-
-    .palette-btn {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 5px 8px;
-        border-radius: 3px;
-        border: 1px solid transparent;
-        background: transparent;
-        color: var(--color-circuit-muted, #6b7580);
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 11px;
-        cursor: pointer;
-        transition: background 0.1s, color 0.1s;
-        width: 100%;
-        text-align: left;
-    }
-
-    .palette-btn:hover {
-        background: var(--color-circuit-raised, #1c1e1f);
-        color: var(--color-circuit-text);
-    }
-
-    .palette-btn--active {
-        background: var(--color-circuit-raised, #1c1e1f);
-        border-color: var(--color-circuit-accent);
-        color: var(--color-circuit-accent);
-    }
-
-    .palette-btn__label { flex: 1; }
-
-    .palette-btn__key {
-        font-size: 9px;
-        color: var(--color-circuit-dim);
-        background: #0e0f0f;
-        border-radius: 2px;
-        padding: 1px 3px;
-    }
-
-    .palette-btn--active .palette-btn__key {
-        color: var(--color-circuit-accent);
-    }
+.canvas-dot {
+    fill: #4a5056;
+}
+.canvas-wire {
+    stroke: #4dff91;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+.canvas-hover {
+    fill: #4dff91;
+    opacity: 0.35;
 }
