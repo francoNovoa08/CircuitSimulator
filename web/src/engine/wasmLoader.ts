@@ -15,15 +15,15 @@ export function getModule(): Promise<CircuitModule> {
     if (!modulePromise) {
         modulePromise = new Promise((resolve, reject) => {
             window.Module = {
-                cwrap: () => { throw new Error("Module not yet initialised"); },
+                cwrap: () => { throw new Error('Module not yet initialised'); },
                 onRuntimeInitialized() {
                     resolve(window.Module);
                 },
             };
 
-            const script = document.createElement("script");
-            script.src = "/circuit_sim.js";
-            script.onerror = () => reject(new Error("Failed to load circuit_sim.js"));
+            const script = document.createElement('script');
+            script.src = '/circuit_sim.js';
+            script.onerror = () => reject(new Error('Failed to load circuit_sim.js'));
             document.head.appendChild(script);
         });
     }
