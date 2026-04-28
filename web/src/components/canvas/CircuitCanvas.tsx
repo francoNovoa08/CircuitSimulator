@@ -1,5 +1,9 @@
 import { useRef, useState, useCallback, useEffect } from "react";
-import { useCircuitStore } from "../../store/circuitStore";
+import {
+    getTerminals,
+    getOccupiedCells,
+    useCircuitStore,
+} from "../../store/circuitStore";
 import type {
     ComponentType,
     PlacedComponent,
@@ -8,11 +12,36 @@ import type {
 import { ComponentSymbol } from "./ComponentSymbols";
 
 const CELL = 40;
+const TERMINAL_SNAP_RADIUS = 0.5;
 
 function isCellOccupied(components: PlacedComponent[], pt: Point): boolean {
-    return components.some(
-        (c) => c.position.x === pt.x && c.position.y === pt.y,
+    return components.some((c) =>
+        getOccupiedCells(c).some((cell) => cell.x === pt.x && cell.y === pt.y),
     );
+}
+
+function getAllTerminals(components: PlacedComponent[]): Point[] {
+    const pts: Point[] = [];
+    for (const comp of components) {
+        if (comp.type === "ground") {
+            pts.push(comp.position);
+        } else {
+            const [a, b] = getTerminals(comp);
+            pts.push(a, b);
+        }
+    }
+    return pts;
+}
+
+function snapToTerminal(pt: Point, terminals: Point[]): Point | null {
+    for (const t of terminals) {
+        const dx = pt.x - t.x;
+        const dy = pt.y - t.y;
+        if (Math.sqrt(dx * dx + dy * dy) <= TERMINAL_SNAP_RADIUS) {
+            return t;
+        }
+    }
+    return null;
 }
 
 interface Props {
@@ -21,9 +50,14 @@ interface Props {
 
 function gridPoint(px: number, py: number, rect: DOMRect): Point {
     return {
-        x: Math.round((px - rect.left) / CELL),
-        y: Math.round((py - rect.top) / CELL),
+        x: (px - rect.left) / CELL,
+        y: (py - rect.top) / CELL,
     };
+}
+
+function snapGridPoint(px: number, py: number, rect: DOMRect): Point {
+    const raw = gridPoint(px, py, rect);
+    return { x: Math.round(raw.x), y: Math.round(raw.y) };
 }
 
 export default function CircuitCanvas({ activeTool }: Props) {
@@ -36,16 +70,28 @@ export default function CircuitCanvas({ activeTool }: Props) {
         addComponent,
         selectComponent,
         removeComponent,
+        addWire,
+        removeWire,
     } = useCircuitStore();
     const [hoverCell, setHoverCell] = useState<Point | null>(null);
     const [size, setSize] = useState({ width: 960, height: 640 });
 
+    const [wireStart, setWireStart] = useState<Point | null>(null);
+    const [wirePreview, setWirePreview] = useState<Point | null>(null);
+    const [snapHighlight, setSnapHighlight] = useState<Point | null>(null);
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "Delete" || e.key === "Backspace") {
-                if (selectedId) {
-                    removeComponent(selectedId);
-                }
+            if (e.key === "Escape") {
+                setWireStart(null);
+                setWirePreview(null);
+            }
+            if (
+                (e.key === "Delete" || e.key === "Backspace") &&
+                !(e.target instanceof HTMLInputElement) &&
+                selectedId
+            ) {
+                removeComponent(selectedId);
             }
         };
         window.addEventListener("keydown", handleKeyDown);
@@ -67,48 +113,84 @@ export default function CircuitCanvas({ activeTool }: Props) {
 
     const cols = size.width / CELL;
     const rows = size.height / CELL;
+    const terminals = getAllTerminals(components);
 
-    const handleMouseMove = useCallback((e: React.MouseEvent) => {
-        if (!svgRef.current) return;
-        const pt = gridPoint(
-            e.clientX,
-            e.clientY,
-            svgRef.current.getBoundingClientRect(),
-        );
-        if (pt.x >= 0 && pt.x <= cols && pt.y >= 0 && pt.y <= rows) {
-            setHoverCell(pt);
-        } else {
-            setHoverCell(null);
-        }
+    const handleMouseMove = useCallback(
+        (e: React.MouseEvent) => {
+            if (!svgRef.current) return;
+            const rect = svgRef.current.getBoundingClientRect();
+            const raw = gridPoint(e.clientX, e.clientY, rect);
+            const snapped = { x: Math.round(raw.x), y: Math.round(raw.y) };
+
+            if (raw.x >= 0 && raw.x <= cols && raw.y >= 0 && raw.y <= rows) {
+                setHoverCell(snapped);
+            } else {
+                setHoverCell(null);
+            }
+
+            if (activeTool === "wire") {
+                const terminal = snapToTerminal(raw, terminals);
+                setSnapHighlight(terminal);
+                setWirePreview(terminal ?? snapped);
+            }
+        },
+        [activeTool, terminals, cols, rows],
+    );
+
+    const handleMouseLeave = useCallback(() => {
+        setHoverCell(null);
+        setWirePreview(null);
+        setSnapHighlight(null);
     }, []);
-
-    const handleMouseLeave = useCallback(() => setHoverCell(null), []);
 
     const handleClick = useCallback(
         (e: React.MouseEvent) => {
             if (!svgRef.current) return;
 
             const target = e.target as SVGElement;
-            if (target.closest("[data-component]")) return;
-
-            const pt = gridPoint(
-                e.clientX,
-                e.clientY,
-                svgRef.current.getBoundingClientRect(),
-            );
 
             if (activeTool === "select") {
-                selectComponent(null);
+                if (!target.closest("[data-component]")) {
+                    selectComponent(null);
+                }
                 return;
             }
 
-            if (activeTool !== "wire") {
-                if (!isCellOccupied(components, pt)) {
-                    addComponent(activeTool, pt);
+            const rect = svgRef.current.getBoundingClientRect();
+            const raw = gridPoint(e.clientX, e.clientY, rect);
+            const snapped = snapGridPoint(e.clientX, e.clientY, rect);
+
+            if (activeTool === "wire") {
+                const terminal = snapToTerminal(raw, terminals) ?? snapped;
+                if (!wireStart) {
+                    setWireStart(terminal);
+                    setWirePreview(terminal);
+                } else {
+                    if (
+                        terminal.x !== wireStart.x ||
+                        terminal.y !== wireStart.y
+                    ) {
+                        addWire(wireStart, terminal);
+                    }
+                    setWireStart(null);
+                    setWirePreview(null);
                 }
+                return;
+            }
+
+            if (!isCellOccupied(components, snapped)) {
+                addComponent(activeTool, snapped);
             }
         },
-        [activeTool, addComponent, selectComponent, components],
+        [
+            activeTool,
+            wireStart,
+            terminals,
+            components,
+            addComponent,
+            addWire,
+            selectComponent,
+        ],
     );
 
     const cursorStyle =
@@ -143,27 +225,103 @@ export default function CircuitCanvas({ activeTool }: Props) {
                             className="canvas-hover"
                         />
                     )}
+                {activeTool === "wire" &&
+                    terminals.map((t, i) => (
+                        <circle
+                            key={i}
+                            cx={t.x * CELL}
+                            cy={t.y * CELL}
+                            r={4}
+                            fill="none"
+                            stroke="var(--color-circuit-accent)"
+                            strokeWidth={1}
+                            opacity={0.4}
+                        />
+                    ))}
+
+                {snapHighlight && (
+                    <circle
+                        cx={snapHighlight.x * CELL}
+                        cy={snapHighlight.y * CELL}
+                        r={6}
+                        fill="none"
+                        stroke="var(--color-circuit-accent)"
+                        strokeWidth={1.5}
+                        opacity={0.9}
+                    />
+                )}
+
+                {wireStart && wirePreview && (
+                    <line
+                        x1={wireStart.x * CELL}
+                        y1={wireStart.y * CELL}
+                        x2={wirePreview.x * CELL}
+                        y2={wirePreview.y * CELL}
+                        stroke="var(--color-circuit-accent)"
+                        strokeWidth={1.5}
+                        strokeDasharray="4 3"
+                        opacity={0.7}
+                        strokeLinecap="round"
+                    />
+                )}
 
                 {wires.map((w) => (
-                    <line
-                        key={w.id}
-                        x1={w.from.x * CELL}
-                        y1={w.from.y * CELL}
-                        x2={w.to.x * CELL}
-                        y2={w.to.y * CELL}
-                        className="canvas-wire"
-                    />
+                    <g key={w.id}>
+                        <line
+                            x1={w.from.x * CELL}
+                            y1={w.from.y * CELL}
+                            x2={w.to.x * CELL}
+                            y2={w.to.y * CELL}
+                            stroke="transparent"
+                            strokeWidth={12}
+                            style={{
+                                cursor:
+                                    activeTool === "select"
+                                        ? "pointer"
+                                        : "default",
+                            }}
+                            onClick={(e) => {
+                                if (activeTool === "select") {
+                                    e.stopPropagation();
+                                    removeWire(w.id);
+                                }
+                            }}
+                        />
+                        <line
+                            x1={w.from.x * CELL}
+                            y1={w.from.y * CELL}
+                            x2={w.to.x * CELL}
+                            y2={w.to.y * CELL}
+                            className="canvas-wire"
+                            style={{ pointerEvents: "none" }}
+                        />
+                    </g>
                 ))}
+
+                {wireStart && (
+                    <circle
+                        cx={wireStart.x * CELL}
+                        cy={wireStart.y * CELL}
+                        r={4}
+                        fill="var(--color-circuit-accent)"
+                        opacity={0.8}
+                    />
+                )}
 
                 {components.map((comp) => (
                     <g
                         key={comp.id}
                         data-component={comp.id}
                         onClick={(e) => {
-                            e.stopPropagation();
-                            selectComponent(comp.id);
+                            if (activeTool === "select") {
+                                e.stopPropagation();
+                                selectComponent(comp.id);
+                            }
                         }}
-                        style={{ cursor: "pointer" }}
+                        style={{
+                            cursor:
+                                activeTool === "select" ? "pointer" : "inherit",
+                        }}
                     >
                         <ComponentSymbol
                             type={comp.type}
@@ -204,66 +362,4 @@ function GridDots({
         }
     }
     return <>{dots}</>;
-}
-
-interface MarkerProps {
-    type: ComponentType;
-    x: number;
-    y: number;
-    selected: boolean;
-    label: string;
-}
-
-function ComponentMarker({ type, x, y, selected, label }: MarkerProps) {
-    const colour = selected ? "#a0ffcc" : "var(--color-circuit-accent)";
-    const abbrev =
-        type === "voltageSource"
-            ? "VS"
-            : type === "currentSource"
-              ? "IS"
-              : type.slice(0, 2).toUpperCase();
-
-    return (
-        <g>
-            <rect
-                x={x - CELL / 2}
-                y={y - CELL / 2}
-                width={CELL}
-                height={CELL}
-                fill="transparent"
-            />
-            <rect
-                x={x - 12}
-                y={y - 10}
-                width={24}
-                height={20}
-                rx={2}
-                fill="var(--color-circuit-surface)"
-                stroke={colour}
-                strokeWidth={1.5}
-            />
-            <text
-                x={x}
-                y={y + 4}
-                textAnchor="middle"
-                fontSize={9}
-                fill={colour}
-                fontFamily="monospace"
-                style={{ pointerEvents: "none", userSelect: "none" }}
-            >
-                {abbrev}
-            </text>
-            <text
-                x={x}
-                y={y - 14}
-                textAnchor="middle"
-                fontSize={8}
-                fill="#4a5056"
-                fontFamily="monospace"
-                style={{ pointerEvents: "none", userSelect: "none" }}
-            >
-                {label}
-            </text>
-        </g>
-    );
 }

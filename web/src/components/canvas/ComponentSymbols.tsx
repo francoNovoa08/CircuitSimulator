@@ -4,8 +4,8 @@ const DIM = '#4a5056';
 const STROKE = 1.8;
 
 interface SymbolProps {
-    x: number;
-    y: number;
+    x: number; 
+    y: number;  
     selected: boolean;
     label: string;
     value: number;
@@ -14,27 +14,27 @@ interface SymbolProps {
 function Label({ x, y, label, value, unit, selected }: {
     x: number; y: number; label: string; value: number; unit: string; selected: boolean;
 }) {
+    const cx = x + 20;
     if (!selected) {
         return (
-            <text x={x} y={y - 18} textAnchor="middle" fontSize={7}
+            <text x={cx} y={y - 16} textAnchor="middle" fontSize={7}
                 fill={DIM} fontFamily="monospace"
                 style={{ pointerEvents: 'none', userSelect: 'none' }}>
                 {label}
             </text>
         );
     }
-    const formatted = formatValue(value, unit);
     return (
         <>
-            <text x={x} y={y - 18} textAnchor="middle" fontSize={8}
-                fill="#a0ffcc" fontFamily="monospace"
+            <text x={cx} y={y - 16} textAnchor="middle" fontSize={8}
+                fill={ACTIVE} fontFamily="monospace"
                 style={{ pointerEvents: 'none', userSelect: 'none' }}>
                 {label}
             </text>
-            <text x={x} y={y + 26} textAnchor="middle" fontSize={8}
-                fill="#a0ffcc" fontFamily="monospace"
+            <text x={cx} y={y + 24} textAnchor="middle" fontSize={8}
+                fill={ACTIVE} fontFamily="monospace"
                 style={{ pointerEvents: 'none', userSelect: 'none' }}>
-                {formatted}
+                {formatValue(value, unit)}
             </text>
         </>
     );
@@ -54,28 +54,42 @@ function LeadLines({ x, y, colour }: { x: number; y: number; colour: string }) {
 function TerminalDots({ x, y, colour }: { x: number; y: number; colour: string }) {
     return (
         <>
-            <circle cx={x - 20} cy={y} r={2} fill={colour} />
-            <circle cx={x + 20} cy={y} r={2} fill={colour} />
+            <circle cx={x} cy={y} r={2.5} fill={colour} />
+            <circle cx={x + 40} cy={y} r={2.5} fill={colour} />
         </>
     );
 }
 
 function formatValue(value: number, unit: string): string {
-    if (value >= 1e6)  return `${value / 1e6}M${unit}`;
-    if (value >= 1e3)  return `${value / 1e3}k${unit}`;
-    if (value >= 1)    return `${value}${unit}`;
-    if (value >= 1e-3) return `${value * 1e3}m${unit}`;
-    if (value >= 1e-6) return `${value * 1e6}µ${unit}`;
-    if (value >= 1e-9) return `${value * 1e9}n${unit}`;
+    if (value >= 1e6)  return `${+(value / 1e6).toPrecision(3)}M${unit}`;
+    if (value >= 1e3)  return `${+(value / 1e3).toPrecision(3)}k${unit}`;
+    if (value >= 1)    return `${+value.toPrecision(3)}${unit}`;
+    if (value >= 1e-3) return `${+(value * 1e3).toPrecision(3)}m${unit}`;
+    if (value >= 1e-6) return `${+(value * 1e6).toPrecision(3)}µ${unit}`;
+    if (value >= 1e-9) return `${+(value * 1e9).toPrecision(3)}n${unit}`;
     return `${value}${unit}`;
+}
+
+function HitArea({ x, y }: { x: number; y: number }) {
+    return (
+        <rect x={x} y={y - 20} width={40} height={40}
+            fill="transparent" />
+    );
 }
 
 export function ResistorSymbol({ x, y, selected, label, value }: SymbolProps) {
     const c = selected ? ACTIVE : ACCENT;
+    const cx = x + 20;
     return (
         <g>
-            <LeadLines x={x} y={y} colour={c} />
-            <rect x={x - 12} y={y - 5} width={24} height={10}
+            <HitArea x={x} y={y} />
+            {/* Lead lines from terminals to body */}
+            <line x1={x} y1={y} x2={cx - 12} y2={y}
+                stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
+            <line x1={cx + 12} y1={y} x2={x + 40} y2={y}
+                stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
+            {/* Body */}
+            <rect x={cx - 12} y={y - 6} width={24} height={12}
                 rx={1} fill="var(--color-circuit-surface)"
                 stroke={c} strokeWidth={STROKE} />
             <Label x={x} y={y} label={label} value={value} unit="Ω" selected={selected} />
@@ -86,16 +100,17 @@ export function ResistorSymbol({ x, y, selected, label, value }: SymbolProps) {
 
 export function CapacitorSymbol({ x, y, selected, label, value }: SymbolProps) {
     const c = selected ? ACTIVE : ACCENT;
+    const cx = x + 20;
     return (
         <g>
-            <line x1={x - 20} y1={y} x2={x - 4} y2={y}
+            <HitArea x={x} y={y} />
+            <line x1={x} y1={y} x2={cx - 5} y2={y}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            <line x1={x + 4} y1={y} x2={x + 20} y2={y}
+            <line x1={cx + 5} y1={y} x2={x + 40} y2={y}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            {/* Two plates */}
-            <line x1={x - 4} y1={y - 9} x2={x - 4} y2={y + 9}
+            <line x1={cx - 5} y1={y - 10} x2={cx - 5} y2={y + 10}
                 stroke={c} strokeWidth={STROKE + 0.5} strokeLinecap="round" />
-            <line x1={x + 4} y1={y - 9} x2={x + 4} y2={y + 9}
+            <line x1={cx + 5} y1={y - 10} x2={cx + 5} y2={y + 10}
                 stroke={c} strokeWidth={STROKE + 0.5} strokeLinecap="round" />
             <Label x={x} y={y} label={label} value={value} unit="F" selected={selected} />
             <TerminalDots x={x} y={y} colour={c} />
@@ -105,14 +120,18 @@ export function CapacitorSymbol({ x, y, selected, label, value }: SymbolProps) {
 
 export function InductorSymbol({ x, y, selected, label, value }: SymbolProps) {
     const c = selected ? ACTIVE : ACCENT;
+    const cx = x + 20;
     return (
         <g>
-            <LeadLines x={x} y={y} colour={c} />
-            <rect x={x - 12} y={y - 5} width={24} height={10}
+            <HitArea x={x} y={y} />
+            <line x1={x} y1={y} x2={cx - 12} y2={y}
+                stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
+            <line x1={cx + 12} y1={y} x2={x + 40} y2={y}
+                stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
+            <rect x={cx - 12} y={y - 6} width={24} height={12}
                 rx={1} fill="var(--color-circuit-surface)"
                 stroke={c} strokeWidth={STROKE} />
-            {/* Inductor marker: small horizontal lines inside box */}
-            <line x1={x - 6} y1={y} x2={x + 6} y2={y}
+            <line x1={cx - 7} y1={y} x2={cx + 7} y2={y}
                 stroke={c} strokeWidth={1} strokeDasharray="2 2" />
             <Label x={x} y={y} label={label} value={value} unit="H" selected={selected} />
             <TerminalDots x={x} y={y} colour={c} />
@@ -122,25 +141,23 @@ export function InductorSymbol({ x, y, selected, label, value }: SymbolProps) {
 
 export function VoltageSourceSymbol({ x, y, selected, label, value }: SymbolProps) {
     const c = selected ? ACTIVE : ACCENT;
-    const r = 12;
+    const cx = x + 20;
+    const r = 13;
     return (
         <g>
-            <line x1={x - 20} y1={y} x2={x - r} y2={y}
+            <HitArea x={x} y={y} />
+            <line x1={x} y1={y} x2={cx - r} y2={y}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            <line x1={x + r} y1={y} x2={x + 20} y2={y}
+            <line x1={cx + r} y1={y} x2={x + 40} y2={y}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            <circle cx={x} cy={y} r={r}
+            <circle cx={cx} cy={y} r={r}
                 fill="var(--color-circuit-surface)" stroke={c} strokeWidth={STROKE} />
-            <text x={x - 5} y={y + 3} textAnchor="middle" fontSize={9}
+            <text x={cx - 5} y={y + 4} textAnchor="middle" fontSize={9}
                 fill={c} fontFamily="monospace"
-                style={{ pointerEvents: 'none', userSelect: 'none' }}>
-                +
-            </text>
-            <text x={x + 5} y={y + 3} textAnchor="middle" fontSize={9}
+                style={{ pointerEvents: 'none', userSelect: 'none' }}>+</text>
+            <text x={cx + 5} y={y + 4} textAnchor="middle" fontSize={9}
                 fill={c} fontFamily="monospace"
-                style={{ pointerEvents: 'none', userSelect: 'none' }}>
-                −
-            </text>
+                style={{ pointerEvents: 'none', userSelect: 'none' }}>−</text>
             <Label x={x} y={y} label={label} value={value} unit="V" selected={selected} />
             <TerminalDots x={x} y={y} colour={c} />
         </g>
@@ -149,15 +166,17 @@ export function VoltageSourceSymbol({ x, y, selected, label, value }: SymbolProp
 
 export function CurrentSourceSymbol({ x, y, selected, label, value }: SymbolProps) {
     const c = selected ? ACTIVE : ACCENT;
-    const r = 12;
-    const arrowPath = `M ${x - 6} ${y} L ${x + 4} ${y} M ${x + 1} ${y - 4} L ${x + 6} ${y} L ${x + 1} ${y + 4}`;
+    const cx = x + 20;
+    const r = 13;
+    const arrowPath = `M ${cx - 7} ${y} L ${cx + 3} ${y} M ${cx} ${y - 5} L ${cx + 7} ${y} L ${cx} ${y + 5}`;
     return (
         <g>
-            <line x1={x - 20} y1={y} x2={x - r} y2={y}
+            <HitArea x={x} y={y} />
+            <line x1={x} y1={y} x2={cx - r} y2={y}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            <line x1={x + r} y1={y} x2={x + 20} y2={y}
+            <line x1={cx + r} y1={y} x2={x + 40} y2={y}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            <circle cx={x} cy={y} r={r}
+            <circle cx={cx} cy={y} r={r}
                 fill="var(--color-circuit-surface)" stroke={c} strokeWidth={STROKE} />
             <path d={arrowPath} stroke={c} strokeWidth={1.2}
                 fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -167,23 +186,20 @@ export function CurrentSourceSymbol({ x, y, selected, label, value }: SymbolProp
     );
 }
 
-
 export function GroundSymbol({ x, y, selected }: Omit<SymbolProps, 'label' | 'value'>) {
     const c = selected ? ACTIVE : ACCENT;
     return (
         <g>
-            {/* Lead up to the symbol */}
-            <line x1={x} y1={y - 20} x2={x} y2={y - 6}
+            <rect x={x - 20} y={y - 20} width={40} height={40} fill="transparent" />
+            <line x1={x} y1={y} x2={x} y2={y + 8}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            {/* Three descending horizontal bars */}
-            <line x1={x - 12} y1={y - 6} x2={x + 12} y2={y - 6}
+            <line x1={x - 12} y1={y + 8} x2={x + 12} y2={y + 8}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            <line x1={x - 8} y1={y - 1} x2={x + 8} y2={y - 1}
+            <line x1={x - 8} y1={y + 13} x2={x + 8} y2={y + 13}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            <line x1={x - 4} y1={y + 4} x2={x + 4} y2={y + 4}
+            <line x1={x - 4} y1={y + 18} x2={x + 4} y2={y + 18}
                 stroke={c} strokeWidth={STROKE} strokeLinecap="round" />
-            {/* Terminal dot at top */}
-            <circle cx={x} cy={y - 20} r={2} fill={c} />
+            <circle cx={x} cy={y} r={2.5} fill={c} />
         </g>
     );
 }

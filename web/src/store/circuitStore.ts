@@ -235,7 +235,7 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
 }));
 
 // Returns [positive terminal, negative terminal] grid positions for a component
-function getTerminals(comp: PlacedComponent): [Point, Point] {
+export function getTerminals(comp: PlacedComponent): [Point, Point] {
     const offset = comp.orientation === 'horizontal'
         ? { x: 1, y: 0 }
         : { x: 0, y: 1 };
@@ -244,4 +244,10 @@ function getTerminals(comp: PlacedComponent): [Point, Point] {
         comp.position,
         { x: comp.position.x + offset.x, y: comp.position.y + offset.y },
     ];
+}
+
+export function getOccupiedCells(comp: PlacedComponent): Point[] {
+    if (comp.type === 'ground') return [comp.position];
+    const [a, b] = getTerminals(comp);
+    return [a, b];
 }
