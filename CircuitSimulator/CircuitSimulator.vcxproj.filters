@@ -24,6 +24,9 @@
     <ClCompile Include="serial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sim_api.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="component.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="serial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sim_api.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

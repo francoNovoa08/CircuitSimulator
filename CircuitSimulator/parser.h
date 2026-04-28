@@ -18,11 +18,17 @@ public:
 	/**
 	* @brief Builds a config for the simulation from a netlist file
 	* @param filename The file containing the circuit components
+	* @return the result from parseFromString
+	**/
+	SimulationConfig parse(const std::string& filename);
+
+	/**
+	* @brief Overload for parse function using the raw string content
 	* @return An object containing a vector of Component types,
 	   boolean if the circuit is AC, and a frequency as described by the file
 	* @throws std::runtime_error Throws on file open failure and incorrect SPICE file
 	**/
-	SimulationConfig parse(const std::string& filename);
+	SimulationConfig parseFromString(const std::string& content);
 
 	/**
 	* @brief Returns the name from a ComponentType

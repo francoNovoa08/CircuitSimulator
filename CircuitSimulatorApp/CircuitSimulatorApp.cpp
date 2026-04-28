@@ -48,6 +48,7 @@ int main(int argc, char* argv[])
         int vSourceCount = circuit.getVoltageSourceCount();
 
         // HIL Mode
+        #ifndef EMSCRIPTEN
         if (hilMode) {
             if (!config.isTran) {
                 std::cerr << "[HIL] Error: HIL mode requires a transient netlist\n";
@@ -150,6 +151,7 @@ int main(int argc, char* argv[])
             csv.close();
             return 0;
         }
+        #endif
 
         std::cout << "\n======================================\n";
         if (config.isTran) {

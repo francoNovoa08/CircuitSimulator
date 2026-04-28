@@ -1,4 +1,5 @@
 #pragma once
+#ifndef EMSCRIPTEN
 #include <vector>
 #include <cmath>
 #include <algorithm>
@@ -67,3 +68,5 @@ public:
 		return x;
 	}
 };
+
+#endif

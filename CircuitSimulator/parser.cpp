@@ -34,12 +34,17 @@ std::string Parser::nameFromType(const ComponentType type) {
 SimulationConfig Parser::parse(const std::string& filename) {
 	std::ifstream file(filename);
 	if (!file.is_open()) throw std::runtime_error("Can't open file: " + filename);
+	std::ostringstream ss;
+	ss << file.rdbuf();
+	return parseFromString(ss.str());
+}
 
+SimulationConfig Parser::parseFromString(const std::string& content) {
 	SimulationConfig config;
-
+	std::istringstream stream(content);
 	std::string line;
 
-	while (std::getline(file, line)) {
+	while (std::getline(stream, line)) {
 		if (line.empty() || line[0] == '*') continue;
 
 		std::istringstream ss(line);
