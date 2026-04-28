@@ -58,3 +58,58 @@ html, body, #root {
         opacity: 0.35;
     }
 }
+
+@layer components {
+    .palette {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 8px;
+        background: var(--color-circuit-surface);
+        border-right: 1px solid var(--color-circuit-border);
+        width: 96px;
+        flex-shrink: 0;
+    }
+
+    .palette-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 8px;
+        border-radius: 3px;
+        border: 1px solid transparent;
+        background: transparent;
+        color: var(--color-circuit-muted, #6b7580);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        cursor: pointer;
+        transition: background 0.1s, color 0.1s;
+        width: 100%;
+        text-align: left;
+    }
+
+    .palette-btn:hover {
+        background: var(--color-circuit-raised, #1c1e1f);
+        color: var(--color-circuit-text);
+    }
+
+    .palette-btn--active {
+        background: var(--color-circuit-raised, #1c1e1f);
+        border-color: var(--color-circuit-accent);
+        color: var(--color-circuit-accent);
+    }
+
+    .palette-btn__label { flex: 1; }
+
+    .palette-btn__key {
+        font-size: 9px;
+        color: var(--color-circuit-dim);
+        background: #0e0f0f;
+        border-radius: 2px;
+        padding: 1px 3px;
+    }
+
+    .palette-btn--active .palette-btn__key {
+        color: var(--color-circuit-accent);
+    }
+}

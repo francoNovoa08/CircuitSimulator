@@ -5,6 +5,7 @@ import type {
     PlacedComponent,
     Point,
 } from "../../store/circuitStore";
+import { ComponentSymbol } from "./ComponentSymbols";
 
 const CELL = 40;
 
@@ -164,12 +165,13 @@ export default function CircuitCanvas({ activeTool }: Props) {
                         }}
                         style={{ cursor: "pointer" }}
                     >
-                        <ComponentMarker
+                        <ComponentSymbol
                             type={comp.type}
                             x={comp.position.x * CELL}
                             y={comp.position.y * CELL}
                             selected={comp.id === selectedId}
                             label={comp.name}
+                            value={comp.value}
                         />
                     </g>
                 ))}
@@ -213,7 +215,7 @@ interface MarkerProps {
 }
 
 function ComponentMarker({ type, x, y, selected, label }: MarkerProps) {
-    const colour = selected ? '#a0ffcc' : 'var(--color-circuit-accent)';
+    const colour = selected ? "#a0ffcc" : "var(--color-circuit-accent)";
     const abbrev =
         type === "voltageSource"
             ? "VS"
