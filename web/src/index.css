@@ -18,20 +18,11 @@
     --font-plex-mono: "IBM Plex Mono", monospace;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 html,
 body,
 #root {
     height: 100%;
     width: 100%;
-    background: #0e0f0f;
     color: #c8ced4;
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 14px;
@@ -44,22 +35,23 @@ body,
 }
 
 .canvas-wrapper {
-    background: var(--color-circuit-surface);
-    border: 1px solid var(--color-circuit-border);
-    border-radius: 0.25rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
     width: 100%;
     height: 100%;
     display: block;
+    overflow: hidden; 
 }
 .canvas-dot {
-    fill: #4a5056;
+    fill: #cbd5e1;
 }
 .canvas-wire {
-    stroke: #4dff91;
+    stroke: #0f172a;
     stroke-width: 2;
     stroke-linecap: round;
 }
 .canvas-hover {
-    fill: #4dff91;
-    opacity: 0.35;
+    fill: #3b82f6;
+    opacity: 0.2;
 }

@@ -27,21 +27,20 @@ export default function Lab() {
     }, []);
 
     return (
-        <div className="min-h-svh bg-circuit-bg text-circuit-text font-plex-sans antialiased w-full flex flex-col">
-            <div className="flex flex-1 min-h-0">
+        <div className="h-screen w-screen overflow-hidden bg-slate-50 text-slate-800 font-sans flex flex-col selection:bg-blue-100">
+            <main className="flex flex-1 min-h-0 overflow-hidden">
                 <ComponentPalette activeTool={activeTool} onToolChange={setActiveTool} />
 
-                <div className="flex-1 min-h-0 p-2">
+                <div className="flex-1 min-h-0 min-w-0 bg-slate-50">
                     <CircuitCanvas activeTool={activeTool} />
                 </div>
 
-                <div style={{ width: 220, flexShrink: 0 }}
-                    className="border-l border-circuit-border bg-circuit-surface flex flex-col overflow-y-auto">
+                <aside className="w-80 shrink-0 bg-white border-l border-slate-200 flex flex-col overflow-hidden shadow-[-2px_0_8px_-4px_rgba(0,0,0,0.05)] z-10">
                     <PropertiesPanel />
                     <SimulationPanel />
                     <ResultsPanel />
-                </div>
-            </div>
+                </aside>
+            </main>
         </div>
     );
 }

@@ -5,89 +5,64 @@ import {
     YAxis,
     Tooltip,
     ResponsiveContainer,
-    Legend,
 } from "recharts";
 import { useSimulationStore } from "../../store/simulationStore";
 import type { DCResult, ACResult, TransientResult } from "../../engine/types";
 
-const NODE_COLOURS = ["#4dff91", "#ffb340", "#ff5c5c", "#5c9fff", "#d04dff"];
-
-function Section({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="flex flex-col gap-2 p-3 border-b border-circuit-border">
-            {children}
-        </div>
-    );
-}
-
-function SectionTitle() {
-    return (
-        <span className="font-mono text-[11px] text-circuit-text">Results</span>
-    );
-}
+const NODE_COLOURS = ["#10b981", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6"];
 
 export default function ResultsPanel() {
-    const { result, error } = useSimulationStore();
-
-    if (error)
-        return (
-            <Section>
-                <SectionTitle />
-                <p className="font-mono text-[10px] text-circuit-error leading-relaxed">
-                    {error}
-                </p>
-            </Section>
-        );
-
-    if (!result)
-        return (
-            <Section>
-                <SectionTitle />
-                <p className="font-mono text-[10px] text-circuit-dim leading-relaxed">
-                    Run a simulation to see results.
-                </p>
-            </Section>
-        );
+    const { result, error, loading } = useSimulationStore();
 
     return (
-        <Section>
-            <SectionTitle />
-            {result.type === "dc" && <DCResults result={result} />}
-            {result.type === "ac" && <ACResults result={result} />}
-            {result.type === "transient" && (
-                <TransientResults result={result} />
-            )}
-        </Section>
-    );
-}
-
-function Row({
-    label,
-    children,
-}: {
-    label: string;
-    children: React.ReactNode;
-}) {
-    return (
-        <div className="flex justify-between font-mono text-[10px] gap-1">
-            <span className="text-circuit-muted">{label}</span>
-            <span className="text-circuit-accent text-right">{children}</span>
+        <div className="flex-1 flex flex-col bg-slate-900 min-h-[200px]">
+            <div className="px-4 py-2 border-b border-slate-800 bg-slate-950 flex items-center shrink-0">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    Results Console
+                </span>
+            </div>
+            <div className="flex-1 p-4 overflow-y-auto font-mono text-xs">
+                {loading && (
+                    <div className="text-emerald-400 animate-pulse">
+                        Running simulation...
+                    </div>
+                )}
+                {error && !loading && (
+                    <div className="text-red-400">Error: {error}</div>
+                )}
+                {!result && !error && !loading && (
+                    <div className="text-slate-500">
+                        Ready. Waiting for parameters...
+                    </div>
+                )}
+                {result?.type === "dc" && <DCResults result={result} />}
+                {result?.type === "ac" && <ACResults result={result} />}
+                {result?.type === "transient" && (
+                    <TransientResults result={result} />
+                )}
+            </div>
         </div>
     );
 }
 
 function DCResults({ result }: { result: DCResult }) {
     return (
-        <div className="flex flex-col gap-1">
+        <div className="space-y-1 text-slate-300">
             {result.nodes.map((n) => (
-                <Row key={n.node} label={`V(node ${n.node})`}>
-                    {n.voltage.toPrecision(5)} V
-                </Row>
+                <div key={n.node} className="flex justify-between">
+                    <span className="text-slate-500">V(node {n.node})</span>
+                    <span className="text-emerald-400">
+                        {n.voltage.toPrecision(5)} V
+                    </span>
+                </div>
             ))}
             {result.sources.map((s) => (
-                <Row key={s.source} label={`I(V${s.source})`}>
-                    {s.current.toPrecision(5)} A
-                </Row>
+                <div key={s.source} className="flex justify-between">
+                    <span className="text-slate-500">I(V{s.source})</span>
+                    <span className="text-blue-400">
+                        {s.current.toPrecision(5)} A
+                    </span>
+                </div>
             ))}
         </div>
     );
@@ -95,24 +70,19 @@ function DCResults({ result }: { result: DCResult }) {
 
 function ACResults({ result }: { result: ACResult }) {
     return (
-        <div className="flex flex-col gap-1">
-            <div className="flex justify-between font-mono text-[10px] text-circuit-dim border-b border-circuit-border pb-1 mb-1">
+        <div className="space-y-1 text-slate-300">
+            <div className="flex justify-between text-slate-500 border-b border-slate-700 pb-1 mb-2">
                 <span>Node</span>
                 <span>Mag (V)</span>
                 <span>Phase (°)</span>
             </div>
             {result.nodes.map((n) => (
-                <div
-                    key={n.node}
-                    className="flex justify-between font-mono text-[10px]"
-                >
-                    <span className="text-circuit-muted">Node {n.node}</span>
-                    <span className="text-circuit-accent">
+                <div key={n.node} className="flex justify-between">
+                    <span>Node {n.node}</span>
+                    <span className="text-emerald-400">
                         {n.magnitude.toPrecision(4)}
                     </span>
-                    <span className="text-circuit-accent">
-                        {n.phase.toFixed(2)}
-                    </span>
+                    <span className="text-blue-400">{n.phase.toFixed(1)}</span>
                 </div>
             ))}
         </div>
@@ -134,46 +104,46 @@ function TransientResults({ result }: { result: TransientResult }) {
         });
 
     return (
-        <div className="mt-2">
-            <ResponsiveContainer width="100%" height={180}>
+        <div className="h-48 mt-2 -mx-1">
+            <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     data={data}
-                    margin={{ top: 4, right: 8, bottom: 4, left: 0 }}
+                    margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
                 >
                     <XAxis
                         dataKey="time"
                         tick={{
-                            fontSize: 8,
-                            fill: "#4a5056",
+                            fontSize: 9,
+                            fill: "#64748b",
                             fontFamily: "monospace",
                         }}
                         tickFormatter={(v) => `${(v * 1000).toFixed(1)}ms`}
+                        stroke="#334155"
                     />
                     <YAxis
                         tick={{
-                            fontSize: 8,
-                            fill: "#4a5056",
+                            fontSize: 9,
+                            fill: "#64748b",
                             fontFamily: "monospace",
                         }}
                         tickFormatter={(v) => `${v.toFixed(1)}V`}
-                        width={32}
+                        width={35}
+                        stroke="#334155"
                     />
                     <Tooltip
                         contentStyle={{
-                            background: "#151617",
-                            border: "1px solid #2a2d2e",
-                            fontSize: 10,
+                            background: "#0f172a",
+                            border: "1px solid #334155",
+                            fontSize: 11,
                             fontFamily: "monospace",
+                            color: "#f8fafc",
+                            borderRadius: 6,
                         }}
-                        formatter={(v: any) =>
-                            typeof v === "number" ? `${v.toFixed(4)} V` : v
-                        }
+                        labelStyle={{ color: "#94a3b8" }}
+                        formatter={(v: any) => `${v.toFixed(4)} V`}
                         labelFormatter={(v) =>
                             `t = ${(v * 1000).toFixed(3)} ms`
                         }
-                    />
-                    <Legend
-                        wrapperStyle={{ fontSize: 9, fontFamily: "monospace" }}
                     />
                     {Array.from({ length: nodeCount }, (_, i) => (
                         <Line
@@ -182,7 +152,7 @@ function TransientResults({ result }: { result: TransientResult }) {
                             dataKey={`node${i + 1}`}
                             stroke={NODE_COLOURS[i % NODE_COLOURS.length]}
                             dot={false}
-                            strokeWidth={1.5}
+                            strokeWidth={2}
                             name={`Node ${i + 1}`}
                         />
                     ))}

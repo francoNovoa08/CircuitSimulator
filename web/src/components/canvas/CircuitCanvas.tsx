@@ -233,7 +233,7 @@ export default function CircuitCanvas({ activeTool }: Props) {
                             cy={t.y * CELL}
                             r={4}
                             fill="none"
-                            stroke="var(--color-circuit-accent)"
+                            stroke="#3b82f6"
                             strokeWidth={1}
                             opacity={0.4}
                         />
@@ -245,7 +245,7 @@ export default function CircuitCanvas({ activeTool }: Props) {
                         cy={snapHighlight.y * CELL}
                         r={6}
                         fill="none"
-                        stroke="var(--color-circuit-accent)"
+                        stroke="#3b82f6"
                         strokeWidth={1.5}
                         opacity={0.9}
                     />
@@ -257,7 +257,7 @@ export default function CircuitCanvas({ activeTool }: Props) {
                         y1={wireStart.y * CELL}
                         x2={wirePreview.x * CELL}
                         y2={wirePreview.y * CELL}
-                        stroke="var(--color-circuit-accent)"
+                        stroke="#3b82f6"
                         strokeWidth={1.5}
                         strokeDasharray="4 3"
                         opacity={0.7}
@@ -303,7 +303,7 @@ export default function CircuitCanvas({ activeTool }: Props) {
                         cx={wireStart.x * CELL}
                         cy={wireStart.y * CELL}
                         r={4}
-                        fill="var(--color-circuit-accent)"
+                        fill="#3b82f6"
                         opacity={0.8}
                     />
                 )}
