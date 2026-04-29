@@ -27,7 +27,7 @@ EXPERIMENTS = [
         "tStep": 0.05,
         "tStop": 30.0,
         "rmse": 0.101,
-        "node_of_interest": 1,
+        "node_of_interest": 2,
     },
     {
         "id": "rc_discharge",
@@ -38,7 +38,7 @@ EXPERIMENTS = [
         "tStep": 0.05,
         "tStop": 10.0,
         "rmse": 0.051,
-        "node_of_interest": 1,
+        "node_of_interest": 2,
     },
 ]
 

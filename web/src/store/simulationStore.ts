@@ -1,14 +1,16 @@
-import { create } from 'zustand';
-import type { DCResult, ACResult, TransientResult } from '../engine/types';
+import { create } from "zustand";
+import type { DCResult, ACResult, TransientResult } from "../engine/types";
+import type { HilMeasurement } from "../data/experiments/types";
+import type { Experiment } from "../data/experiments";
 
-export type AnalysisType = 'dc' | 'ac' | 'transient';
+export type AnalysisType = "dc" | "ac" | "transient";
 
 export type SimulationResult = DCResult | ACResult | TransientResult;
 
 interface SimulationParams {
-    frequency: number;   // AC
-    tStep: number;       // Transient
-    tStop: number;       // Transient
+    frequency: number; // AC
+    tStep: number; // Transient
+    tStop: number; // Transient
 }
 
 interface SimulationState {
@@ -24,10 +26,24 @@ interface SimulationState {
     setError: (error: string) => void;
     setLoading: (loading: boolean) => void;
     clear: () => void;
+
+    hilData: HilMeasurement[] | null;
+    hilRmse: number | null;
+    hilTitle: string | null;
+
+    setHilData: (
+        data: HilMeasurement[],
+        rmse: number,
+        title: string,
+        experiment: Experiment,
+    ) => void;
+    clearHilData: () => void;
+
+    activeExperiment: Experiment | null;
 }
 
 export const useSimulationStore = create<SimulationState>((set) => ({
-    analysisType: 'dc',
+    analysisType: "dc",
     params: {
         frequency: 1000,
         tStep: 1e-5,
@@ -42,7 +58,7 @@ export const useSimulationStore = create<SimulationState>((set) => ({
     },
 
     setParams(params) {
-        set(state => ({ params: { ...state.params, ...params } }));
+        set((state) => ({ params: { ...state.params, ...params } }));
     },
 
     setResult(result) {
@@ -60,4 +76,28 @@ export const useSimulationStore = create<SimulationState>((set) => ({
     clear() {
         set({ result: null, error: null, loading: false });
     },
+
+    hilData: null,
+    hilRmse: null,
+    hilTitle: null,
+
+    setHilData(data, rmse, title, experiment) {
+        set({
+            hilData: data,
+            hilRmse: rmse,
+            hilTitle: title,
+            activeExperiment: experiment,
+        });
+    },
+
+    clearHilData() {
+        set({
+            hilData: null,
+            hilRmse: null,
+            hilTitle: null,
+            activeExperiment: null,
+        });
+    },
+
+    activeExperiment: null,
 }));

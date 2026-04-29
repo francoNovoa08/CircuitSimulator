@@ -70,31 +70,6 @@ function Label({
     );
 }
 
-function LeadLines({ x, y, colour }: { x: number; y: number; colour: string }) {
-    return (
-        <>
-            <line
-                x1={x - 20}
-                y1={y}
-                x2={x - 12}
-                y2={y}
-                stroke={colour}
-                strokeWidth={STROKE}
-                strokeLinecap="round"
-            />
-            <line
-                x1={x + 12}
-                y1={y}
-                x2={x + 20}
-                y2={y}
-                stroke={colour}
-                strokeWidth={STROKE}
-                strokeLinecap="round"
-            />
-        </>
-    );
-}
-
 function TerminalDots({
     x,
     y,

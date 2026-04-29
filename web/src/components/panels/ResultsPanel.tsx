@@ -90,10 +90,15 @@ function ACResults({ result }: { result: ACResult }) {
 }
 
 function TransientResults({ result }: { result: TransientResult }) {
+    const { hilData, hilRmse, hilTitle, activeExperiment } =
+        useSimulationStore();
+
     if (result.steps.length === 0) return null;
+
     const nodeCount = result.steps[0].nodes.length;
     const step = Math.max(1, Math.floor(result.steps.length / 300));
-    const data = result.steps
+
+    const simData = result.steps
         .filter((_, i) => i % step === 0)
         .map((s) => {
             const row: Record<string, number> = { time: s.time };
@@ -103,61 +108,118 @@ function TransientResults({ result }: { result: TransientResult }) {
             return row;
         });
 
+    const hilStep = hilData ? Math.max(1, Math.floor(hilData.length / 300)) : 1;
+
+    const hilSeries = hilData
+        ? hilData
+              .filter((_, i) => i % hilStep === 0)
+              .map((d) => ({ time: d.time_ms / 1000, measured: d.voltage }))
+        : [];
+
+    const combined = simData.map((s) => {
+        const closest = hilSeries.find(
+            (h) => Math.abs(h.time - s.time) < 0.026,
+        );
+        return { ...s, measured: closest?.measured ?? null };
+    });
+
+    const nodesToPlot =
+        hilData && activeExperiment
+            ? [activeExperiment.nodeOfInterest - 1]
+            : Array.from({ length: nodeCount }, (_, i) => i);
+
     return (
-        <div className="h-48 mt-2 -mx-1">
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                    data={data}
-                    margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
-                >
-                    <XAxis
-                        dataKey="time"
-                        tick={{
-                            fontSize: 9,
-                            fill: "#64748b",
-                            fontFamily: "monospace",
-                        }}
-                        tickFormatter={(v) => `${(v * 1000).toFixed(1)}ms`}
-                        stroke="#334155"
-                    />
-                    <YAxis
-                        tick={{
-                            fontSize: 9,
-                            fill: "#64748b",
-                            fontFamily: "monospace",
-                        }}
-                        tickFormatter={(v) => `${v.toFixed(1)}V`}
-                        width={35}
-                        stroke="#334155"
-                    />
-                    <Tooltip
-                        contentStyle={{
-                            background: "#0f172a",
-                            border: "1px solid #334155",
-                            fontSize: 11,
-                            fontFamily: "monospace",
-                            color: "#f8fafc",
-                            borderRadius: 6,
-                        }}
-                        labelStyle={{ color: "#94a3b8" }}
-                        formatter={(v: any) => `${v.toFixed(4)} V`}
-                        labelFormatter={(v) =>
-                            `t = ${(v * 1000).toFixed(3)} ms`
-                        }
-                    />
-                    {Array.from({ length: nodeCount }, (_, i) => (
-                        <Line
-                            key={i}
-                            type="monotone"
-                            dataKey={`node${i + 1}`}
-                            stroke={NODE_COLOURS[i % NODE_COLOURS.length]}
-                            dot={false}
-                            strokeWidth={2}
-                            name={`Node ${i + 1}`}
+        <div className="mt-2">
+            <div className="h-48 -mx-1">
+                <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                        data={combined}
+                        margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
+                    >
+                        <XAxis
+                            dataKey="time"
+                            tick={{
+                                fontSize: 9,
+                                fill: "#64748b",
+                                fontFamily: "monospace",
+                            }}
+                            tickFormatter={(v) => `${(v * 1000).toFixed(0)}ms`}
+                            stroke="#334155"
                         />
-                    ))}
-                </LineChart>
-            </ResponsiveContainer>
+                        <YAxis
+                            tick={{
+                                fontSize: 9,
+                                fill: "#64748b",
+                                fontFamily: "monospace",
+                            }}
+                            tickFormatter={(v) => `${v.toFixed(1)}V`}
+                            width={35}
+                            stroke="#334155"
+                        />
+                        <Tooltip
+                            contentStyle={{
+                                background: "#0f172a",
+                                border: "1px solid #334155",
+                                fontSize: 11,
+                                fontFamily: "monospace",
+                                color: "#f8fafc",
+                                borderRadius: 6,
+                            }}
+                            labelStyle={{ color: "#94a3b8" }}
+                            formatter={(v: any) => `${v.toFixed(4)} V`}
+                            labelFormatter={(v) =>
+                                `t = ${(v * 1000).toFixed(0)} ms`
+                            }
+                        />
+                        {nodesToPlot.map((i) => (
+                            <Line
+                                key={`sim-${i}`}
+                                type="monotone"
+                                dataKey={`node${i + 1}`}
+                                stroke={NODE_COLOURS[i % NODE_COLOURS.length]}
+                                dot={false}
+                                strokeWidth={2}
+                                name={
+                                    hilData
+                                        ? "Simulated"
+                                        : `Node ${i + 1} (sim)`
+                                }
+                            />
+                        ))}
+                        {hilData && (
+                            <Line
+                                type="monotone"
+                                dataKey="measured"
+                                stroke="#f59e0b"
+                                strokeDasharray="4 3"
+                                dot={false}
+                                strokeWidth={1.5}
+                                name="Measured (Arduino)"
+                                connectNulls={false}
+                            />
+                        )}
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
+
+            {hilData && (
+                <div className="mt-2 pt-2 border-t border-slate-700 space-y-1">
+                    <div className="flex justify-between font-mono text-[10px]">
+                        <span className="text-slate-500">Experiment</span>
+                        <span className="text-slate-300">{hilTitle}</span>
+                    </div>
+                    <div className="flex justify-between font-mono text-[10px]">
+                        <span className="text-slate-500">RMSE vs measured</span>
+                        <span className="text-amber-400 font-semibold">
+                            {hilRmse?.toFixed(3)} V
+                        </span>
+                    </div>
+                    <div className="flex justify-between font-mono text-[10px]">
+                        <span className="text-slate-500">Samples</span>
+                        <span className="text-slate-400">{hilData.length}</span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -6,7 +6,7 @@
   "tStep": 0.05,
   "tStop": 10.0,
   "rmse": 0.051,
-  "nodeOfInterest": 1,
+  "nodeOfInterest": 2,
   "measured": [
     {
       "time_ms": 0.0,
