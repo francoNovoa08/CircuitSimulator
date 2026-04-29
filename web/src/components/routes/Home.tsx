@@ -3,6 +3,7 @@ import { experiments } from "../../data/experiments";
 import { useSimulationStore } from "../../store/simulationStore";
 import { Activity, ArrowRight, Pencil } from "lucide-react";
 import { useEffect, useRef } from "react";
+import Icon from "../../assets/Icon.png"
 
 const EXPERIMENT_STYLES: Record<
     string,
@@ -37,7 +38,6 @@ function AnimatedPath({ d, stroke, strokeWidth, strokeDasharray, opacity }: {
         const len = el.getTotalLength();
         el.style.strokeDasharray = String(len);
         el.style.strokeDashoffset = String(len);
-        // Trigger reflow then animate
         void el.getBoundingClientRect();
         el.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1)';
         el.style.strokeDashoffset = '0';
@@ -71,7 +71,6 @@ export default function Home() {
         navigate("/lab");
     };
 
-    // Scroll reveal for cards and steps
     useEffect(() => {
         const els = document.querySelectorAll<HTMLElement>('.scroll-reveal');
         const observer = new IntersectionObserver(
@@ -94,13 +93,10 @@ export default function Home() {
     return (
         <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
 
-            {/* Header */}
             <header className="bg-white border-b border-slate-200 px-6 py-3.5 anim-fade-in">
                 <div className="max-w-5xl mx-auto flex items-center gap-3">
-                    <div className="p-1.5 bg-emerald-50 text-emerald-700 rounded-md border border-emerald-100">
-                        <Activity size={16} />
-                    </div>
-                    <span className="font-bold tracking-tight text-slate-900">CircuitSim</span>
+                    <img src={Icon} alt="HIL Circuit Simulator" className="w-12" />
+                    <span className="font-bold tracking-tight text-slate-900">HIL Circuit Simulator</span>
                     <button
                         onClick={handleScratch}
                         className="ml-auto text-xs text-slate-500 border border-slate-200 px-3 py-1.5 rounded-md hover:bg-slate-50 transition-colors cursor-pointer"
@@ -110,7 +106,6 @@ export default function Home() {
                 </div>
             </header>
 
-            {/* Hero */}
             <section className="bg-white border-b border-slate-200 relative overflow-hidden">
                 <div
                     className="absolute inset-0 opacity-40 pointer-events-none"
@@ -119,16 +114,8 @@ export default function Home() {
                         backgroundSize: "24px 24px",
                     }}
                 />
-                <div className="max-w-5xl mx-auto px-6 py-14 grid grid-cols-2 gap-12 items-center relative z-10">
-                    {/* Hero left — staggered entrance */}
+                <div className="max-w-5xl mx-auto px-6 py-12 grid grid-cols-2 gap-12 items-center relative z-10">
                     <div>
-                        <div
-                            className="anim-fade-up inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full px-3 py-1 text-[11px] font-semibold mb-5"
-                            style={{ animationDelay: '0.05s' }}
-                        >
-                            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
-                            Hardware-in-the-Loop · WebAssembly
-                        </div>
                         <h1
                             className="anim-fade-up text-4xl font-bold tracking-tight text-slate-900 leading-[1.15] mb-4 max-w-sm"
                             style={{ animationDelay: '0.12s' }}
