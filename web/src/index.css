@@ -55,3 +55,37 @@ body,
     fill: #3b82f6;
     opacity: 0.2;
 }
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes drawOn {
+    from { stroke-dashoffset: 1; }
+    to   { stroke-dashoffset: 0; }
+}
+
+.anim-fade-up {
+    animation: fadeUp 0.5s ease both;
+}
+
+.anim-fade-in {
+    animation: fadeIn 0.4s ease both;
+}
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

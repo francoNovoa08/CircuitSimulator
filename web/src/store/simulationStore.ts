@@ -40,6 +40,9 @@ interface SimulationState {
     clearHilData: () => void;
 
     activeExperiment: Experiment | null;
+
+    pendingExperimentId: string | null;
+    setPendingExperiment: (id: string | null) => void;
 }
 
 export const useSimulationStore = create<SimulationState>((set) => ({
@@ -100,4 +103,10 @@ export const useSimulationStore = create<SimulationState>((set) => ({
     },
 
     activeExperiment: null,
+
+    pendingExperimentId: null,
+
+    setPendingExperiment(id) {
+        set({ pendingExperimentId: id });
+    },
 }));

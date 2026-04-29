@@ -50,6 +50,8 @@ export default function SimulationPanel() {
             const msg = e instanceof Error ? e.message : "Simulation failed.";
             setError(msg);
             setLocalError(msg);
+        } finally {
+            setLoading(false); 
         }
     };
 

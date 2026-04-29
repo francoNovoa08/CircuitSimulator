@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { experiments } from "../../data/experiments";
 import { useSimulationStore } from "../../store/simulationStore";
 import { runTransient } from "../../engine/simulator";
@@ -39,6 +39,15 @@ export default function ExperimentLoader({ onLoaded }: Props) {
             setRunningId(null);
         }
     };
+
+    const { setPendingExperiment, pendingExperimentId } = useSimulationStore();
+
+    useEffect(() => {
+        if (pendingExperimentId) {
+            setPendingExperiment(null);
+            handleLoad(pendingExperimentId);
+        }
+    }, []);
 
     return (
         <div className="border-b border-slate-200 bg-white shrink-0">

@@ -15,7 +15,7 @@ export default function ResultsPanel() {
     const { result, error, loading } = useSimulationStore();
 
     return (
-        <div className="flex-1 flex flex-col bg-slate-900 min-h-[200px]">
+        <div className="flex-1 flex flex-col bg-slate-900 min-h-50">
             <div className="px-4 py-2 border-b border-slate-800 bg-slate-950 flex items-center shrink-0">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                     Results Console
