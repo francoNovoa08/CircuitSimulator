@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,7 +20,7 @@ jobs:
       - name: Build WASM
         run: |
           cd web
-          bash ../build_wasm.sh
+          bash build_wasm.sh
 
       - name: Set up Node
         uses: actions/setup-node@v4
