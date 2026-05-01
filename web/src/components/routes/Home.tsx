@@ -8,7 +8,7 @@ import Accordion from "../ui/Accordion";
 
 const FAQ_ITEMS = [
     {
-        question: "What is Hardware-in-the-Loop simulation?",
+        question: "What is a Hardware-in-the-Loop simulation?",
         answer: "Hardware-in-the-Loop (HIL) connects a physical circuit to a simulation running in parallel. Here, an Arduino samples real voltage from a breadboard RC circuit and sends it to the engine, which simultaneously computes the theoretical voltage.",
     },
     {
