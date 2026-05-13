@@ -1,7 +1,13 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-export type ComponentType = 'resistor' | 'capacitor' | 'inductor' | 'voltageSource' | 'currentSource' | 'ground';
-export type Orientation = 'horizontal' | 'vertical';
+export type ComponentType =
+    | "resistor"
+    | "capacitor"
+    | "inductor"
+    | "voltageSource"
+    | "currentSource"
+    | "ground";
+export type Orientation = "horizontal" | "vertical";
 
 export interface Point {
     x: number;
@@ -41,6 +47,10 @@ interface CircuitState {
 
     clear: () => void;
     generateNetlist: (analysisLine: string) => string;
+    generateNetlistWithLabels: (analysisLine: string) => {
+        netlist: string;
+        nodeLabels: Map<number, string>;
+    };
 }
 
 const counters: Record<ComponentType, number> = {
@@ -53,12 +63,12 @@ const counters: Record<ComponentType, number> = {
 };
 
 const prefixMap: Record<ComponentType, string> = {
-    resistor: 'R',
-    capacitor: 'C',
-    inductor: 'L',
-    voltageSource: 'V',
-    currentSource: 'I',
-    ground: 'GND',
+    resistor: "R",
+    capacitor: "C",
+    inductor: "L",
+    voltageSource: "V",
+    currentSource: "I",
+    ground: "GND",
 };
 
 const defaultValueMap: Record<ComponentType, number> = {
@@ -81,54 +91,54 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
 
     addComponent(type, position) {
         counters[type] += 1;
-        const name = type === 'ground'
-            ? 'GND'
-            : `${prefixMap[type]}${counters[type]}`;
+        const name =
+            type === "ground" ? "GND" : `${prefixMap[type]}${counters[type]}`;
 
         const component: PlacedComponent = {
             id: generateId(),
             type,
             position,
-            orientation: 'horizontal',
+            orientation: "horizontal",
             value: defaultValueMap[type],
             name,
         };
 
-        set(state => ({ components: [...state.components, component] }));
+        set((state) => ({ components: [...state.components, component] }));
     },
 
     moveComponent(id, position) {
-        set(state => ({
-            components: state.components.map(c =>
-                c.id === id ? { ...c, position } : c
+        set((state) => ({
+            components: state.components.map((c) =>
+                c.id === id ? { ...c, position } : c,
             ),
         }));
     },
 
     updateValue(id, value) {
-        set(state => ({
-            components: state.components.map(c =>
-                c.id === id ? { ...c, value } : c
+        set((state) => ({
+            components: state.components.map((c) =>
+                c.id === id ? { ...c, value } : c,
             ),
         }));
     },
 
     updateInitialVoltage(id, voltage) {
-        set(state => ({
-            components: state.components.map(c =>
-                c.id === id ? { ...c, initialVoltage: voltage } : c
+        set((state) => ({
+            components: state.components.map((c) =>
+                c.id === id ? { ...c, initialVoltage: voltage } : c,
             ),
         }));
     },
 
     removeComponent(id) {
-        set(state => ({
-            components: state.components.filter(c => c.id !== id),
-            wires: state.wires.filter(w => {
-                const comp = state.components.find(c => c.id === id);
+        set((state) => ({
+            components: state.components.filter((c) => c.id !== id),
+            wires: state.wires.filter((w) => {
+                const comp = state.components.find((c) => c.id === id);
                 if (!comp) return true;
                 return !(
-                    (w.from.x === comp.position.x && w.from.y === comp.position.y) ||
+                    (w.from.x === comp.position.x &&
+                        w.from.y === comp.position.y) ||
                     (w.to.x === comp.position.x && w.to.y === comp.position.y)
                 );
             }),
@@ -142,15 +152,15 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
 
     addWire(from, to) {
         const wire: Wire = { id: generateId(), from, to };
-        set(state => ({ wires: [...state.wires, wire] }));
+        set((state) => ({ wires: [...state.wires, wire] }));
     },
 
     removeWire(id) {
-        set(state => ({ wires: state.wires.filter(w => w.id !== id) }));
+        set((state) => ({ wires: state.wires.filter((w) => w.id !== id) }));
     },
 
     clear() {
-        Object.keys(counters).forEach(k => {
+        Object.keys(counters).forEach((k) => {
             counters[k as ComponentType] = 0;
         });
         set({ components: [], wires: [], selectedId: null });
@@ -164,7 +174,7 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
         const allPoints: Point[] = [];
 
         for (const comp of components) {
-            if (comp.type === 'ground') continue;
+            if (comp.type === "ground") continue;
             const [p, n] = getTerminals(comp);
             allPoints.push(p, n);
         }
@@ -175,7 +185,9 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
         // Union-find to group connected points
         const parent = new Map<string, string>();
 
-        function key(p: Point) { return `${p.x},${p.y}`; }
+        function key(p: Point) {
+            return `${p.x},${p.y}`;
+        }
 
         function find(k: string): string {
             if (parent.get(k) !== k) parent.set(k, find(parent.get(k)!));
@@ -197,7 +209,7 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
 
         const groundKeys = new Set<string>();
         for (const comp of components) {
-            if (comp.type === 'ground') {
+            if (comp.type === "ground") {
                 const gKey = key(comp.position);
                 if (!parent.has(gKey)) parent.set(gKey, gKey);
                 groundKeys.add(find(gKey));
@@ -217,28 +229,119 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
         const lines: string[] = [];
 
         for (const comp of components) {
-            if (comp.type === 'ground') continue;
+            if (comp.type === "ground") continue;
             const [pos, neg] = getTerminals(comp);
             const nodePos = nodeFor(pos);
             const nodeNeg = nodeFor(neg);
 
             let line = `${comp.name} ${nodePos} ${nodeNeg} ${comp.value}`;
-            if (comp.type === 'capacitor' && comp.initialVoltage !== undefined) {
+            if (
+                comp.type === "capacitor" &&
+                comp.initialVoltage !== undefined
+            ) {
                 line += ` IC=${comp.initialVoltage}`;
             }
             lines.push(line);
         }
 
         lines.push(analysisLine);
-        return lines.join('\n') + '\n';
+        return lines.join("\n") + "\n";
+    },
+
+    generateNetlistWithLabels(analysisLine) {
+        const { components, wires } = get();
+
+        const allPoints: Point[] = [];
+        for (const comp of components) {
+            if (comp.type === "ground") continue;
+            const [p, n] = getTerminals(comp);
+            allPoints.push(p, n);
+        }
+        for (const wire of wires) {
+            allPoints.push(wire.from, wire.to);
+        }
+
+        const parent = new Map<string, string>();
+        function key(p: Point) {
+            return `${p.x},${p.y}`;
+        }
+        function find(k: string): string {
+            if (parent.get(k) !== k) parent.set(k, find(parent.get(k)!));
+            return parent.get(k)!;
+        }
+        function union(a: string, b: string) {
+            parent.set(find(a), find(b));
+        }
+
+        for (const p of allPoints) {
+            const k = key(p);
+            if (!parent.has(k)) parent.set(k, k);
+        }
+        for (const wire of wires) {
+            union(key(wire.from), key(wire.to));
+        }
+
+        const groundKeys = new Set<string>();
+        for (const comp of components) {
+            if (comp.type === "ground") {
+                const gKey = key(comp.position);
+                if (!parent.has(gKey)) parent.set(gKey, gKey);
+                groundKeys.add(find(gKey));
+            }
+        }
+
+        const nodeMap = new Map<string, number>();
+        let nextNode = 1;
+        function nodeFor(p: Point): number {
+            const root = find(key(p));
+            if (groundKeys.has(root)) return 0;
+            if (!nodeMap.has(root)) nodeMap.set(root, nextNode++);
+            return nodeMap.get(root)!;
+        }
+
+        const nodeNames = new Map<number, string[]>();
+        function addName(node: number, name: string) {
+            if (node === 0) return; 
+            if (!nodeNames.has(node)) nodeNames.set(node, []);
+            nodeNames.get(node)!.push(name);
+        }
+
+        const lines: string[] = [];
+        for (const comp of components) {
+            if (comp.type === "ground") continue;
+            const [pos, neg] = getTerminals(comp);
+            const nodePos = nodeFor(pos);
+            const nodeNeg = nodeFor(neg);
+
+            addName(nodePos, `${comp.name}+`);
+            addName(nodeNeg, `${comp.name}-`);
+
+            let line = `${comp.name} ${nodePos} ${nodeNeg} ${comp.value}`;
+            if (
+                comp.type === "capacitor" &&
+                comp.initialVoltage !== undefined
+            ) {
+                line += ` IC=${comp.initialVoltage}`;
+            }
+            lines.push(line);
+        }
+
+        lines.push(analysisLine);
+        const netlist = lines.join("\n") + "\n";
+
+        const nodeLabels = new Map<number, string>();
+        for (const [node, names] of nodeNames) {
+            nodeLabels.set(node, [...new Set(names)].join(" / "));
+        }
+
+        return { netlist, nodeLabels };
     },
 }));
 
 // Returns [positive terminal, negative terminal] grid positions for a component
 export function getTerminals(comp: PlacedComponent): [Point, Point] {
-    const offset = comp.orientation === 'horizontal'
-        ? { x: 1, y: 0 }
-        : { x: 0, y: 1 };
+    const offset =
+        comp.orientation === "horizontal" ? { x: 1, y: 0 } : { x: 0, y: 1 };
 
     return [
         comp.position,
@@ -247,7 +350,7 @@ export function getTerminals(comp: PlacedComponent): [Point, Point] {
 }
 
 export function getOccupiedCells(comp: PlacedComponent): Point[] {
-    if (comp.type === 'ground') return [comp.position];
+    if (comp.type === "ground") return [comp.position];
     const [a, b] = getTerminals(comp);
     return [a, b];
 }

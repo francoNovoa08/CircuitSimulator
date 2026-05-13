@@ -43,6 +43,9 @@ interface SimulationState {
 
     pendingExperimentId: string | null;
     setPendingExperiment: (id: string | null) => void;
+
+    nodeLabels: Map<number, string> | null;
+    setNodeLabels: (labels: Map<number, string>) => void;
 }
 
 export const useSimulationStore = create<SimulationState>((set) => ({
@@ -77,7 +80,7 @@ export const useSimulationStore = create<SimulationState>((set) => ({
     },
 
     clear() {
-        set({ result: null, error: null, loading: false });
+        set({ result: null, error: null, loading: false, nodeLabels: null });
     },
 
     hilData: null,
@@ -108,5 +111,11 @@ export const useSimulationStore = create<SimulationState>((set) => ({
 
     setPendingExperiment(id) {
         set({ pendingExperimentId: id });
+    },
+
+    nodeLabels: null,
+
+    setNodeLabels(nodeLabels) {
+        set({ nodeLabels });
     },
 }));

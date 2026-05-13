@@ -14,8 +14,9 @@ export default function SimulationPanel() {
         setResult,
         setError,
         setLoading,
+        setNodeLabels,
     } = useSimulationStore();
-    const { generateNetlist, components } = useCircuitStore();
+    const { generateNetlistWithLabels, components } = useCircuitStore();
     const [localError, setLocalError] = useState<string | null>(null);
 
     const handleRun = async () => {
@@ -27,23 +28,23 @@ export default function SimulationPanel() {
         setLoading(true);
         try {
             if (analysisType === "dc") {
-                setResult(await runDC(generateNetlist(".DC")));
+                const { netlist, nodeLabels } =
+                    generateNetlistWithLabels(".DC");
+                setNodeLabels(nodeLabels);
+                setResult(await runDC(netlist));
             } else if (analysisType === "ac") {
-                setResult(
-                    await runAC(
-                        generateNetlist(`.AC ${params.frequency}`),
-                        params.frequency,
-                    ),
+                const { netlist, nodeLabels } = generateNetlistWithLabels(
+                    `.AC ${params.frequency}`,
                 );
+                setNodeLabels(nodeLabels);
+                setResult(await runAC(netlist, params.frequency));
             } else {
+                const { netlist, nodeLabels } = generateNetlistWithLabels(
+                    `.TRAN ${params.tStep} ${params.tStop}`,
+                );
+                setNodeLabels(nodeLabels);
                 setResult(
-                    await runTransient(
-                        generateNetlist(
-                            `.TRAN ${params.tStep} ${params.tStop}`,
-                        ),
-                        params.tStep,
-                        params.tStop,
-                    ),
+                    await runTransient(netlist, params.tStep, params.tStop),
                 );
             }
         } catch (e) {
@@ -51,7 +52,7 @@ export default function SimulationPanel() {
             setError(msg);
             setLocalError(msg);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 

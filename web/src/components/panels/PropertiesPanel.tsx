@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { MousePointer2, Settings2 } from "lucide-react";
 import { useCircuitStore } from "../../store/circuitStore";
 
@@ -30,6 +31,29 @@ export default function PropertiesPanel() {
 
     const comp = components.find((c) => c.id === selectedId);
 
+    const [valueInput, setValueInput] = useState("");
+    const [icInput, setIcInput] = useState("");
+
+    useEffect(() => {
+        if (comp) {
+            setValueInput(String(comp.value));
+            setIcInput(String(comp.initialVoltage ?? 0));
+        }
+    }, [comp?.id]);
+
+    const commitValue = () => {
+        if (!comp) return;
+        const n = parseFloat(valueInput);
+        if (!isNaN(n) && n > 0) updateValue(comp.id, n);
+        else setValueInput(String(comp.value));
+    };
+
+    const commitIc = () => {
+        if (!comp) return;
+        const n = parseFloat(icInput);
+        updateInitialVoltage(comp.id, isNaN(n) ? 0 : n);
+    };
+
     return (
         <div className="h-[35%] flex flex-col border-b border-slate-200 bg-white shrink-0">
             <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-2 bg-slate-50/50">
@@ -45,7 +69,7 @@ export default function PropertiesPanel() {
                         <div className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center mb-3 text-slate-400">
                             <MousePointer2 size={16} />
                         </div>
-                        <p className="text-xs text-slate-500 max-w-[180px]">
+                        <p className="text-xs text-slate-500 max-w-45">
                             Select a component on the grid to edit its
                             properties.
                         </p>
@@ -68,21 +92,17 @@ export default function PropertiesPanel() {
                                 </label>
                                 <input
                                     type="number"
-                                    defaultValue={comp.value}
+                                    value={valueInput}
                                     step="any"
-                                    onBlur={(e) => {
-                                        const n = parseFloat(e.target.value);
-                                        if (!isNaN(n) && n > 0)
-                                            updateValue(comp.id, n);
-                                    }}
+                                    onChange={(e) =>
+                                        setValueInput(e.target.value)
+                                    }
+                                    onBlur={commitValue}
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {
-                                            const n = parseFloat(
-                                                (e.target as HTMLInputElement)
-                                                    .value,
-                                            );
-                                            if (!isNaN(n) && n > 0)
-                                                updateValue(comp.id, n);
+                                            (
+                                                e.target as HTMLInputElement
+                                            ).blur();
                                         }
                                     }}
                                     className="w-full px-3 py-2 rounded-md border border-slate-300 bg-white font-mono text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-shadow shadow-sm"
@@ -97,14 +117,17 @@ export default function PropertiesPanel() {
                                 </label>
                                 <input
                                     type="number"
-                                    defaultValue={comp.initialVoltage ?? 0}
+                                    value={icInput}
                                     step="any"
-                                    onBlur={(e) =>
-                                        updateInitialVoltage(
-                                            comp.id,
-                                            parseFloat(e.target.value) || 0,
-                                        )
-                                    }
+                                    onChange={(e) => setIcInput(e.target.value)}
+                                    onBlur={commitIc}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            (
+                                                e.target as HTMLInputElement
+                                            ).blur();
+                                        }
+                                    }}
                                     className="w-full px-3 py-2 rounded-md border border-slate-300 bg-white font-mono text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-shadow shadow-sm"
                                 />
                             </div>

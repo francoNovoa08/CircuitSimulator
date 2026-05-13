@@ -8,11 +8,12 @@ import {
 } from "recharts";
 import { useSimulationStore } from "../../store/simulationStore";
 import type { DCResult, ACResult, TransientResult } from "../../engine/types";
+import type { NameType } from "recharts/types/component/DefaultTooltipContent";
 
 const NODE_COLOURS = ["#10b981", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6"];
 
 export default function ResultsPanel() {
-    const { result, error, loading } = useSimulationStore();
+    const { result, error, loading, nodeLabels } = useSimulationStore();
 
     return (
         <div className="flex-1 flex flex-col bg-slate-900 min-h-50">
@@ -35,31 +36,43 @@ export default function ResultsPanel() {
                         Ready. Waiting for parameters...
                     </div>
                 )}
-                {result?.type === "dc" && <DCResults result={result} />}
-                {result?.type === "ac" && <ACResults result={result} />}
+                {result?.type === "dc" && (
+                    <DCResults result={result} nodeLabels={nodeLabels} />
+                )}
+                {result?.type === "ac" && (
+                    <ACResults result={result} nodeLabels={nodeLabels} />
+                )}
                 {result?.type === "transient" && (
-                    <TransientResults result={result} />
+                    <TransientResults result={result} nodeLabels={nodeLabels} />
                 )}
             </div>
         </div>
     );
 }
 
-function DCResults({ result }: { result: DCResult }) {
+function DCResults({
+    result,
+    nodeLabels,
+}: {
+    result: DCResult;
+    nodeLabels: Map<number, string> | null;
+}) {
     return (
         <div className="space-y-1 text-slate-300">
             {result.nodes.map((n) => (
-                <div key={n.node} className="flex justify-between">
-                    <span className="text-slate-500">V(node {n.node})</span>
-                    <span className="text-emerald-400">
+                <div key={n.node} className="flex justify-between gap-4">
+                    <span className="text-slate-500">
+                        V({nodeLabel(n.node, nodeLabels)})
+                    </span>
+                    <span className="text-emerald-400 tabular-nums">
                         {n.voltage.toPrecision(5)} V
                     </span>
                 </div>
             ))}
             {result.sources.map((s) => (
-                <div key={s.source} className="flex justify-between">
-                    <span className="text-slate-500">I(V{s.source})</span>
-                    <span className="text-blue-400">
+                <div key={s.source} className="flex justify-between gap-4">
+                    <span className="text-slate-500">I({s.source})</span>
+                    <span className="text-blue-400 tabular-nums">
                         {s.current.toPrecision(5)} A
                     </span>
                 </div>
@@ -68,7 +81,13 @@ function DCResults({ result }: { result: DCResult }) {
     );
 }
 
-function ACResults({ result }: { result: ACResult }) {
+function ACResults({
+    result,
+    nodeLabels,
+}: {
+    result: ACResult;
+    nodeLabels: Map<number, string> | null;
+}) {
     return (
         <div className="space-y-1 text-slate-300">
             <div className="flex justify-between text-slate-500 border-b border-slate-700 pb-1 mb-2">
@@ -77,19 +96,27 @@ function ACResults({ result }: { result: ACResult }) {
                 <span>Phase (°)</span>
             </div>
             {result.nodes.map((n) => (
-                <div key={n.node} className="flex justify-between">
-                    <span>Node {n.node}</span>
-                    <span className="text-emerald-400">
+                <div key={n.node} className="flex justify-between gap-4">
+                    <span>{nodeLabel(n.node, nodeLabels)}</span>
+                    <span className="text-emerald-400 tabular-nums">
                         {n.magnitude.toPrecision(4)}
                     </span>
-                    <span className="text-blue-400">{n.phase.toFixed(1)}</span>
+                    <span className="text-blue-400 tabular-nums">
+                        {n.phase.toFixed(1)}
+                    </span>
                 </div>
             ))}
         </div>
     );
 }
 
-function TransientResults({ result }: { result: TransientResult }) {
+function TransientResults({
+    result,
+    nodeLabels,
+}: {
+    result: TransientResult;
+    nodeLabels: Map<number, string> | null;
+}) {
     const { hilData, hilRmse, hilTitle, activeExperiment } =
         useSimulationStore();
 
@@ -109,7 +136,6 @@ function TransientResults({ result }: { result: TransientResult }) {
         });
 
     const hilStep = hilData ? Math.max(1, Math.floor(hilData.length / 300)) : 1;
-
     const hilSeries = hilData
         ? hilData
               .filter((_, i) => i % hilStep === 0)
@@ -166,7 +192,10 @@ function TransientResults({ result }: { result: TransientResult }) {
                                 borderRadius: 6,
                             }}
                             labelStyle={{ color: "#94a3b8" }}
-                            formatter={(v: any) => `${v.toFixed(4)} V`}
+                            formatter={(v: any, name: NameType | undefined) => [
+                                `${v.toFixed(4)} V`,
+                                name ?? "",
+                            ]}
                             labelFormatter={(v) =>
                                 `t = ${(v * 1000).toFixed(0)} ms`
                             }
@@ -182,7 +211,7 @@ function TransientResults({ result }: { result: TransientResult }) {
                                 name={
                                     hilData
                                         ? "Simulated"
-                                        : `Node ${i + 1} (sim)`
+                                        : nodeLabel(i + 1, nodeLabels)
                                 }
                             />
                         ))}
@@ -222,4 +251,11 @@ function TransientResults({ result }: { result: TransientResult }) {
             )}
         </div>
     );
+}
+
+function nodeLabel(
+    node: number,
+    nodeLabels: Map<number, string> | null,
+): string {
+    return nodeLabels?.get(node) ?? `Node ${node}`;
 }
