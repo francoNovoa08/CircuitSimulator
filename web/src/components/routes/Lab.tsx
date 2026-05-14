@@ -6,6 +6,7 @@ import PropertiesPanel from "../panels/PropertiesPanel";
 import ResultsPanel from "../panels/ResultsPanel";
 import SimulationPanel from "../panels/SimulationPanel";
 import ExperimentLoader from "../panels/ExperimentLoader";
+import DemoCircuits from "../panels/DemoCircuits";
 
 type Tool = ComponentType | "select" | "wire";
 
@@ -60,6 +61,7 @@ export default function Lab() {
                     ref={panelRef}
                     className="w-80 shrink-0 bg-white border-l border-slate-200 flex flex-col overflow-y-auto shadow-[-2px_0_8px_-4px_rgba(0,0,0,0.05)] z-10"
                 >
+                    <DemoCircuits />
                     <ExperimentLoader onLoaded={scrollToResults} />
                     <PropertiesPanel />
                     <SimulationPanel />

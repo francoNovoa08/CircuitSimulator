@@ -258,7 +258,7 @@ export default function ComponentPalette({ activeTool, onToolChange }: Props) {
                                 </span>
                                 <kbd
                                     className={[
-                                        "inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-md text-[11px] font-mono font-semibold border shrink-0",
+                                        "inline-flex items-center justify-center min-w-5.5 h-5.5 px-1.5 rounded-md text-[11px] font-mono font-semibold border shrink-0",
                                         active
                                             ? "border-blue-200 text-blue-600 bg-blue-100/50"
                                             : "border-slate-200 text-slate-400 bg-slate-50 shadow-sm",

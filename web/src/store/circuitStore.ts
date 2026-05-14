@@ -51,6 +51,8 @@ interface CircuitState {
         netlist: string;
         nodeLabels: Map<number, string>;
     };
+
+    loadSnapshot: (components: PlacedComponent[], wires: Wire[]) => void;
 }
 
 const counters: Record<ComponentType, number> = {
@@ -301,7 +303,7 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
 
         const nodeNames = new Map<number, string[]>();
         function addName(node: number, name: string) {
-            if (node === 0) return; 
+            if (node === 0) return;
             if (!nodeNames.has(node)) nodeNames.set(node, []);
             nodeNames.get(node)!.push(name);
         }
@@ -335,6 +337,13 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
         }
 
         return { netlist, nodeLabels };
+    },
+
+    loadSnapshot(components, wires) {
+        Object.keys(counters).forEach((k) => {
+            counters[k as ComponentType] = 0;
+        });
+        set({ components, wires, selectedId: null });
     },
 }));
 
