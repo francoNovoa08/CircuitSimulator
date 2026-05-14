@@ -6,6 +6,8 @@ A C++ SPICE-grade linear circuit simulator built from scratch, implementing Modi
 ## Motivation
 The IB Physics curriculum has been updated and greatly downscaled the coverage of circuits. Kirchhoff's laws are not even covered. One student seeking to increase their knowledge of the topic would perhaps do some reading on the side. A crazy one would build an AC/DC linear circuit simulator from scratch to understand exactly how electrical circuits are modelled and the rigorous mathematics behind them. Hence the motivation for this project. 
 
+This is a C++-based linear circuit simulator built from scratch. It is based on Modified Nodal Analysis (discussed below), validated against real hardware, and running live in the browser via WebAssembly. It was built because understanding how circuit simulation actually works requires implementing it.
+
 ## Modified Nodal Analysis
 This simulator employs Modified Nodal Analysis (MNA) to use Kirchhoff's current law to solve for circuit quantities via systems of equations. The "modified" being due to the need to account for voltage sources. While for other components the voltage across them is what's being found, it is the current through voltage sources what needs to be found in those scenarios.
 
