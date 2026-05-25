@@ -62,7 +62,7 @@ The C++ engine has been compiled to WebAssembly via Emscripten and deployed as a
 **Available at:** [`CircuitSimulator/`](https://franconovoa08.github.io/CircuitSimulator/)
 
 ## Repository Structure
-CircuitSimulator/          C++ source — parser, circuit, solver
+CircuitSimulator/          C++ source: parser, circuit, solver
 CircuitSimulatorApp/       CLI entry point
 CircuitSimulatorTests/     Google Test unit tests
 web/                       React + WebAssembly frontend
