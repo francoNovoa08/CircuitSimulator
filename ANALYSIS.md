@@ -27,14 +27,10 @@ Electrolytic capacitors carry a ±20% nominal tolerance, but real deviation depe
 The Chong $1000µF$ capacitor exhibited voltage-limited charging behaviour: after 300 seconds the physical circuit had only reached 3.06V, against a theoretical steady-state of 4.78V. This 36% deficit is not explained by capacitance deviation alone and it reflects significant leakage current through the capacitor's dielectric.
 
 At steady state, the current supplied through R1 equals the leakage current through the capacitor:
-$$
-(V_{supply} − V_{ss}) / R1 = V_{ss} / R_{leak}
-$$
+$$(V_{supply} − V_{ss}) / R1 = V_{ss} / R_{leak}$$
 
 Solving for the leakage resistance:
-$$
-R_{leak} = V_{ss} × R1 / (V_{supply} − V_{ss}) = 3.06 × 10,000 / 1.72 ≈ 17.8 \text{ k}Ω
-$$
+$$R_{leak} = V_{ss} × R1 / (V_{supply} − V_{ss}) = 3.06 × 10,000 / 1.72 ≈ 17.8 \text{ k}Ω$$
 
 Adding this parallel resistance to the SPICE netlist reduced RMSE from 1.60V to 0.214V. The residual error reflects a limitation of the fixed $R_{leak}$ model. Electrolytic leakage resistance is voltage-dependent, not constant. The model captures the dominant behaviour but underestimates steady-state voltage as the capacitor approaches full charge and leakage resistance rises.
 
