@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { experiments } from "../../data/experiments";
 import { useSimulationStore } from "../../store/simulationStore";
 import { runTransient } from "../../engine/simulator";
-import { FlaskConical, ChevronDown, ChevronUp } from "lucide-react";
+import { FlaskConical, ChevronDown, ChevronUp, Download } from "lucide-react";
+
+const CSV_FILE_MAP: Record<string, string> = {
+    rc_charging: "charging.csv",
+    rc_discharge: "discharge.csv",
+};
 
 interface Props {
     onLoaded: () => void;
@@ -40,6 +45,18 @@ export default function ExperimentLoader({ onLoaded }: Props) {
         }
     };
 
+    const handleDownloadCsv = (expId: string) => {
+        const filename = CSV_FILE_MAP[expId];
+        if (!filename) return;
+
+        const url = `${filename}`;
+
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = filename;
+        anchor.click();
+    };
+
     const { setPendingExperiment, pendingExperimentId } = useSimulationStore();
 
     useEffect(() => {
@@ -72,6 +89,7 @@ export default function ExperimentLoader({ onLoaded }: Props) {
                 <div className="px-3 pb-3 flex flex-col gap-2">
                     {experiments.map((exp) => {
                         const running = runningId === exp.id;
+                        const hasCsv = exp.id in CSV_FILE_MAP;
                         return (
                             <div
                                 key={exp.id}
@@ -86,27 +104,41 @@ export default function ExperimentLoader({ onLoaded }: Props) {
                                     </span>
                                 </div>
 
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-center justify-between gap-2">
                                     <span className="font-mono text-[10px] text-slate-400">
                                         RMSE{" "}
                                         <span className="text-amber-600 font-semibold">
                                             {exp.rmse.toFixed(3)} V
                                         </span>
                                     </span>
-                                    <button
-                                        onClick={() => handleLoad(exp.id)}
-                                        disabled={runningId !== null}
-                                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-800 text-white text-[11px] font-semibold hover:bg-slate-700 active:scale-[0.97] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                                    >
-                                        {running ? (
-                                            <>
-                                                <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block" />
-                                                Running
-                                            </>
-                                        ) : (
-                                            "Load"
+
+                                    <div className="flex items-center gap-1.5">
+                                        {hasCsv && (
+                                            <button
+                                                onClick={() =>
+                                                    handleDownloadCsv(exp.id)
+                                                }
+                                                title="Download raw CSV"
+                                                className="flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 text-slate-500 hover:text-slate-700 hover:border-slate-300 hover:bg-slate-50 active:scale-95 transition-all cursor-pointer"
+                                            >
+                                                <Download size={12} />
+                                            </button>
                                         )}
-                                    </button>
+                                        <button
+                                            onClick={() => handleLoad(exp.id)}
+                                            disabled={runningId !== null}
+                                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-800 text-white text-[11px] font-semibold hover:bg-slate-700 active:scale-[0.97] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                                        >
+                                            {running ? (
+                                                <>
+                                                    <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block" />
+                                                    Running
+                                                </>
+                                            ) : (
+                                                "Load"
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         );
