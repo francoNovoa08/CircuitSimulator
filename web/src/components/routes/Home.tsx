@@ -5,6 +5,7 @@ import { ArrowRight, Pencil } from "lucide-react";
 import { useEffect, useRef } from "react";
 import Icon from "../../assets/Icon.png";
 import Accordion from "../ui/Accordion";
+import { Fragment } from "react";
 
 const FAQ_ITEMS = [
     {
@@ -27,20 +28,17 @@ const FAQ_ITEMS = [
 
 const EXPERIMENT_STYLES: Record<
     string,
-    { accent: string; sparkPath: string; sparkPathMeasured: string }
+    { sparkPath: string; sparkPathMeasured: string }
 > = {
     rc_charging: {
-        accent: "#10b981",
         sparkPath: "M 4 44 C 30 44 50 10 80 6 C 110 3 140 3 196 3",
         sparkPathMeasured: "M 4 44 C 32 46 52 14 82 10 C 112 6 142 6 196 6",
     },
     rc_leaky: {
-        accent: "#f59e0b",
         sparkPath: "M 4 44 C 20 44 40 20 70 14 C 100 9 130 16 196 18",
         sparkPathMeasured: "M 4 44 C 22 44 42 24 72 20 C 102 14 132 22 196 24",
     },
     rc_discharge: {
-        accent: "#6366f1",
         sparkPath: "M 4 4 C 30 4 50 38 80 43 C 110 46 140 46 196 46",
         sparkPathMeasured: "M 4 4 C 32 4 52 40 82 45 C 112 47 142 47 196 47",
     },
@@ -101,28 +99,6 @@ export default function Home() {
         navigate("/lab");
     };
 
-    useEffect(() => {
-        const els = document.querySelectorAll<HTMLElement>(".scroll-reveal");
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const el = entry.target as HTMLElement;
-                        const delay = el.dataset.delay ?? "0";
-                        setTimeout(
-                            () => el.classList.add("visible"),
-                            parseInt(delay),
-                        );
-                        observer.unobserve(el);
-                    }
-                });
-            },
-            { threshold: 0.15 },
-        );
-        els.forEach((el) => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
-
     return (
         <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
             <header className="bg-white border-b border-slate-200 px-6 py-3.5 anim-fade-in">
@@ -146,11 +122,13 @@ export default function Home() {
 
             <section className="bg-white border-b border-slate-200 relative overflow-hidden">
                 <div
-                    className="absolute inset-0 opacity-40 pointer-events-none"
+                    className="absolute inset-0 pointer-events-none"
                     style={{
-                        backgroundImage:
-                            "radial-gradient(circle, #cbd5e1 1px, transparent 1px)",
-                        backgroundSize: "24px 24px",
+                        backgroundImage: `
+            linear-gradient(to bottom, transparent 47%, #ffffff 47%, #ffffff 53%, transparent 53%),
+            radial-gradient(circle, rgba(203, 213, 225, 0.4) 1px, transparent 1px)
+        `,
+                        backgroundSize: "100% 100%, 24px 24px",
                     }}
                 />
                 <div className="max-w-5xl mx-auto px-6 py-12 grid grid-cols-2 gap-12 items-center relative z-10">
@@ -160,7 +138,7 @@ export default function Home() {
                             style={{ animationDelay: "0.12s" }}
                         >
                             Where simulation meets{" "}
-                            <span className="text-emerald-600">physical</span>{" "}
+                            <span className="text-amber-600">physical</span>{" "}
                             reality
                         </h1>
                         <p
@@ -334,46 +312,51 @@ export default function Home() {
             </section>
 
             {/* Steps */}
-            <section className="max-w-5xl mx-auto px-6 py-12 grid grid-cols-3 gap-6">
-                {[
-                    {
-                        num: "01",
-                        title: "Draw",
-                        body: "Place resistors, capacitors, and sources on a schematic canvas. Connect with wires.",
-                        accent: "border-indigo-400",
-                        delay: 0,
-                    },
-                    {
-                        num: "02",
-                        title: "Simulate",
-                        body: "A C++ MNA SPICE engine compiled to WebAssembly runs DC, AC, or transient analysis in your browser.",
-                        accent: "border-sky-400",
-                        delay: 100,
-                    },
-                    {
-                        num: "03",
-                        title: "Compare",
-                        body: "Overlay real Arduino measurements against the simulation curve — RMSE included.",
-                        accent: "border-emerald-400",
-                        delay: 200,
-                    },
-                ].map(({ num, title, body, accent, delay }) => (
-                    <div
-                        key={num}
-                        className={`scroll-reveal border-l-[3px] ${accent} pl-4`}
-                        data-delay={delay}
-                    >
-                        <p className="font-mono text-[10px] font-bold text-slate-400 mb-2 tracking-widest">
-                            {num}
-                        </p>
-                        <h3 className="font-bold text-slate-900 text-sm mb-1.5">
-                            {title}
-                        </h3>
-                        <p className="text-xs text-slate-500 leading-relaxed">
-                            {body}
-                        </p>
-                    </div>
-                ))}
+            <section className="max-w-5xl mx-auto px-6 py-12">
+                <div className="flex items-start">
+                    {[
+                        {
+                            num: "01",
+                            title: "Draw",
+                            body: "Place resistors, capacitors, and sources on a schematic canvas. Connect with wires.",
+                            dot: "bg-slate-400",
+                        },
+                        {
+                            num: "02",
+                            title: "Simulate",
+                            body: "A C++ MNA SPICE engine compiled to WebAssembly runs DC, AC, or transient analysis in your browser.",
+                            dot: "bg-emerald-500",
+                        },
+                        {
+                            num: "03",
+                            title: "Compare",
+                            body: "Overlay real Arduino measurements against the simulation curve, RMSE included.",
+                            dot: "bg-amber-500",
+                        },
+                    ].map(({ num, title, body, dot }, i, arr) => (
+                        <Fragment key={num}>
+                            <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span
+                                        className={`w-3.5 h-3.5 rounded-full ${dot}`}
+                                    />
+                                    <span className="font-mono text-[10px] font-bold text-slate-400 tracking-widest">
+                                        {num}
+                                    </span>
+                                </div>
+                                <h3 className="font-bold text-slate-900 text-sm mb-1.5">
+                                    {title}
+                                </h3>
+                                <p className="text-xs text-slate-500 leading-relaxed">
+                                    {body}
+                                </p>
+                            </div>
+                            {i < arr.length - 1 && (
+                                <div className="w-8 h-px bg-slate-200 mt-[7px] shrink-0" />
+                            )}
+                        </Fragment>
+                    ))}
+                </div>
             </section>
 
             <section
@@ -381,7 +364,7 @@ export default function Home() {
                 className="border-t border-slate-200 bg-white"
             >
                 <div className="max-w-5xl mx-auto px-6 py-12">
-                    <div className="scroll-reveal mb-7" data-delay="0">
+                    <div className="mb-7">
                         <h2 className="text-xl font-bold text-slate-900 tracking-tight mb-1.5">
                             HIL Experiments
                         </h2>
@@ -391,21 +374,13 @@ export default function Home() {
                         </p>
                     </div>
                     <div className="grid grid-cols-3 gap-4">
-                        {experiments.map((exp, i) => {
+                        {experiments.map((exp) => {
                             const style = EXPERIMENT_STYLES[exp.id];
                             return (
                                 <div
                                     key={exp.id}
-                                    className="scroll-reveal border border-slate-200 rounded-xl overflow-hidden flex flex-col"
-                                    data-delay={i * 80}
+                                    className="border border-slate-200 rounded-xl overflow-hidden flex flex-col"
                                 >
-                                    <div
-                                        style={{
-                                            height: 3,
-                                            background:
-                                                style?.accent ?? "#64748b",
-                                        }}
-                                    />
                                     <div className="p-5 flex flex-col gap-4 flex-1">
                                         <div>
                                             <h3 className="font-bold text-slate-900 text-sm mb-1.5">
@@ -465,7 +440,7 @@ export default function Home() {
             </section>
 
             <section className="max-w-5xl mx-auto px-6 py-12">
-                <div className="scroll-reveal mb-7" data-delay="0">
+                <div className="mb-7">
                     <h2 className="text-xl font-bold text-slate-900 tracking-tight mb-1.5">
                         How it works
                     </h2>
@@ -474,9 +449,8 @@ export default function Home() {
                         methodology.
                     </p>
                 </div>
-                <div className="scroll-reveal" data-delay="80">
-                    <Accordion items={FAQ_ITEMS} />
-                </div>
+
+                <Accordion items={FAQ_ITEMS} />
             </section>
 
             <footer className="border-t border-slate-200 bg-white px-6 py-5">
