@@ -27,7 +27,7 @@ Here, the first row is for a component that is not a voltage source, such as a r
 ## Stamping
 The simulator algorithms construct the matrix iteratively via "stamping rules". For example, a resistor $R$ connected between nodes $i$ and $j$ introduced a current $I=(v_i - v_j)/R$. By Kirchhoff's current law, which states the current in must equal the current out (or, the sum of currents is equal to zero), this stamps an addition of $1/R$ into the diagonal elements $G_{ii}$ and $G_{jj}$ and subtracts $1/R$ from the off-diagonals $G_{ij}$ and $G_{ji}$.
 
-For AC analysis, the real-valued conductances are replaced with frequency-dependent complex admittances, $Y(\omega)$. A capacitor becomes $Y_C = j\omega C$ and an inductor becomes $Y_L = 1/(j\omega L)$, allowing the exact same stamping method to solve for phase shifts using complex numbers.
+For AC analysis, the real-valued conductances are replaced with frequency-dependent complex admittances, $Y(\omega)$. A capacitor becomes $Y_C = j\omega C$ and an inductor becomes $Y_L = 1/(j\omega L)$, allowing the same stamping method to solve for phase shifts using complex numbers.
 
 ## Transient Analysis
 Energy storing components like charging capacitors or RLC circuits are not instantaneous. To simulate time, the simulator implements numerical integration using the backward Euler method. A continuous differential equation such as $i(t)=C\frac{dv}{dt}$ is approximated over a discrete time step $\Delta t$:
@@ -47,7 +47,7 @@ Because the MNA formulation introduces $0$ entries on the main diagonal (specifi
 
 The simulator's transient analysis has been validated against physical RC circuits using a Hardware-in-the-Loop system. An Arduino Uno acquires live voltage measurements from breadboard circuits and transmits them to the simulator in real time, enabling direct comparison between theoretical and measured behaviour.
 
-Across three experiments (RC charging, leaky capacitor, RC discharge), systematic model refinement reduced RMSE by 90–93%. Residual error after refinement is bounded by ADC quantisation at 4.88mV resolution. This is a physical measurement floor, not a modelling limitation.
+Across three experiments (RC charging, leaky capacitor, RC discharge), systematic model refinement reduced RMSE by 51–91%. The residual varies by experiment: the discharge run's 51mV RMSE sits closest to the ADC's 4.88mV quantisation step, while charging (37mV) and the leaky capacitor (214mV) still carry error from capacitor and leakage modelling that further refinement could reduce.
 
 For full methodology, data, and analysis see [ANALYSIS.md](ANALYSIS.md).
 

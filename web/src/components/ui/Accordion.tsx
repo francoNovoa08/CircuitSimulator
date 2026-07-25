@@ -19,7 +19,7 @@ function AccordionItem({ question, answer, isOpen, onToggle }: {
         <div className="border-b border-slate-200 last:border-0 p-1">
             <button
                 onClick={onToggle}
-                className="w-full flex items-center justify-between py-4 text-left gap-4 cursor-pointer group"
+                className="w-full flex items-center justify-between py-4 text-left gap-4 cursor-pointer group rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
             >
                 <span className={`text-sm px-2 font-semibold transition-colors duration-200 ${isOpen ? 'text-slate-900' : 'text-slate-700 group-hover:text-slate-900'}`}>
                     {question}

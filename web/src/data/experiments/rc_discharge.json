@@ -1,7 +1,7 @@
 {
   "id": "rc_discharge",
   "title": "RC Discharge",
-  "description": "10k\u03a9 resistor, 105\u00b5F capacitor discharging from 4.78V initial condition. RMSE bounded by ADC quantisation floor of 4.88mV.",
+  "description": "10k\u03a9 resistor, 105\u00b5F capacitor discharging from 4.912V initial condition. RMSE closest of the three experiments to the ADC quantisation floor of 4.88mV.",
   "netlist": "R1 1 2 10000\nC1 2 0 105e-6 IC=4.912\nV1 1 0 0\n.TRAN 0.05 10\n",
   "tStep": 0.05,
   "tStop": 10.0,

@@ -100,7 +100,7 @@ export default function Home() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
+        <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-blue-100">
             <header className="bg-white border-b border-slate-200 px-6 py-3.5 anim-fade-in">
                 <div className="max-w-5xl mx-auto flex items-center gap-3">
                     <img
@@ -113,7 +113,7 @@ export default function Home() {
                     </span>
                     <button
                         onClick={handleScratch}
-                        className="ml-auto text-xs text-slate-500 border border-slate-200 px-3 py-1.5 rounded-md hover:bg-slate-50 transition-colors cursor-pointer"
+                        className="ml-auto text-xs text-slate-500 border border-slate-200 px-3 py-1.5 rounded-md hover:bg-slate-50 hover:border-slate-300 hover:text-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 transition-colors cursor-pointer"
                     >
                         Open lab →
                     </button>
@@ -155,7 +155,7 @@ export default function Home() {
                         >
                             <button
                                 onClick={handleScratch}
-                                className="inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-700 active:scale-[0.98] transition-all cursor-pointer"
+                                className="inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-700 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 shadow-sm hover:shadow transition-all cursor-pointer"
                             >
                                 <Pencil size={13} />
                                 Build your own circuit
@@ -166,7 +166,7 @@ export default function Home() {
                                         .getElementById("experiments")
                                         ?.scrollIntoView({ behavior: "smooth" })
                                 }
-                                className="text-sm text-slate-500 border border-slate-200 px-4 py-2.5 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer bg-white"
+                                className="text-sm text-slate-500 border border-slate-200 px-4 py-2.5 rounded-lg hover:bg-slate-50 hover:border-slate-300 hover:text-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 transition-colors cursor-pointer bg-white"
                             >
                                 View experiments ↓
                             </button>
@@ -179,7 +179,7 @@ export default function Home() {
                         style={{ animationDelay: "0.18s" }}
                     >
                         <p className="font-mono text-[10px] text-slate-500 mb-3 tracking-wider uppercase">
-                            RC Charging — 10kΩ · 105µF · 4.78V
+                            RC Charging — 10kΩ · 105µF · 4.951V
                         </p>
                         <svg width="100%" height="160" viewBox="0 0 320 160">
                             {[40, 80, 120].map((y) => (
@@ -304,7 +304,7 @@ export default function Home() {
                                 fontFamily="monospace"
                                 fontSize="7.5"
                             >
-                                RMSE 0.101V
+                                RMSE 0.037V
                             </text>
                         </svg>
                     </div>
@@ -319,30 +319,27 @@ export default function Home() {
                             num: "01",
                             title: "Draw",
                             body: "Place resistors, capacitors, and sources on a schematic canvas. Connect with wires.",
-                            dot: "bg-slate-400",
+                            circle: "bg-slate-100 text-slate-500",
                         },
                         {
                             num: "02",
                             title: "Simulate",
                             body: "A C++ MNA SPICE engine compiled to WebAssembly runs DC, AC, or transient analysis in your browser.",
-                            dot: "bg-emerald-500",
+                            circle: "bg-teal-100 text-teal-700",
                         },
                         {
                             num: "03",
                             title: "Compare",
                             body: "Overlay real Arduino measurements against the simulation curve, RMSE included.",
-                            dot: "bg-amber-500",
+                            circle: "bg-amber-100 text-amber-700",
                         },
-                    ].map(({ num, title, body, dot }, i, arr) => (
+                    ].map(({ num, title, body, circle }, i, arr) => (
                         <Fragment key={num}>
                             <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-3">
-                                    <span
-                                        className={`w-3.5 h-3.5 rounded-full ${dot}`}
-                                    />
-                                    <span className="font-mono text-[10px] font-bold text-slate-400 tracking-widest">
-                                        {num}
-                                    </span>
+                                <div
+                                    className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-[11px] font-bold mb-3 ${circle}`}
+                                >
+                                    {num}
                                 </div>
                                 <h3 className="font-bold text-slate-900 text-sm mb-1.5">
                                     {title}
@@ -352,7 +349,7 @@ export default function Home() {
                                 </p>
                             </div>
                             {i < arr.length - 1 && (
-                                <div className="w-8 h-px bg-slate-200 mt-[7px] shrink-0" />
+                                <div className="w-8 h-px bg-slate-200 mt-4 shrink-0" />
                             )}
                         </Fragment>
                     ))}
@@ -379,7 +376,7 @@ export default function Home() {
                             return (
                                 <div
                                     key={exp.id}
-                                    className="border border-slate-200 rounded-xl overflow-hidden flex flex-col"
+                                    className="border border-slate-200 rounded-xl overflow-hidden flex flex-col hover:border-teal-300 hover:shadow-sm transition-shadow"
                                 >
                                     <div className="p-5 flex flex-col gap-4 flex-1">
                                         <div>
@@ -391,42 +388,39 @@ export default function Home() {
                                             </p>
                                         </div>
                                         {style && (
-                                            <svg
-                                                width="100%"
-                                                height="48"
-                                                viewBox="0 0 200 48"
-                                                preserveAspectRatio="none"
-                                            >
-                                                <path
-                                                    d={style.sparkPath}
-                                                    fill="none"
-                                                    stroke="#10b981"
-                                                    strokeWidth="1.5"
-                                                />
-                                                <path
-                                                    d={style.sparkPathMeasured}
-                                                    fill="none"
-                                                    stroke="#f59e0b"
-                                                    strokeWidth="1"
-                                                    strokeDasharray="3 3"
-                                                    opacity="0.8"
-                                                />
-                                            </svg>
+                                            <div className="bg-slate-900 rounded-lg p-2">
+                                                <svg
+                                                    width="100%"
+                                                    height="48"
+                                                    viewBox="0 0 200 48"
+                                                    preserveAspectRatio="none"
+                                                >
+                                                    <path
+                                                        d={style.sparkPath}
+                                                        fill="none"
+                                                        stroke="#10b981"
+                                                        strokeWidth="1.5"
+                                                    />
+                                                    <path
+                                                        d={style.sparkPathMeasured}
+                                                        fill="none"
+                                                        stroke="#f59e0b"
+                                                        strokeWidth="1"
+                                                        strokeDasharray="3 3"
+                                                        opacity="0.8"
+                                                    />
+                                                </svg>
+                                            </div>
                                         )}
-                                        <div className="flex items-center justify-between mt-auto">
-                                            <div>
-                                                <p className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
-                                                    Final RMSE
-                                                </p>
-                                                <p className="font-mono font-bold text-amber-600 text-base">
-                                                    {exp.rmse.toFixed(3)} V
-                                                </p>
+                                        <div className="flex items-center justify-between mt-auto gap-3">
+                                            <div className="font-mono text-[11px] font-bold text-red-500 bg-red-50 border border-red-200 rounded px-2.5 py-1.5">
+                                                {exp.rmse.toFixed(3)} V
                                             </div>
                                             <button
                                                 onClick={() =>
                                                     handleLoadExperiment(exp.id)
                                                 }
-                                                className="inline-flex items-center gap-1.5 bg-slate-900 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-slate-700 active:scale-[0.97] transition-all cursor-pointer"
+                                                className="inline-flex items-center gap-1.5 bg-slate-900 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-slate-700 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 transition-all cursor-pointer"
                                             >
                                                 Load <ArrowRight size={11} />
                                             </button>
