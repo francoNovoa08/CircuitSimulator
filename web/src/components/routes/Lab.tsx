@@ -7,6 +7,7 @@ import ResultsPanel from "../panels/ResultsPanel";
 import SimulationPanel from "../panels/SimulationPanel";
 import ExperimentLoader from "../panels/ExperimentLoader";
 import DemoCircuits from "../panels/DemoCircuits";
+import TutorialModal from "../tutorial/TutorialModal";
 
 type Tool = ComponentType | "select" | "wire";
 
@@ -70,6 +71,8 @@ export default function Lab() {
                     </div>
                 </aside>
             </main>
+
+            <TutorialModal />
         </div>
     );
 }

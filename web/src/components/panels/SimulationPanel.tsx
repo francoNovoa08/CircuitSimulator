@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Play } from "lucide-react";
 import { useSimulationStore } from "../../store/simulationStore";
-import { useCircuitStore } from "../../store/circuitStore";
+import { hasGroundReference, useCircuitStore } from "../../store/circuitStore";
 import { runDC, runAC, runTransient } from "../../engine/simulator";
+import MissingGroundNotice from "./MissingGroundNotice";
 
 export default function SimulationPanel() {
     const {
@@ -17,6 +18,11 @@ export default function SimulationPanel() {
         setNodeLabels,
     } = useSimulationStore();
     const { generateNetlistWithLabels, components } = useCircuitStore();
+    const missingGround = useCircuitStore(
+        (s) =>
+            s.components.length > 0 &&
+            !hasGroundReference(s.components, s.wires),
+    );
     const [localError, setLocalError] = useState<string | null>(null);
 
     const handleRun = async () => {
@@ -144,12 +150,13 @@ export default function SimulationPanel() {
             </div>
 
             <div className="p-4 bg-white">
+                {missingGround && <MissingGroundNotice />}
                 {localError && (
                     <p className="text-xs text-red-600 mb-3">{localError}</p>
                 )}
                 <button
                     onClick={handleRun}
-                    disabled={loading}
+                    disabled={loading || missingGround}
                     className={[
                         "w-full flex items-center cursor-pointer justify-center gap-2 py-2.5 px-4 rounded-lg text-white font-semibold text-sm transition-all duration-200",
                         loading

@@ -115,7 +115,7 @@ export default function Home() {
                         onClick={handleScratch}
                         className="ml-auto text-xs text-slate-500 border border-slate-200 px-3 py-1.5 rounded-md hover:bg-slate-50 hover:border-slate-300 hover:text-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 transition-colors cursor-pointer"
                     >
-                        Open lab →
+                        Open lab
                     </button>
                 </div>
             </header>

@@ -21,7 +21,7 @@ const voltageDivider: DemoCircuit = {
     id: "voltage-divider",
     title: "Voltage Divider",
     caption:
-        "DC — two equal resistors split a 10 V source; midpoint node reads 5 V.",
+        "DC: two equal resistors split a 10 V source; midpoint node reads 5 V.",
     simParams: { analysisType: "dc" },
     components: [
         {
@@ -71,7 +71,7 @@ const rcCharging: DemoCircuit = {
     id: "rc-charging",
     title: "RC Charging",
     caption:
-        "Transient — capacitor charges toward 5 V with τ = RC = 1 ms; watch node R1−/C1+.",
+        "Transient: capacitor charges toward 5 V with τ = RC = 1 ms; watch node R1−/C1+.",
     simParams: {
         analysisType: "transient",
         tStep: 1e-5,
@@ -126,7 +126,7 @@ const rlcAC: DemoCircuit = {
     id: "rlc-ac",
     title: "RLC Series (AC)",
     caption:
-        "AC — series RLC at resonance (≈1592 Hz); inductor and capacitor impedances cancel.",
+        "AC: series RLC at resonance (≈1592 Hz); inductor and capacitor impedances cancel.",
     simParams: {
         analysisType: "ac",
         frequency: 1592,

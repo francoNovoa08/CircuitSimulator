@@ -21,11 +21,9 @@ async function safeCall<T>(call: () => T): Promise<T> {
         const result = call();
         return result;
     } catch (e) {
-        // Reset the module so next call gets a fresh WASM instance
         resetModule();
         if (e instanceof Error) throw e;
-        // Emscripten sometimes throws strings or ExitStatus objects
-        throw new Error("Simulation engine error — please try again.");
+        throw new Error("Simulation engine error, please try again.");
     }
 }
 

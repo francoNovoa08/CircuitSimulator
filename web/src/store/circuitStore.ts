@@ -55,6 +55,8 @@ interface CircuitState {
     loadSnapshot: (components: PlacedComponent[], wires: Wire[]) => void;
 }
 
+export const GROUND_NODE = 0;
+
 const counters: Record<ComponentType, number> = {
     resistor: 0,
     capacitor: 0,
@@ -84,6 +86,109 @@ const defaultValueMap: Record<ComponentType, number> = {
 
 function generateId(): string {
     return Math.random().toString(36).slice(2, 9);
+}
+
+type NodeResolver = (point: Point) => number;
+
+function pointKey(p: Point): string {
+    return `${p.x},${p.y}`;
+}
+
+function createNodeResolver(
+    components: PlacedComponent[],
+    wires: Wire[],
+): NodeResolver {
+    const parent = new Map<string, string>();
+
+    function find(key: string): string {
+        const current = parent.get(key);
+        if (current === undefined) {
+            parent.set(key, key);
+            return key;
+        }
+        if (current === key) return key;
+        const root = find(current);
+        parent.set(key, root);
+        return root;
+    }
+
+    for (const wire of wires) {
+        parent.set(find(pointKey(wire.from)), find(pointKey(wire.to)));
+    }
+
+    const groundRoots = new Set<string>();
+    for (const comp of components) {
+        if (comp.type === "ground") {
+            groundRoots.add(find(pointKey(comp.position)));
+        }
+    }
+
+    const nodeNumbers = new Map<string, number>();
+
+    return (point) => {
+        const root = find(pointKey(point));
+        if (groundRoots.has(root)) return GROUND_NODE;
+
+        let node = nodeNumbers.get(root);
+        if (node === undefined) {
+            node = nodeNumbers.size + 1;
+            nodeNumbers.set(root, node);
+        }
+        return node;
+    };
+}
+
+function buildNetlist(
+    components: PlacedComponent[],
+    wires: Wire[],
+    analysisLine: string,
+): { netlist: string; nodeLabels: Map<number, string> } {
+    const nodeFor = createNodeResolver(components, wires);
+    const nodeNames = new Map<number, Set<string>>();
+
+    function addName(node: number, name: string) {
+        if (node === GROUND_NODE) return;
+        const names = nodeNames.get(node) ?? new Set<string>();
+        names.add(name);
+        nodeNames.set(node, names);
+    }
+
+    const lines: string[] = [];
+    for (const comp of components) {
+        if (comp.type === "ground") continue;
+        const [pos, neg] = getTerminals(comp);
+        const nodePos = nodeFor(pos);
+        const nodeNeg = nodeFor(neg);
+
+        addName(nodePos, `${comp.name}+`);
+        addName(nodeNeg, `${comp.name}-`);
+
+        let line = `${comp.name} ${nodePos} ${nodeNeg} ${comp.value}`;
+        if (comp.type === "capacitor" && comp.initialVoltage !== undefined) {
+            line += ` IC=${comp.initialVoltage}`;
+        }
+        lines.push(line);
+    }
+    lines.push(analysisLine);
+
+    const nodeLabels = new Map<number, string>();
+    for (const [node, names] of nodeNames) {
+        nodeLabels.set(node, [...names].join(" / "));
+    }
+
+    return { netlist: lines.join("\n") + "\n", nodeLabels };
+}
+
+export function hasGroundReference(
+    components: PlacedComponent[],
+    wires: Wire[],
+): boolean {
+    const nodeFor = createNodeResolver(components, wires);
+    return components.some(
+        (comp) =>
+            comp.type !== "ground" &&
+            getTerminals(comp).some((t) => nodeFor(t) === GROUND_NODE),
+    );
 }
 
 export const useCircuitStore = create<CircuitState>((set, get) => ({
@@ -170,173 +275,12 @@ export const useCircuitStore = create<CircuitState>((set, get) => ({
 
     generateNetlist(analysisLine) {
         const { components, wires } = get();
-
-        // Assign node numbers by finding connected groups of wire endpoints
-        // and component terminals. Ground nodes are always node 0.
-        const allPoints: Point[] = [];
-
-        for (const comp of components) {
-            if (comp.type === "ground") continue;
-            const [p, n] = getTerminals(comp);
-            allPoints.push(p, n);
-        }
-        for (const wire of wires) {
-            allPoints.push(wire.from, wire.to);
-        }
-
-        // Union-find to group connected points
-        const parent = new Map<string, string>();
-
-        function key(p: Point) {
-            return `${p.x},${p.y}`;
-        }
-
-        function find(k: string): string {
-            if (parent.get(k) !== k) parent.set(k, find(parent.get(k)!));
-            return parent.get(k)!;
-        }
-
-        function union(a: string, b: string) {
-            parent.set(find(a), find(b));
-        }
-
-        for (const p of allPoints) {
-            const k = key(p);
-            if (!parent.has(k)) parent.set(k, k);
-        }
-
-        for (const wire of wires) {
-            union(key(wire.from), key(wire.to));
-        }
-
-        const groundKeys = new Set<string>();
-        for (const comp of components) {
-            if (comp.type === "ground") {
-                const gKey = key(comp.position);
-                if (!parent.has(gKey)) parent.set(gKey, gKey);
-                groundKeys.add(find(gKey));
-            }
-        }
-
-        const nodeMap = new Map<string, number>();
-        let nextNode = 1;
-
-        function nodeFor(p: Point): number {
-            const root = find(key(p));
-            if (groundKeys.has(root)) return 0;
-            if (!nodeMap.has(root)) nodeMap.set(root, nextNode++);
-            return nodeMap.get(root)!;
-        }
-
-        const lines: string[] = [];
-
-        for (const comp of components) {
-            if (comp.type === "ground") continue;
-            const [pos, neg] = getTerminals(comp);
-            const nodePos = nodeFor(pos);
-            const nodeNeg = nodeFor(neg);
-
-            let line = `${comp.name} ${nodePos} ${nodeNeg} ${comp.value}`;
-            if (
-                comp.type === "capacitor" &&
-                comp.initialVoltage !== undefined
-            ) {
-                line += ` IC=${comp.initialVoltage}`;
-            }
-            lines.push(line);
-        }
-
-        lines.push(analysisLine);
-        return lines.join("\n") + "\n";
+        return buildNetlist(components, wires, analysisLine).netlist;
     },
 
     generateNetlistWithLabels(analysisLine) {
         const { components, wires } = get();
-
-        const allPoints: Point[] = [];
-        for (const comp of components) {
-            if (comp.type === "ground") continue;
-            const [p, n] = getTerminals(comp);
-            allPoints.push(p, n);
-        }
-        for (const wire of wires) {
-            allPoints.push(wire.from, wire.to);
-        }
-
-        const parent = new Map<string, string>();
-        function key(p: Point) {
-            return `${p.x},${p.y}`;
-        }
-        function find(k: string): string {
-            if (parent.get(k) !== k) parent.set(k, find(parent.get(k)!));
-            return parent.get(k)!;
-        }
-        function union(a: string, b: string) {
-            parent.set(find(a), find(b));
-        }
-
-        for (const p of allPoints) {
-            const k = key(p);
-            if (!parent.has(k)) parent.set(k, k);
-        }
-        for (const wire of wires) {
-            union(key(wire.from), key(wire.to));
-        }
-
-        const groundKeys = new Set<string>();
-        for (const comp of components) {
-            if (comp.type === "ground") {
-                const gKey = key(comp.position);
-                if (!parent.has(gKey)) parent.set(gKey, gKey);
-                groundKeys.add(find(gKey));
-            }
-        }
-
-        const nodeMap = new Map<string, number>();
-        let nextNode = 1;
-        function nodeFor(p: Point): number {
-            const root = find(key(p));
-            if (groundKeys.has(root)) return 0;
-            if (!nodeMap.has(root)) nodeMap.set(root, nextNode++);
-            return nodeMap.get(root)!;
-        }
-
-        const nodeNames = new Map<number, string[]>();
-        function addName(node: number, name: string) {
-            if (node === 0) return;
-            if (!nodeNames.has(node)) nodeNames.set(node, []);
-            nodeNames.get(node)!.push(name);
-        }
-
-        const lines: string[] = [];
-        for (const comp of components) {
-            if (comp.type === "ground") continue;
-            const [pos, neg] = getTerminals(comp);
-            const nodePos = nodeFor(pos);
-            const nodeNeg = nodeFor(neg);
-
-            addName(nodePos, `${comp.name}+`);
-            addName(nodeNeg, `${comp.name}-`);
-
-            let line = `${comp.name} ${nodePos} ${nodeNeg} ${comp.value}`;
-            if (
-                comp.type === "capacitor" &&
-                comp.initialVoltage !== undefined
-            ) {
-                line += ` IC=${comp.initialVoltage}`;
-            }
-            lines.push(line);
-        }
-
-        lines.push(analysisLine);
-        const netlist = lines.join("\n") + "\n";
-
-        const nodeLabels = new Map<number, string>();
-        for (const [node, names] of nodeNames) {
-            nodeLabels.set(node, [...new Set(names)].join(" / "));
-        }
-
-        return { netlist, nodeLabels };
+        return buildNetlist(components, wires, analysisLine);
     },
 
     loadSnapshot(components, wires) {

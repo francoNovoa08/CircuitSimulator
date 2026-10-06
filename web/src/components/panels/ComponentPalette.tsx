@@ -1,5 +1,7 @@
 import type { JSX } from "react";
+import { CircleHelp } from "lucide-react";
 import type { ComponentType } from "../../store/circuitStore";
+import { useTutorialStore } from "../../store/tutorialStore";
 
 type Tool = ComponentType | "select" | "wire";
 
@@ -210,14 +212,23 @@ const tools: ToolDef[] = [
 ];
 
 export default function ComponentPalette({ activeTool, onToolChange }: Props) {
+    const openTutorial = useTutorialStore((s) => s.open);
     let lastSection = "";
 
     return (
         <aside className="w-64 shrink-0 bg-white border-r border-slate-200 flex flex-col overflow-y-auto shadow-[2px_0_8px_-4px_rgba(0,0,0,0.05)] z-10">
-            <div className="px-4 pb-1 pt-2 border-b border-slate-100 bg-slate-50/50">
+            <div className="flex items-center justify-between pl-4 pr-3 py-1.5 border-b border-slate-100 bg-slate-50/50">
                 <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
                     Components
                 </h2>
+                <button
+                    onClick={() => openTutorial()}
+                    title="Open the lab guide"
+                    aria-label="Open the lab guide"
+                    className="p-1 rounded-md text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors cursor-pointer"
+                >
+                    <CircleHelp size={15} />
+                </button>
             </div>
 
             <div className="flex flex-col px-4 py-1 gap-1.5">
@@ -229,7 +240,7 @@ export default function ComponentPalette({ activeTool, onToolChange }: Props) {
                     return (
                         <div key={t.id}>
                             {showSection && (
-                                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 pt-5 pb-2">
+                                <p className="text-[10px] font-bold tracking-wider text-slate-400 pt-5 pb-2">
                                     {t.section}
                                 </p>
                             )}
