@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Converts HIL CSV output from the C++ simulator to experiment JSON files
 for the web frontend.
@@ -11,7 +10,6 @@ Expects CSV files in tools/hil_data/ and writes JSON to web/src/data/experiments
 
 import csv
 import json
-import os
 from pathlib import Path
 
 OUTPUT_DIR = Path("web/src/data/experiments")
@@ -37,7 +35,18 @@ EXPERIMENTS = [
         "netlist": "R1 1 2 10000\nC1 2 0 105e-6 IC=4.912\nV1 1 0 0\n.TRAN 0.05 10\n",
         "tStep": 0.05,
         "tStop": 10.0,
-        "rmse": 0.051,
+        "rmse": 0.028,
+        "node_of_interest": 2,
+    },
+    {
+        "id": "rc_leaky",
+        "title": "RC Charging, Leaky Capacitor",
+        "description": "Charging a nominal 1000 µF capacitor via 10 kΩ at 4.951 V revealed unstable leakage: consecutive fits shifted from 1132 µF / 20 kΩ to 914 µF / 10 kΩ minutes apart. Root cause is pending.",
+        "csv": "leaky_run1.csv",
+        "netlist": "R1 1 2 10000\nC1 2 0 1132e-6 IC=0\nR_leak 2 0 20000\nV1 1 0 4.951\n.TRAN 0.05 90\n",
+        "tStep": 0.05,
+        "tStop": 90.0,
+        "rmse": 0.081,
         "node_of_interest": 2,
     },
 ]

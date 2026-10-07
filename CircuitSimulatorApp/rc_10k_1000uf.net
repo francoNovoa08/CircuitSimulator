@@ -1,7 +1,5 @@
-* RC circuit: 10kOhm, 1000uF with leakage, 4.78V supply
-* R_leak models capacitor leakage current
-V1 2 0 4.78
+* RC circuit: 10 kOhm, 1000 uF, 5.0 V supply
+V1 2 0 5.0
 R1 2 1 10000
-C1 1 0 0.00068
-R_leak 1 0 17800
-.tran 0.1 300.0
+C1 1 0 0.001
+.tran 0.05 90.0

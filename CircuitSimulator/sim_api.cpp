@@ -7,6 +7,10 @@
 #include <cstring>
 #include <cmath>
 
+namespace {
+    constexpr double kPi = 3.14159265358979323846;
+}
+
 static std::string g_result; 
 
 static std::string errorJson(const std::string& msg) {
@@ -74,7 +78,7 @@ extern "C" {
                 if (i > 0) json << ",";
                 json << "{\"node\":" << (i + 1)
                     << ",\"magnitude\":" << std::abs(x[i])
-                    << ",\"phase\":" << (std::arg(x[i]) * 180.0 / M_PI) << "}";
+                    << ",\"phase\":" << (std::arg(x[i]) * 180.0 / kPi) << "}";
             }
             json << "]}";
             g_result = json.str();

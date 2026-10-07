@@ -5,7 +5,7 @@
   "netlist": "R1 1 2 10000\nC1 2 0 105e-6 IC=4.912\nV1 1 0 0\n.TRAN 0.05 10\n",
   "tStep": 0.05,
   "tStop": 10.0,
-  "rmse": 0.051,
+  "rmse": 0.028,
   "nodeOfInterest": 2,
   "measured": [
     {

@@ -1,9 +1,11 @@
 import rcCharging from './rc_charging.json';
 import rcDischarge from './rc_discharge.json';
+import rcLeaky from './rc_leaky.json'
 import type { Experiment } from './types';
 
 export const experiments: Experiment[] = [
     rcCharging as Experiment,
+    rcLeaky as Experiment,
     rcDischarge as Experiment,
 ];
 

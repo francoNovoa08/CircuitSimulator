@@ -1,4 +1,4 @@
-# Usage: python refinement.py hil_data/charging.csv hil_data/discharge.csv out.png
+# Usage: python create_.py hil_data/charging.csv hil_data/discharge.csv out.png
 
 import csv
 import math

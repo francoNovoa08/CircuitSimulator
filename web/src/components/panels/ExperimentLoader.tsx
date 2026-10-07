@@ -6,6 +6,7 @@ import { FlaskConical, ChevronDown, ChevronUp, Download } from "lucide-react";
 
 const CSV_FILE_MAP: Record<string, string> = {
     rc_charging: "charging.csv",
+    rc_leaky: "leaky.csv",
     rc_discharge: "discharge.csv",
 };
 

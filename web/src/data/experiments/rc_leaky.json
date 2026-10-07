@@ -1,0 +1,7100 @@
+{
+  "id": "rc_leaky",
+  "title": "RC Charging, Leaky Capacitor",
+  "description": "Charging a nominal 1000 \u00b5F capacitor via 10 k\u03a9 at 4.951 V revealed unstable leakage: consecutive fits shifted from 1132 \u00b5F / 20 k\u03a9 to 914 \u00b5F / 10 k\u03a9 minutes apart. Root cause is pending.",
+  "netlist": "R1 1 2 10000\nC1 2 0 1132e-6 IC=0\nR_leak 2 0 20000\nV1 1 0 4.951\n.TRAN 0.05 90\n",
+  "tStep": 0.05,
+  "tStop": 90.0,
+  "rmse": 0.081,
+  "nodeOfInterest": 2,
+  "measured": [
+    {
+      "time_ms": 0.0,
+      "voltage": 0.0
+    },
+    {
+      "time_ms": 51.0,
+      "voltage": 0.0147
+    },
+    {
+      "time_ms": 102.0,
+      "voltage": 0.0342
+    },
+    {
+      "time_ms": 152.0,
+      "voltage": 0.0538
+    },
+    {
+      "time_ms": 203.0,
+      "voltage": 0.0733
+    },
+    {
+      "time_ms": 253.0,
+      "voltage": 0.088
+    },
+    {
+      "time_ms": 305.0,
+      "voltage": 0.1075
+    },
+    {
+      "time_ms": 355.0,
+      "voltage": 0.1271
+    },
+    {
+      "time_ms": 406.0,
+      "voltage": 0.1417
+    },
+    {
+      "time_ms": 456.0,
+      "voltage": 0.1613
+    },
+    {
+      "time_ms": 507.0,
+      "voltage": 0.176
+    },
+    {
+      "time_ms": 557.0,
+      "voltage": 0.1955
+    },
+    {
+      "time_ms": 609.0,
+      "voltage": 0.2151
+    },
+    {
+      "time_ms": 660.0,
+      "voltage": 0.2297
+    },
+    {
+      "time_ms": 710.0,
+      "voltage": 0.2493
+    },
+    {
+      "time_ms": 761.0,
+      "voltage": 0.2639
+    },
+    {
+      "time_ms": 811.0,
+      "voltage": 0.2835
+    },
+    {
+      "time_ms": 863.0,
+      "voltage": 0.2981
+    },
+    {
+      "time_ms": 913.0,
+      "voltage": 0.3177
+    },
+    {
+      "time_ms": 964.0,
+      "voltage": 0.3324
+    },
+    {
+      "time_ms": 1014.0,
+      "voltage": 0.3519
+    },
+    {
+      "time_ms": 1065.0,
+      "voltage": 0.3666
+    },
+    {
+      "time_ms": 1116.0,
+      "voltage": 0.3812
+    },
+    {
+      "time_ms": 1167.0,
+      "voltage": 0.4008
+    },
+    {
+      "time_ms": 1218.0,
+      "voltage": 0.4154
+    },
+    {
+      "time_ms": 1268.0,
+      "voltage": 0.435
+    },
+    {
+      "time_ms": 1319.0,
+      "voltage": 0.4497
+    },
+    {
+      "time_ms": 1370.0,
+      "voltage": 0.4643
+    },
+    {
+      "time_ms": 1421.0,
+      "voltage": 0.4839
+    },
+    {
+      "time_ms": 1471.0,
+      "voltage": 0.4985
+    },
+    {
+      "time_ms": 1522.0,
+      "voltage": 0.5132
+    },
+    {
+      "time_ms": 1573.0,
+      "voltage": 0.5279
+    },
+    {
+      "time_ms": 1623.0,
+      "voltage": 0.5474
+    },
+    {
+      "time_ms": 1675.0,
+      "voltage": 0.5621
+    },
+    {
+      "time_ms": 1725.0,
+      "voltage": 0.5767
+    },
+    {
+      "time_ms": 1776.0,
+      "voltage": 0.5914
+    },
+    {
+      "time_ms": 1826.0,
+      "voltage": 0.6109
+    },
+    {
+      "time_ms": 1877.0,
+      "voltage": 0.6256
+    },
+    {
+      "time_ms": 1929.0,
+      "voltage": 0.6403
+    },
+    {
+      "time_ms": 1979.0,
+      "voltage": 0.6549
+    },
+    {
+      "time_ms": 2030.0,
+      "voltage": 0.6696
+    },
+    {
+      "time_ms": 2080.0,
+      "voltage": 0.6843
+    },
+    {
+      "time_ms": 2131.0,
+      "voltage": 0.7038
+    },
+    {
+      "time_ms": 2182.0,
+      "voltage": 0.7136
+    },
+    {
+      "time_ms": 2233.0,
+      "voltage": 0.7331
+    },
+    {
+      "time_ms": 2284.0,
+      "voltage": 0.7478
+    },
+    {
+      "time_ms": 2334.0,
+      "voltage": 0.7625
+    },
+    {
+      "time_ms": 2385.0,
+      "voltage": 0.7771
+    },
+    {
+      "time_ms": 2435.0,
+      "voltage": 0.7918
+    },
+    {
+      "time_ms": 2487.0,
+      "voltage": 0.8065
+    },
+    {
+      "time_ms": 2538.0,
+      "voltage": 0.8211
+    },
+    {
+      "time_ms": 2588.0,
+      "voltage": 0.8358
+    },
+    {
+      "time_ms": 2639.0,
+      "voltage": 0.8504
+    },
+    {
+      "time_ms": 2689.0,
+      "voltage": 0.8651
+    },
+    {
+      "time_ms": 2741.0,
+      "voltage": 0.8798
+    },
+    {
+      "time_ms": 2791.0,
+      "voltage": 0.8944
+    },
+    {
+      "time_ms": 2842.0,
+      "voltage": 0.9042
+    },
+    {
+      "time_ms": 2893.0,
+      "voltage": 0.9189
+    },
+    {
+      "time_ms": 2943.0,
+      "voltage": 0.9335
+    },
+    {
+      "time_ms": 2995.0,
+      "voltage": 0.9482
+    },
+    {
+      "time_ms": 3045.0,
+      "voltage": 0.9629
+    },
+    {
+      "time_ms": 3096.0,
+      "voltage": 0.9775
+    },
+    {
+      "time_ms": 3146.0,
+      "voltage": 0.9873
+    },
+    {
+      "time_ms": 3197.0,
+      "voltage": 1.002
+    },
+    {
+      "time_ms": 3249.0,
+      "voltage": 1.0166
+    },
+    {
+      "time_ms": 3299.0,
+      "voltage": 1.0313
+    },
+    {
+      "time_ms": 3350.0,
+      "voltage": 1.0459
+    },
+    {
+      "time_ms": 3400.0,
+      "voltage": 1.0557
+    },
+    {
+      "time_ms": 3451.0,
+      "voltage": 1.0704
+    },
+    {
+      "time_ms": 3501.0,
+      "voltage": 1.085
+    },
+    {
+      "time_ms": 3553.0,
+      "voltage": 1.0997
+    },
+    {
+      "time_ms": 3604.0,
+      "voltage": 1.1144
+    },
+    {
+      "time_ms": 3654.0,
+      "voltage": 1.1241
+    },
+    {
+      "time_ms": 3705.0,
+      "voltage": 1.1388
+    },
+    {
+      "time_ms": 3755.0,
+      "voltage": 1.1535
+    },
+    {
+      "time_ms": 3807.0,
+      "voltage": 1.1632
+    },
+    {
+      "time_ms": 3858.0,
+      "voltage": 1.1779
+    },
+    {
+      "time_ms": 3908.0,
+      "voltage": 1.1926
+    },
+    {
+      "time_ms": 3959.0,
+      "voltage": 1.2023
+    },
+    {
+      "time_ms": 4009.0,
+      "voltage": 1.217
+    },
+    {
+      "time_ms": 4061.0,
+      "voltage": 1.2268
+    },
+    {
+      "time_ms": 4111.0,
+      "voltage": 1.2414
+    },
+    {
+      "time_ms": 4162.0,
+      "voltage": 1.2561
+    },
+    {
+      "time_ms": 4213.0,
+      "voltage": 1.2659
+    },
+    {
+      "time_ms": 4263.0,
+      "voltage": 1.2805
+    },
+    {
+      "time_ms": 4315.0,
+      "voltage": 1.2903
+    },
+    {
+      "time_ms": 4365.0,
+      "voltage": 1.305
+    },
+    {
+      "time_ms": 4416.0,
+      "voltage": 1.3196
+    },
+    {
+      "time_ms": 4467.0,
+      "voltage": 1.3294
+    },
+    {
+      "time_ms": 4517.0,
+      "voltage": 1.3441
+    },
+    {
+      "time_ms": 4568.0,
+      "voltage": 1.3539
+    },
+    {
+      "time_ms": 4619.0,
+      "voltage": 1.3685
+    },
+    {
+      "time_ms": 4670.0,
+      "voltage": 1.3783
+    },
+    {
+      "time_ms": 4720.0,
+      "voltage": 1.3881
+    },
+    {
+      "time_ms": 4771.0,
+      "voltage": 1.4027
+    },
+    {
+      "time_ms": 4822.0,
+      "voltage": 1.4125
+    },
+    {
+      "time_ms": 4873.0,
+      "voltage": 1.4272
+    },
+    {
+      "time_ms": 4924.0,
+      "voltage": 1.437
+    },
+    {
+      "time_ms": 4974.0,
+      "voltage": 1.4516
+    },
+    {
+      "time_ms": 5025.0,
+      "voltage": 1.4614
+    },
+    {
+      "time_ms": 5076.0,
+      "voltage": 1.4712
+    },
+    {
+      "time_ms": 5127.0,
+      "voltage": 1.4858
+    },
+    {
+      "time_ms": 5178.0,
+      "voltage": 1.4956
+    },
+    {
+      "time_ms": 5228.0,
+      "voltage": 1.5054
+    },
+    {
+      "time_ms": 5279.0,
+      "voltage": 1.52
+    },
+    {
+      "time_ms": 5330.0,
+      "voltage": 1.5298
+    },
+    {
+      "time_ms": 5381.0,
+      "voltage": 1.5396
+    },
+    {
+      "time_ms": 5432.0,
+      "voltage": 1.5543
+    },
+    {
+      "time_ms": 5482.0,
+      "voltage": 1.564
+    },
+    {
+      "time_ms": 5533.0,
+      "voltage": 1.5738
+    },
+    {
+      "time_ms": 5583.0,
+      "voltage": 1.5885
+    },
+    {
+      "time_ms": 5634.0,
+      "voltage": 1.5982
+    },
+    {
+      "time_ms": 5686.0,
+      "voltage": 1.608
+    },
+    {
+      "time_ms": 5736.0,
+      "voltage": 1.6178
+    },
+    {
+      "time_ms": 5787.0,
+      "voltage": 1.6325
+    },
+    {
+      "time_ms": 5837.0,
+      "voltage": 1.6422
+    },
+    {
+      "time_ms": 5888.0,
+      "voltage": 1.652
+    },
+    {
+      "time_ms": 5940.0,
+      "voltage": 1.6618
+    },
+    {
+      "time_ms": 5990.0,
+      "voltage": 1.6716
+    },
+    {
+      "time_ms": 6041.0,
+      "voltage": 1.6813
+    },
+    {
+      "time_ms": 6091.0,
+      "voltage": 1.696
+    },
+    {
+      "time_ms": 6142.0,
+      "voltage": 1.7058
+    },
+    {
+      "time_ms": 6193.0,
+      "voltage": 1.7155
+    },
+    {
+      "time_ms": 6244.0,
+      "voltage": 1.7253
+    },
+    {
+      "time_ms": 6295.0,
+      "voltage": 1.7351
+    },
+    {
+      "time_ms": 6345.0,
+      "voltage": 1.7449
+    },
+    {
+      "time_ms": 6396.0,
+      "voltage": 1.7546
+    },
+    {
+      "time_ms": 6447.0,
+      "voltage": 1.7644
+    },
+    {
+      "time_ms": 6498.0,
+      "voltage": 1.7791
+    },
+    {
+      "time_ms": 6549.0,
+      "voltage": 1.7889
+    },
+    {
+      "time_ms": 6599.0,
+      "voltage": 1.7986
+    },
+    {
+      "time_ms": 6650.0,
+      "voltage": 1.8084
+    },
+    {
+      "time_ms": 6700.0,
+      "voltage": 1.8182
+    },
+    {
+      "time_ms": 6752.0,
+      "voltage": 1.828
+    },
+    {
+      "time_ms": 6802.0,
+      "voltage": 1.8377
+    },
+    {
+      "time_ms": 6853.0,
+      "voltage": 1.8475
+    },
+    {
+      "time_ms": 6904.0,
+      "voltage": 1.8573
+    },
+    {
+      "time_ms": 6954.0,
+      "voltage": 1.8671
+    },
+    {
+      "time_ms": 7006.0,
+      "voltage": 1.8768
+    },
+    {
+      "time_ms": 7056.0,
+      "voltage": 1.8866
+    },
+    {
+      "time_ms": 7107.0,
+      "voltage": 1.8964
+    },
+    {
+      "time_ms": 7158.0,
+      "voltage": 1.9062
+    },
+    {
+      "time_ms": 7208.0,
+      "voltage": 1.9159
+    },
+    {
+      "time_ms": 7260.0,
+      "voltage": 1.9257
+    },
+    {
+      "time_ms": 7310.0,
+      "voltage": 1.9306
+    },
+    {
+      "time_ms": 7361.0,
+      "voltage": 1.9404
+    },
+    {
+      "time_ms": 7412.0,
+      "voltage": 1.9501
+    },
+    {
+      "time_ms": 7462.0,
+      "voltage": 1.9599
+    },
+    {
+      "time_ms": 7514.0,
+      "voltage": 1.9697
+    },
+    {
+      "time_ms": 7564.0,
+      "voltage": 1.9795
+    },
+    {
+      "time_ms": 7615.0,
+      "voltage": 1.9892
+    },
+    {
+      "time_ms": 7665.0,
+      "voltage": 1.999
+    },
+    {
+      "time_ms": 7716.0,
+      "voltage": 2.0088
+    },
+    {
+      "time_ms": 7767.0,
+      "voltage": 2.0186
+    },
+    {
+      "time_ms": 7818.0,
+      "voltage": 2.0235
+    },
+    {
+      "time_ms": 7869.0,
+      "voltage": 2.0332
+    },
+    {
+      "time_ms": 7919.0,
+      "voltage": 2.043
+    },
+    {
+      "time_ms": 7970.0,
+      "voltage": 2.0528
+    },
+    {
+      "time_ms": 8020.0,
+      "voltage": 2.0626
+    },
+    {
+      "time_ms": 8072.0,
+      "voltage": 2.0674
+    },
+    {
+      "time_ms": 8123.0,
+      "voltage": 2.0772
+    },
+    {
+      "time_ms": 8173.0,
+      "voltage": 2.087
+    },
+    {
+      "time_ms": 8224.0,
+      "voltage": 2.0968
+    },
+    {
+      "time_ms": 8274.0,
+      "voltage": 2.1017
+    },
+    {
+      "time_ms": 8326.0,
+      "voltage": 2.1114
+    },
+    {
+      "time_ms": 8377.0,
+      "voltage": 2.1212
+    },
+    {
+      "time_ms": 8427.0,
+      "voltage": 2.131
+    },
+    {
+      "time_ms": 8478.0,
+      "voltage": 2.1359
+    },
+    {
+      "time_ms": 8528.0,
+      "voltage": 2.1457
+    },
+    {
+      "time_ms": 8579.0,
+      "voltage": 2.1554
+    },
+    {
+      "time_ms": 8630.0,
+      "voltage": 2.1652
+    },
+    {
+      "time_ms": 8681.0,
+      "voltage": 2.1701
+    },
+    {
+      "time_ms": 8732.0,
+      "voltage": 2.1799
+    },
+    {
+      "time_ms": 8782.0,
+      "voltage": 2.1848
+    },
+    {
+      "time_ms": 8833.0,
+      "voltage": 2.1945
+    },
+    {
+      "time_ms": 8884.0,
+      "voltage": 2.2043
+    },
+    {
+      "time_ms": 8935.0,
+      "voltage": 2.2141
+    },
+    {
+      "time_ms": 8986.0,
+      "voltage": 2.219
+    },
+    {
+      "time_ms": 9036.0,
+      "voltage": 2.2287
+    },
+    {
+      "time_ms": 9087.0,
+      "voltage": 2.2336
+    },
+    {
+      "time_ms": 9138.0,
+      "voltage": 2.2434
+    },
+    {
+      "time_ms": 9189.0,
+      "voltage": 2.2483
+    },
+    {
+      "time_ms": 9240.0,
+      "voltage": 2.2581
+    },
+    {
+      "time_ms": 9290.0,
+      "voltage": 2.263
+    },
+    {
+      "time_ms": 9341.0,
+      "voltage": 2.2727
+    },
+    {
+      "time_ms": 9392.0,
+      "voltage": 2.2825
+    },
+    {
+      "time_ms": 9443.0,
+      "voltage": 2.2874
+    },
+    {
+      "time_ms": 9493.0,
+      "voltage": 2.2972
+    },
+    {
+      "time_ms": 9544.0,
+      "voltage": 2.3021
+    },
+    {
+      "time_ms": 9595.0,
+      "voltage": 2.3118
+    },
+    {
+      "time_ms": 9645.0,
+      "voltage": 2.3216
+    },
+    {
+      "time_ms": 9697.0,
+      "voltage": 2.3265
+    },
+    {
+      "time_ms": 9747.0,
+      "voltage": 2.3363
+    },
+    {
+      "time_ms": 9798.0,
+      "voltage": 2.3412
+    },
+    {
+      "time_ms": 9849.0,
+      "voltage": 2.3509
+    },
+    {
+      "time_ms": 9899.0,
+      "voltage": 2.3558
+    },
+    {
+      "time_ms": 9951.0,
+      "voltage": 2.3656
+    },
+    {
+      "time_ms": 10001.0,
+      "voltage": 2.3705
+    },
+    {
+      "time_ms": 10052.0,
+      "voltage": 2.3803
+    },
+    {
+      "time_ms": 10103.0,
+      "voltage": 2.3851
+    },
+    {
+      "time_ms": 10153.0,
+      "voltage": 2.39
+    },
+    {
+      "time_ms": 10205.0,
+      "voltage": 2.3998
+    },
+    {
+      "time_ms": 10255.0,
+      "voltage": 2.4047
+    },
+    {
+      "time_ms": 10306.0,
+      "voltage": 2.4096
+    },
+    {
+      "time_ms": 10357.0,
+      "voltage": 2.4194
+    },
+    {
+      "time_ms": 10407.0,
+      "voltage": 2.4242
+    },
+    {
+      "time_ms": 10459.0,
+      "voltage": 2.434
+    },
+    {
+      "time_ms": 10510.0,
+      "voltage": 2.4389
+    },
+    {
+      "time_ms": 10560.0,
+      "voltage": 2.4438
+    },
+    {
+      "time_ms": 10611.0,
+      "voltage": 2.4536
+    },
+    {
+      "time_ms": 10661.0,
+      "voltage": 2.4585
+    },
+    {
+      "time_ms": 10712.0,
+      "voltage": 2.4682
+    },
+    {
+      "time_ms": 10764.0,
+      "voltage": 2.4731
+    },
+    {
+      "time_ms": 10814.0,
+      "voltage": 2.478
+    },
+    {
+      "time_ms": 10865.0,
+      "voltage": 2.4878
+    },
+    {
+      "time_ms": 10916.0,
+      "voltage": 2.4927
+    },
+    {
+      "time_ms": 10966.0,
+      "voltage": 2.4976
+    },
+    {
+      "time_ms": 11018.0,
+      "voltage": 2.5073
+    },
+    {
+      "time_ms": 11068.0,
+      "voltage": 2.5122
+    },
+    {
+      "time_ms": 11119.0,
+      "voltage": 2.5171
+    },
+    {
+      "time_ms": 11170.0,
+      "voltage": 2.522
+    },
+    {
+      "time_ms": 11220.0,
+      "voltage": 2.5318
+    },
+    {
+      "time_ms": 11272.0,
+      "voltage": 2.5367
+    },
+    {
+      "time_ms": 11323.0,
+      "voltage": 2.5415
+    },
+    {
+      "time_ms": 11373.0,
+      "voltage": 2.5464
+    },
+    {
+      "time_ms": 11424.0,
+      "voltage": 2.5562
+    },
+    {
+      "time_ms": 11474.0,
+      "voltage": 2.5611
+    },
+    {
+      "time_ms": 11526.0,
+      "voltage": 2.566
+    },
+    {
+      "time_ms": 11577.0,
+      "voltage": 2.5758
+    },
+    {
+      "time_ms": 11627.0,
+      "voltage": 2.5806
+    },
+    {
+      "time_ms": 11678.0,
+      "voltage": 2.5855
+    },
+    {
+      "time_ms": 11729.0,
+      "voltage": 2.5904
+    },
+    {
+      "time_ms": 11779.0,
+      "voltage": 2.6002
+    },
+    {
+      "time_ms": 11831.0,
+      "voltage": 2.6051
+    },
+    {
+      "time_ms": 11881.0,
+      "voltage": 2.61
+    },
+    {
+      "time_ms": 11932.0,
+      "voltage": 2.6149
+    },
+    {
+      "time_ms": 11983.0,
+      "voltage": 2.6197
+    },
+    {
+      "time_ms": 12033.0,
+      "voltage": 2.6295
+    },
+    {
+      "time_ms": 12085.0,
+      "voltage": 2.6295
+    },
+    {
+      "time_ms": 12136.0,
+      "voltage": 2.6344
+    },
+    {
+      "time_ms": 12186.0,
+      "voltage": 2.6442
+    },
+    {
+      "time_ms": 12237.0,
+      "voltage": 2.6491
+    },
+    {
+      "time_ms": 12287.0,
+      "voltage": 2.654
+    },
+    {
+      "time_ms": 12339.0,
+      "voltage": 2.6588
+    },
+    {
+      "time_ms": 12390.0,
+      "voltage": 2.6637
+    },
+    {
+      "time_ms": 12440.0,
+      "voltage": 2.6686
+    },
+    {
+      "time_ms": 12491.0,
+      "voltage": 2.6735
+    },
+    {
+      "time_ms": 12542.0,
+      "voltage": 2.6784
+    },
+    {
+      "time_ms": 12593.0,
+      "voltage": 2.6882
+    },
+    {
+      "time_ms": 12644.0,
+      "voltage": 2.6931
+    },
+    {
+      "time_ms": 12694.0,
+      "voltage": 2.6979
+    },
+    {
+      "time_ms": 12745.0,
+      "voltage": 2.7028
+    },
+    {
+      "time_ms": 12796.0,
+      "voltage": 2.7077
+    },
+    {
+      "time_ms": 12847.0,
+      "voltage": 2.7126
+    },
+    {
+      "time_ms": 12898.0,
+      "voltage": 2.7175
+    },
+    {
+      "time_ms": 12949.0,
+      "voltage": 2.7224
+    },
+    {
+      "time_ms": 12999.0,
+      "voltage": 2.7273
+    },
+    {
+      "time_ms": 13050.0,
+      "voltage": 2.7322
+    },
+    {
+      "time_ms": 13100.0,
+      "voltage": 2.737
+    },
+    {
+      "time_ms": 13152.0,
+      "voltage": 2.7419
+    },
+    {
+      "time_ms": 13203.0,
+      "voltage": 2.7468
+    },
+    {
+      "time_ms": 13253.0,
+      "voltage": 2.7517
+    },
+    {
+      "time_ms": 13304.0,
+      "voltage": 2.7566
+    },
+    {
+      "time_ms": 13355.0,
+      "voltage": 2.7615
+    },
+    {
+      "time_ms": 13406.0,
+      "voltage": 2.7664
+    },
+    {
+      "time_ms": 13457.0,
+      "voltage": 2.7664
+    },
+    {
+      "time_ms": 13507.0,
+      "voltage": 2.7761
+    },
+    {
+      "time_ms": 13558.0,
+      "voltage": 2.781
+    },
+    {
+      "time_ms": 13609.0,
+      "voltage": 2.7859
+    },
+    {
+      "time_ms": 13660.0,
+      "voltage": 2.7859
+    },
+    {
+      "time_ms": 13711.0,
+      "voltage": 2.7908
+    },
+    {
+      "time_ms": 13762.0,
+      "voltage": 2.7957
+    },
+    {
+      "time_ms": 13812.0,
+      "voltage": 2.8006
+    },
+    {
+      "time_ms": 13863.0,
+      "voltage": 2.8055
+    },
+    {
+      "time_ms": 13914.0,
+      "voltage": 2.8104
+    },
+    {
+      "time_ms": 13965.0,
+      "voltage": 2.8152
+    },
+    {
+      "time_ms": 14016.0,
+      "voltage": 2.8201
+    },
+    {
+      "time_ms": 14066.0,
+      "voltage": 2.825
+    },
+    {
+      "time_ms": 14117.0,
+      "voltage": 2.825
+    },
+    {
+      "time_ms": 14168.0,
+      "voltage": 2.8299
+    },
+    {
+      "time_ms": 14219.0,
+      "voltage": 2.8348
+    },
+    {
+      "time_ms": 14270.0,
+      "voltage": 2.8397
+    },
+    {
+      "time_ms": 14320.0,
+      "voltage": 2.8446
+    },
+    {
+      "time_ms": 14371.0,
+      "voltage": 2.8495
+    },
+    {
+      "time_ms": 14422.0,
+      "voltage": 2.8495
+    },
+    {
+      "time_ms": 14473.0,
+      "voltage": 2.8543
+    },
+    {
+      "time_ms": 14524.0,
+      "voltage": 2.8592
+    },
+    {
+      "time_ms": 14575.0,
+      "voltage": 2.8641
+    },
+    {
+      "time_ms": 14625.0,
+      "voltage": 2.869
+    },
+    {
+      "time_ms": 14676.0,
+      "voltage": 2.8739
+    },
+    {
+      "time_ms": 14727.0,
+      "voltage": 2.8788
+    },
+    {
+      "time_ms": 14778.0,
+      "voltage": 2.8788
+    },
+    {
+      "time_ms": 14829.0,
+      "voltage": 2.8837
+    },
+    {
+      "time_ms": 14879.0,
+      "voltage": 2.8886
+    },
+    {
+      "time_ms": 14930.0,
+      "voltage": 2.8935
+    },
+    {
+      "time_ms": 14982.0,
+      "voltage": 2.8983
+    },
+    {
+      "time_ms": 15032.0,
+      "voltage": 2.8983
+    },
+    {
+      "time_ms": 15083.0,
+      "voltage": 2.9032
+    },
+    {
+      "time_ms": 15133.0,
+      "voltage": 2.9032
+    },
+    {
+      "time_ms": 15184.0,
+      "voltage": 2.9081
+    },
+    {
+      "time_ms": 15235.0,
+      "voltage": 2.913
+    },
+    {
+      "time_ms": 15286.0,
+      "voltage": 2.9179
+    },
+    {
+      "time_ms": 15337.0,
+      "voltage": 2.9179
+    },
+    {
+      "time_ms": 15388.0,
+      "voltage": 2.9228
+    },
+    {
+      "time_ms": 15438.0,
+      "voltage": 2.9277
+    },
+    {
+      "time_ms": 15489.0,
+      "voltage": 2.9326
+    },
+    {
+      "time_ms": 15540.0,
+      "voltage": 2.9374
+    },
+    {
+      "time_ms": 15591.0,
+      "voltage": 2.9374
+    },
+    {
+      "time_ms": 15642.0,
+      "voltage": 2.9423
+    },
+    {
+      "time_ms": 15692.0,
+      "voltage": 2.9472
+    },
+    {
+      "time_ms": 15743.0,
+      "voltage": 2.9521
+    },
+    {
+      "time_ms": 15795.0,
+      "voltage": 2.9521
+    },
+    {
+      "time_ms": 15845.0,
+      "voltage": 2.957
+    },
+    {
+      "time_ms": 15896.0,
+      "voltage": 2.9619
+    },
+    {
+      "time_ms": 15947.0,
+      "voltage": 2.9619
+    },
+    {
+      "time_ms": 15997.0,
+      "voltage": 2.9668
+    },
+    {
+      "time_ms": 16049.0,
+      "voltage": 2.9668
+    },
+    {
+      "time_ms": 16099.0,
+      "voltage": 2.9717
+    },
+    {
+      "time_ms": 16150.0,
+      "voltage": 2.9717
+    },
+    {
+      "time_ms": 16201.0,
+      "voltage": 2.9765
+    },
+    {
+      "time_ms": 16251.0,
+      "voltage": 2.9814
+    },
+    {
+      "time_ms": 16303.0,
+      "voltage": 2.9814
+    },
+    {
+      "time_ms": 16354.0,
+      "voltage": 2.9863
+    },
+    {
+      "time_ms": 16404.0,
+      "voltage": 2.9912
+    },
+    {
+      "time_ms": 16455.0,
+      "voltage": 2.9912
+    },
+    {
+      "time_ms": 16505.0,
+      "voltage": 2.9961
+    },
+    {
+      "time_ms": 16556.0,
+      "voltage": 3.001
+    },
+    {
+      "time_ms": 16608.0,
+      "voltage": 3.001
+    },
+    {
+      "time_ms": 16658.0,
+      "voltage": 3.0059
+    },
+    {
+      "time_ms": 16709.0,
+      "voltage": 3.0108
+    },
+    {
+      "time_ms": 16760.0,
+      "voltage": 3.0108
+    },
+    {
+      "time_ms": 16810.0,
+      "voltage": 3.0156
+    },
+    {
+      "time_ms": 16862.0,
+      "voltage": 3.0205
+    },
+    {
+      "time_ms": 16912.0,
+      "voltage": 3.0205
+    },
+    {
+      "time_ms": 16963.0,
+      "voltage": 3.0254
+    },
+    {
+      "time_ms": 17014.0,
+      "voltage": 3.0254
+    },
+    {
+      "time_ms": 17064.0,
+      "voltage": 3.0254
+    },
+    {
+      "time_ms": 17116.0,
+      "voltage": 3.0303
+    },
+    {
+      "time_ms": 17166.0,
+      "voltage": 3.0352
+    },
+    {
+      "time_ms": 17217.0,
+      "voltage": 3.0352
+    },
+    {
+      "time_ms": 17268.0,
+      "voltage": 3.0401
+    },
+    {
+      "time_ms": 17318.0,
+      "voltage": 3.0401
+    },
+    {
+      "time_ms": 17370.0,
+      "voltage": 3.045
+    },
+    {
+      "time_ms": 17421.0,
+      "voltage": 3.0499
+    },
+    {
+      "time_ms": 17471.0,
+      "voltage": 3.0499
+    },
+    {
+      "time_ms": 17522.0,
+      "voltage": 3.0547
+    },
+    {
+      "time_ms": 17572.0,
+      "voltage": 3.0547
+    },
+    {
+      "time_ms": 17623.0,
+      "voltage": 3.0596
+    },
+    {
+      "time_ms": 17675.0,
+      "voltage": 3.0596
+    },
+    {
+      "time_ms": 17725.0,
+      "voltage": 3.0645
+    },
+    {
+      "time_ms": 17776.0,
+      "voltage": 3.0694
+    },
+    {
+      "time_ms": 17827.0,
+      "voltage": 3.0694
+    },
+    {
+      "time_ms": 17877.0,
+      "voltage": 3.0743
+    },
+    {
+      "time_ms": 17929.0,
+      "voltage": 3.0743
+    },
+    {
+      "time_ms": 17979.0,
+      "voltage": 3.0743
+    },
+    {
+      "time_ms": 18030.0,
+      "voltage": 3.0792
+    },
+    {
+      "time_ms": 18081.0,
+      "voltage": 3.0792
+    },
+    {
+      "time_ms": 18131.0,
+      "voltage": 3.0841
+    },
+    {
+      "time_ms": 18183.0,
+      "voltage": 3.0841
+    },
+    {
+      "time_ms": 18234.0,
+      "voltage": 3.089
+    },
+    {
+      "time_ms": 18284.0,
+      "voltage": 3.089
+    },
+    {
+      "time_ms": 18335.0,
+      "voltage": 3.0938
+    },
+    {
+      "time_ms": 18385.0,
+      "voltage": 3.0938
+    },
+    {
+      "time_ms": 18437.0,
+      "voltage": 3.0987
+    },
+    {
+      "time_ms": 18488.0,
+      "voltage": 3.0987
+    },
+    {
+      "time_ms": 18538.0,
+      "voltage": 3.1036
+    },
+    {
+      "time_ms": 18589.0,
+      "voltage": 3.1036
+    },
+    {
+      "time_ms": 18639.0,
+      "voltage": 3.1085
+    },
+    {
+      "time_ms": 18690.0,
+      "voltage": 3.1085
+    },
+    {
+      "time_ms": 18742.0,
+      "voltage": 3.1134
+    },
+    {
+      "time_ms": 18792.0,
+      "voltage": 3.1134
+    },
+    {
+      "time_ms": 18843.0,
+      "voltage": 3.1183
+    },
+    {
+      "time_ms": 18894.0,
+      "voltage": 3.1183
+    },
+    {
+      "time_ms": 18944.0,
+      "voltage": 3.1183
+    },
+    {
+      "time_ms": 18996.0,
+      "voltage": 3.1232
+    },
+    {
+      "time_ms": 19047.0,
+      "voltage": 3.1232
+    },
+    {
+      "time_ms": 19097.0,
+      "voltage": 3.1281
+    },
+    {
+      "time_ms": 19148.0,
+      "voltage": 3.1281
+    },
+    {
+      "time_ms": 19198.0,
+      "voltage": 3.1281
+    },
+    {
+      "time_ms": 19250.0,
+      "voltage": 3.1329
+    },
+    {
+      "time_ms": 19301.0,
+      "voltage": 3.1329
+    },
+    {
+      "time_ms": 19351.0,
+      "voltage": 3.1378
+    },
+    {
+      "time_ms": 19402.0,
+      "voltage": 3.1378
+    },
+    {
+      "time_ms": 19453.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 19504.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 19555.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 19605.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 19656.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 19707.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 19757.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 19809.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 19860.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 19910.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 19961.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 20012.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 20063.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 20114.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 20164.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 20215.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 20266.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 20317.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 20368.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 20419.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 20469.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 20520.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 20571.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 20622.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 20673.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 20723.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 20774.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 20826.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 20876.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 20927.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 20977.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 21028.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 21079.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 21130.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 21181.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 21232.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 21282.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 21333.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 21384.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 21435.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 21486.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 21536.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 21587.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 21639.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 21689.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 21740.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 21790.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 21841.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 21893.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 21943.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 21994.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 22045.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 22095.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 22146.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 22197.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 22248.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 22299.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 22349.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 22400.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 22452.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 22502.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 22553.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 22604.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 22654.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 22706.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 22756.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 22807.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 22858.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 22908.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 22960.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 23011.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 23061.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 23112.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 23162.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 23213.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 23265.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 23315.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 23366.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 23417.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 23467.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 23519.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 23569.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 23620.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 23671.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 23721.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 23773.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 23824.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 23874.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 23925.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 23975.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 24027.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 24078.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 24128.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 24179.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 24230.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 24280.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 24332.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 24382.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 24433.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 24484.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 24534.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 24586.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 24637.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 24687.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 24738.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 24788.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 24840.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 24891.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 24941.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 24992.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 25043.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 25094.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 25145.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 25196.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 25246.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 25297.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 25347.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 25399.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 25450.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 25500.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 25551.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 25602.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 25653.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 25704.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 25754.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 25805.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 25856.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 25907.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 25958.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 26009.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 26059.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 26110.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 26161.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 26212.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 26263.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 26313.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 26364.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 26416.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 26466.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 26517.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 26567.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 26618.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 26669.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 26720.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 26771.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 26822.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 26872.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 26923.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 26974.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 27025.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 27076.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 27126.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 27177.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 27228.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 27279.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 27330.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 27380.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 27431.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 27483.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 27533.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 27584.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 27634.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 27685.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 27736.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 27787.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 27838.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 27889.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 27939.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 27990.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 28041.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 28092.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 28143.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 28193.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 28244.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 28296.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 28346.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 28397.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28448.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28498.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28550.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28600.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28651.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28702.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28752.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28803.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28855.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28905.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 28956.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 29006.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 29057.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 29109.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 29159.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 29210.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 29261.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 29311.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29363.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29413.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29464.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29515.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29565.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29617.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29668.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29718.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29769.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29820.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29871.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29922.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 29972.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 30023.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 30074.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 30124.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 30176.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 30227.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30277.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30328.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30378.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30430.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30481.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30531.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30582.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30633.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30684.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30735.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30786.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30836.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30887.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30938.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 30989.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 31040.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 31090.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 31141.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 31192.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 31243.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 31294.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31344.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31395.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31446.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31497.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31548.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31599.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31649.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31700.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31751.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31802.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31853.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31903.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 31954.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32006.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32056.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32107.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32158.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32208.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32259.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32310.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32361.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32412.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32462.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 32513.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 32565.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 32615.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 32666.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 32716.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 32767.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32819.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32869.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32920.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 32971.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 33021.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 33073.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33123.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33174.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33225.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33275.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33327.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33378.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33428.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33479.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33530.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33580.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33632.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33682.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33733.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33784.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33834.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33886.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33937.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 33987.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34038.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34088.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34140.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34191.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34241.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34292.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34343.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34394.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 34445.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 34496.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 34546.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 34597.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 34647.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 34699.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 34750.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34800.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34851.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34902.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 34953.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 35004.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 35054.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 35105.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 35156.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 35207.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35258.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35309.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35359.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35410.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35461.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35512.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35563.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35613.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35664.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35715.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35766.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35817.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 35868.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 35918.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 35969.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 36020.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36071.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36122.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36172.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36223.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36275.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36325.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36376.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36426.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36477.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36529.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36579.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36630.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36681.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36731.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36783.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36834.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36884.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36935.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 36985.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37036.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37088.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37138.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37189.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37240.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37290.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37342.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37392.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37443.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37494.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37544.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37596.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37647.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37697.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37748.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37798.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37850.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37901.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 37951.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38002.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38053.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38103.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38155.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38206.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38256.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38307.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38357.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38409.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38460.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38510.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38561.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38612.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38663.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38714.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38764.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38815.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38866.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38917.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 38968.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39019.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39069.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39120.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39171.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39222.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39273.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39323.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39374.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39425.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39476.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39527.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39578.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39628.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39679.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39730.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39781.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39832.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39882.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39933.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 39985.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40035.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40086.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40136.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40187.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40239.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40289.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40340.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40391.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40441.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40492.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40544.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40594.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40645.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40695.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40746.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40798.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40848.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40899.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 40950.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41000.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41052.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41102.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41153.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41204.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41254.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41306.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41357.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41407.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41458.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41509.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41559.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41611.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41661.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41712.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41763.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41813.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41865.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41916.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 41966.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42017.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42067.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42119.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42170.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42220.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42271.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42322.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42373.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42424.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42474.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42525.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42576.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42626.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42678.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42729.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42779.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42830.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42881.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42932.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 42983.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43033.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43084.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43135.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43186.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43237.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43288.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43338.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43389.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43440.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43491.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43542.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43592.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43643.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43695.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43745.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43796.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 43847.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 43897.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 43948.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 43999.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 44050.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 44101.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 44151.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 44202.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 44254.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 44304.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 44355.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44405.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44456.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44508.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44558.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44609.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44660.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44710.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44762.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44812.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 44863.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 44914.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 44964.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45015.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45067.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45117.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45168.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45219.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45269.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45321.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45371.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45422.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45473.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45523.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45575.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45626.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45676.0,
+      "voltage": 3.3431
+    },
+    {
+      "time_ms": 45727.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45777.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45829.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45880.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45930.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 45981.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46032.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46082.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46134.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46185.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46235.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46286.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46336.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46388.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46439.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46489.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46540.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46591.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46642.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46693.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46743.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46794.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46845.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46896.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46947.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 46998.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47048.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47099.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 47149.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47201.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 47252.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 47302.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 47353.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 47404.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 47455.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47506.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47557.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47607.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47658.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47709.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47760.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47811.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47861.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47912.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 47964.0,
+      "voltage": 3.3382
+    },
+    {
+      "time_ms": 48014.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48065.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48115.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48166.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48218.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48268.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48319.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48370.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48420.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48471.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48523.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48573.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48624.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48674.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48725.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48777.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48827.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48878.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48929.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 48979.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49031.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49081.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49132.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49183.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49233.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49285.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49336.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49386.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49437.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49487.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49538.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49590.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49640.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49691.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49742.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49792.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49844.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49895.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49945.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 49996.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 50046.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 50098.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 50149.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 50199.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50250.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50301.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50352.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50403.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50453.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50504.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50555.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50605.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50657.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50708.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50758.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50809.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50860.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 50911.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 50962.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 51012.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 51063.0,
+      "voltage": 3.3333
+    },
+    {
+      "time_ms": 51114.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51165.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51216.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51267.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51317.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51368.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51419.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51470.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51521.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51571.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51622.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51674.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51724.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51775.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51825.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51876.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51927.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 51978.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52029.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52080.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52130.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52181.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52232.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52283.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52334.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52384.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52435.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 52487.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52537.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52588.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52638.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52689.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52741.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52791.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52842.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52893.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52943.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 52994.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53045.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53096.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53147.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53197.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53248.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53300.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53350.0,
+      "voltage": 3.3284
+    },
+    {
+      "time_ms": 53401.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53452.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53502.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53554.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53604.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53655.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53706.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53756.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53808.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53859.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53909.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 53960.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54010.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54061.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54113.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54163.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54214.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54265.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54315.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54367.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54418.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54468.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54519.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54569.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54621.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54672.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54722.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54773.0,
+      "voltage": 3.3236
+    },
+    {
+      "time_ms": 54824.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 54875.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 54926.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 54976.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55027.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55078.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55128.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55180.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55231.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55281.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55332.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55382.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55434.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55485.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55535.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55586.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55637.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55688.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55739.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55790.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55840.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55891.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55942.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 55993.0,
+      "voltage": 3.3187
+    },
+    {
+      "time_ms": 56044.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56094.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56145.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56197.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56247.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56298.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56348.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56399.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56450.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56501.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56552.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56603.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56653.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56704.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56755.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56806.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56857.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56907.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 56958.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57010.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57060.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57111.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57162.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57212.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57264.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57314.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57365.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 57416.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57466.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57517.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 57569.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57619.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57670.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57720.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57771.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57823.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57873.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57924.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 57975.0,
+      "voltage": 3.3138
+    },
+    {
+      "time_ms": 58025.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58077.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58128.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58178.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58229.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58279.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58331.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58382.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58432.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58483.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58533.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58584.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58636.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58686.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58737.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58788.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58838.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58890.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58940.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 58991.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 59042.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 59092.0,
+      "voltage": 3.3089
+    },
+    {
+      "time_ms": 59144.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59195.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59245.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59296.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59346.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59398.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59449.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59499.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59550.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59601.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59651.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59703.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59753.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 59804.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59855.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 59905.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 59957.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 60008.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 60058.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 60109.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 60159.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 60211.0,
+      "voltage": 3.304
+    },
+    {
+      "time_ms": 60262.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60312.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60363.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60414.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60465.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60516.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60566.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60617.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60668.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60719.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60770.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60821.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60871.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60922.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 60972.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61024.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61075.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61125.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61176.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61227.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61278.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61329.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61379.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61430.0,
+      "voltage": 3.2991
+    },
+    {
+      "time_ms": 61481.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61532.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61583.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61634.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61684.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61735.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61787.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61837.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61888.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61938.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 61989.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62040.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62091.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62142.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62193.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62243.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62294.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62345.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62396.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62447.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62497.0,
+      "voltage": 3.2942
+    },
+    {
+      "time_ms": 62548.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 62600.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 62650.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 62701.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 62751.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 62802.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 62854.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 62904.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 62955.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63006.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63056.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63107.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63158.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63209.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63260.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63310.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63361.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63413.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63463.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63514.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63565.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63615.0,
+      "voltage": 3.2893
+    },
+    {
+      "time_ms": 63667.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 63717.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 63768.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 63819.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 63869.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 63921.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 63972.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64022.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64073.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64123.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64175.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64226.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64276.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64327.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 64378.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64428.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64480.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64530.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 64581.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64632.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64682.0,
+      "voltage": 3.2845
+    },
+    {
+      "time_ms": 64734.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 64785.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 64835.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 64886.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 64937.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 64988.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 65039.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 65089.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 65140.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65191.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65242.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65293.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65344.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65394.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65445.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65495.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65547.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65598.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65648.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65699.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65750.0,
+      "voltage": 3.2796
+    },
+    {
+      "time_ms": 65801.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65852.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65902.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 65953.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 66004.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 66055.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 66106.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 66157.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 66207.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66258.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66310.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66360.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66411.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66461.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66512.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66563.0,
+      "voltage": 3.2747
+    },
+    {
+      "time_ms": 66614.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66665.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66716.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66766.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66817.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66868.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66919.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 66970.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 67020.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 67071.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 67123.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 67173.0,
+      "voltage": 3.2698
+    },
+    {
+      "time_ms": 67224.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67274.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67325.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67377.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67427.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67478.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67529.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67579.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67631.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67681.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67732.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67783.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67833.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67884.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67936.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 67986.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 68037.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 68087.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 68138.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 68190.0,
+      "voltage": 3.2649
+    },
+    {
+      "time_ms": 68240.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68291.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68342.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68392.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68444.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68494.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68545.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68596.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68646.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68698.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68748.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68799.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68850.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68900.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 68951.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 69003.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 69053.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 69104.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 69154.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 69205.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 69257.0,
+      "voltage": 3.26
+    },
+    {
+      "time_ms": 69307.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69358.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69409.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69459.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69511.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69561.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69612.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69663.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69713.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69765.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69816.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69866.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69917.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 69968.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 70018.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 70070.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 70120.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 70171.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 70222.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 70272.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 70324.0,
+      "voltage": 3.2551
+    },
+    {
+      "time_ms": 70375.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70425.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70476.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70526.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70578.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70629.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70679.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70730.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70781.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70832.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70883.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70933.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 70984.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 71035.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 71085.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 71137.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 71188.0,
+      "voltage": 3.2502
+    },
+    {
+      "time_ms": 71238.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 71289.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 71339.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 71391.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 71442.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 71492.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 71543.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 71594.0,
+      "voltage": 3.2454
+    },
+    {
+      "time_ms": 71645.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 71696.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 71746.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 71797.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 71848.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 71899.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 71950.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72001.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72051.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72102.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72152.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72204.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72255.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72305.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72356.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72407.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72458.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72509.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72559.0,
+      "voltage": 3.2405
+    },
+    {
+      "time_ms": 72610.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 72661.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 72712.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 72763.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 72814.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 72864.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 72915.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 72966.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73017.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73068.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73118.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73169.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73221.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73271.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73322.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73372.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73423.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73474.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73525.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73576.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73627.0,
+      "voltage": 3.2356
+    },
+    {
+      "time_ms": 73677.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 73728.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 73779.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 73830.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 73881.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 73931.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 73982.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74034.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74084.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74135.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74185.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74236.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74288.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74338.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74389.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74440.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74490.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74541.0,
+      "voltage": 3.2307
+    },
+    {
+      "time_ms": 74592.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 74643.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 74694.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 74744.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 74795.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 74847.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 74897.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 74948.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 74999.0,
+      "voltage": 3.2258
+    },
+    {
+      "time_ms": 75049.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75101.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75151.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75202.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75253.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75303.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75355.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75406.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75456.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75507.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75557.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75608.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75660.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75710.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75761.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75812.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75862.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75914.0,
+      "voltage": 3.2209
+    },
+    {
+      "time_ms": 75964.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76015.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76066.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76116.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76168.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76219.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76269.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76320.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76370.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76422.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76473.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76523.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76574.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76625.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76675.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76727.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76777.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76828.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76879.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76929.0,
+      "voltage": 3.216
+    },
+    {
+      "time_ms": 76981.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77032.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77082.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77133.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77183.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77235.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77286.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77336.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77387.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77438.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77489.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77540.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77590.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77641.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77692.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77743.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77794.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77845.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77895.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77946.0,
+      "voltage": 3.2111
+    },
+    {
+      "time_ms": 77997.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78048.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78099.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78149.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78200.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78251.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78302.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78353.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78404.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78454.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78505.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78556.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78607.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78658.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78708.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78759.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78811.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78861.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78912.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 78962.0,
+      "voltage": 3.2063
+    },
+    {
+      "time_ms": 79013.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79064.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79115.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79166.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79217.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79267.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79318.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79369.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79420.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79471.0,
+      "voltage": 3.2014
+    },
+    {
+      "time_ms": 79521.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 79572.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 79624.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 79674.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 79725.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 79775.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 79826.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 79878.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 79928.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 79979.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 80030.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 80080.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 80131.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 80183.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 80233.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 80284.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 80334.0,
+      "voltage": 3.1965
+    },
+    {
+      "time_ms": 80385.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80437.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80487.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80538.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80589.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80639.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80691.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80741.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80792.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80843.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80893.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80945.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 80996.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 81046.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 81097.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 81148.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 81199.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 81250.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 81300.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 81351.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 81402.0,
+      "voltage": 3.1916
+    },
+    {
+      "time_ms": 81452.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81504.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81555.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81605.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81656.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81706.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81758.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81809.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81859.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81910.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 81961.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82012.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82063.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82113.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82164.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82215.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82266.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82317.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82368.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82418.0,
+      "voltage": 3.1867
+    },
+    {
+      "time_ms": 82469.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82520.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82571.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82622.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82672.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82723.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82774.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82825.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82876.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82927.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 82977.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 83028.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 83079.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 83130.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 83181.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 83231.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 83282.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 83334.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 83384.0,
+      "voltage": 3.1818
+    },
+    {
+      "time_ms": 83435.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83486.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83536.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83587.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83638.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83689.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83740.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83790.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83841.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83893.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 83943.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 83994.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 84044.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84095.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84147.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84197.0,
+      "voltage": 3.1769
+    },
+    {
+      "time_ms": 84248.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84299.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84349.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84401.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84451.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84502.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84553.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84603.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84655.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84706.0,
+      "voltage": 3.172
+    },
+    {
+      "time_ms": 84756.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 84807.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 84857.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 84908.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 84960.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85010.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85061.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85112.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85162.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85214.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85264.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85315.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85366.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85416.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85468.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85519.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85569.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85620.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85671.0,
+      "voltage": 3.1672
+    },
+    {
+      "time_ms": 85722.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 85773.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 85823.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 85874.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 85925.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 85975.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86027.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86078.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86128.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86179.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86229.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86281.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86332.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86382.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86433.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86484.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86535.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86586.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86637.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 86687.0,
+      "voltage": 3.1623
+    },
+    {
+      "time_ms": 86738.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 86789.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 86840.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 86891.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 86941.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 86992.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 87043.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 87094.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 87145.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87195.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87246.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 87297.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 87348.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 87399.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 87450.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87500.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87551.0,
+      "voltage": 3.1574
+    },
+    {
+      "time_ms": 87602.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87653.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87704.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87754.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87805.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87857.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87907.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 87958.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 88009.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 88059.0,
+      "voltage": 3.1525
+    },
+    {
+      "time_ms": 88111.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88161.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88212.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88263.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88313.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88364.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88416.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88466.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88517.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88567.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88618.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88670.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88720.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88771.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88822.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88872.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88924.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 88975.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 89025.0,
+      "voltage": 3.1476
+    },
+    {
+      "time_ms": 89076.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89126.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89178.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89229.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89279.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89330.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89381.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89431.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89483.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89533.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89584.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89635.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89685.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89737.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89788.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89838.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89889.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89939.0,
+      "voltage": 3.1427
+    },
+    {
+      "time_ms": 89991.0,
+      "voltage": 3.1427
+    }
+  ]
+}

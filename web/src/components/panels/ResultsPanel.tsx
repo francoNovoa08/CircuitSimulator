@@ -120,6 +120,20 @@ interface ChartData {
     hasHil: boolean;
 }
 
+function nearestIndex(times: number[], t: number): number {
+    let lo = 0;
+    let hi = times.length - 1;
+    while (lo < hi) {
+        const mid = (lo + hi) >> 1;
+        if (times[mid] < t) lo = mid + 1;
+        else hi = mid;
+    }
+    if (lo > 0 && Math.abs(times[lo - 1] - t) <= Math.abs(times[lo] - t)) {
+        return lo - 1;
+    }
+    return lo;
+}
+
 function buildChartData(
     result: TransientResult,
     hilData: HilMeasurement[] | null,
@@ -129,31 +143,29 @@ function buildChartData(
     const nodeCount = result.steps[0].nodes.length;
     const step = Math.max(1, Math.floor(result.steps.length / maxPoints));
 
-    const simData = result.steps
+    const hilTimes = hilData ? hilData.map((d) => d.time_ms / 1000) : [];
+    const hilTolerance =
+        hilTimes.length > 1
+            ? (hilTimes[hilTimes.length - 1] - hilTimes[0]) /
+              (hilTimes.length - 1)
+            : 0;
+
+    const combined = result.steps
         .filter((_, i) => i % step === 0)
         .map((s) => {
-            const row: Record<string, number> = { time: s.time };
+            const row: Record<string, number | null> = { time: s.time };
             s.nodes.forEach((v, i) => {
                 row[`node${i + 1}`] = v;
             });
+            row.measured = null;
+            if (hilData) {
+                const j = nearestIndex(hilTimes, s.time);
+                if (Math.abs(hilTimes[j] - s.time) <= hilTolerance) {
+                    row.measured = hilData[j].voltage;
+                }
+            }
             return row;
         });
-
-    const hilStep = hilData
-        ? Math.max(1, Math.floor(hilData.length / maxPoints))
-        : 1;
-    const hilSeries = hilData
-        ? hilData
-              .filter((_, i) => i % hilStep === 0)
-              .map((d) => ({ time: d.time_ms / 1000, measured: d.voltage }))
-        : [];
-
-    const combined = simData.map((s) => {
-        const closest = hilSeries.find(
-            (h) => Math.abs(h.time - s.time) < 0.026,
-        );
-        return { ...s, measured: closest?.measured ?? null };
-    });
 
     const nodesToPlot =
         hilData && activeExperiment
@@ -191,7 +203,11 @@ function TransientChart({
                             fill: "#64748b",
                             fontFamily: "monospace",
                         }}
-                        tickFormatter={(v) => `${(v * 1000).toFixed(0)}ms`}
+                        tickFormatter={(v) =>
+                            v >= 1
+                                ? `${v.toFixed(0)}s`
+                                : `${(v * 1000).toFixed(0)}ms`
+                        }
                         stroke="#334155"
                     />
                     <YAxis
@@ -214,12 +230,14 @@ function TransientChart({
                             borderRadius: 6,
                         }}
                         labelStyle={{ color: "#94a3b8" }}
-                        formatter={(
-                            v: any,
-                            name: NameType | undefined,
-                        ) => [`${v.toFixed(4)} V`, name ?? ""]}
+                        formatter={(v: any, name: NameType | undefined) => [
+                            `${v.toFixed(4)} V`,
+                            name ?? "",
+                        ]}
                         labelFormatter={(v) =>
-                            `t = ${(v * 1000).toFixed(0)} ms`
+                            v >= 1
+                                ? `t = ${v.toFixed(1)} s`
+                                : `t = ${(v * 1000).toFixed(0)} ms`
                         }
                     />
                     {showLegend && (

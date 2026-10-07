@@ -1,11 +1,11 @@
 /*
  * HIL Circuit Analyser — Arduino Firmware
- * 
+ *
  * Waits for a 'G' command over serial from the C++ host application.
- * On receipt: discharges the capacitor for 5 seconds, then charges
- * it via D2 for 15 seconds while streaming timestamped voltage readings
- * over serial at 50ms intervals.
- * 
+ * On receipt: holds D2 LOW for DISCHARGE_MS to empty the capacitor, then
+ * drives D2 HIGH for CHARGE_MS while streaming timestamped voltage
+ * readings over serial every SAMPLE_INTERVAL_MS.
+ *
  * Serial format: <timestamp_ms>,<voltage_V>
  * Baud rate: 9600
  * Measurement pin: A0
@@ -14,6 +14,9 @@
 const int TRIGGER_PIN = 2;
 const int MEASURE_PIN = A0;
 const int SAMPLE_INTERVAL_MS = 50;
+
+const unsigned long DISCHARGE_MS = 60000;
+const unsigned long CHARGE_MS    = 90000;
 
 void setup() {
     Serial.begin(9600);
@@ -28,11 +31,11 @@ void loop() {
         char cmd = Serial.read();
         if (cmd == 'G') {
             digitalWrite(TRIGGER_PIN, LOW);
-            delay(5000);
+            delay(DISCHARGE_MS);
 
             digitalWrite(TRIGGER_PIN, HIGH);
             unsigned long startTime = millis();
-            unsigned long endTime   = startTime + 15000;
+            unsigned long endTime   = startTime + CHARGE_MS;
 
             while (millis() < endTime) {
                 unsigned long elapsed = millis() - startTime;
