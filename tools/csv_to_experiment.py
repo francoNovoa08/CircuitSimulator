@@ -19,7 +19,7 @@ EXPERIMENTS = [
     {
         "id": "rc_charging",
         "title": "RC Charging",
-        "description": "10kΩ resistor, 105µF capacitor charging from 0V. Supply voltage corrected to 4.951V to account for D2 pin output impedance.",
+        "description": "10kΩ resistor, 105µF capacitor charging from 0V. Supply voltage set to the measured 4.951V.",
         "csv": "charging.csv",
         "netlist": "R1 1 2 10000\nC1 2 0 105e-6 IC=0\nV1 1 0 4.951\n.TRAN 0.05 30\n",
         "tStep": 0.05,
