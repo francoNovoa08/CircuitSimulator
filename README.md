@@ -47,7 +47,7 @@ Because the MNA formulation introduces $0$ entries on the main diagonal (specifi
 
 The simulator's transient analysis has been validated against physical RC circuits using a Hardware-in-the-Loop system. An Arduino Uno acquires live voltage measurements from breadboard circuits and transmits them to the simulator in real time, enabling direct comparison between theoretical and measured behaviour.
 
-Across three experiments (RC charging, leaky capacitor, RC discharge), systematic model refinement reduced RMSE by 51–91%. The residual varies by experiment: the discharge run's 51mV RMSE sits closest to the ADC's 4.88mV quantisation step, while charging (37mV) and the leaky capacitor (214mV) still carry error from capacitor and leakage modelling that further refinement could reduce.
+Across three experiments (RC charging, leaky capacitor, RC discharge), systematic model refinement reduced RMSE by 45–95%. The residual varies by experiment: the discharge run's 28mV RMSE sits closest to the ADC's 4.88mV quantisation step, while charging (37mV) and the leaky capacitor (81mV) still carry error. For charging it comes mostly from time stepping. For the leaky capacitor it comes from leakage that a fixed resistor does not capture, since a second recording of the same circuit fitted a different leakage resistance.
 
 For full methodology, data, and analysis see [ANALYSIS.md](ANALYSIS.md).
 
